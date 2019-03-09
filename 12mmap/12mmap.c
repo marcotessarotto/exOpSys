@@ -41,12 +41,14 @@ int main() {
 
 	char * file_content = mmap(NULL, file_size, PROT_READ, MAP_SHARED, fd, 0);
 
+	close(fd);
+
 	if (file_content == MAP_FAILED) {
 		perror("mmap failed!");
 	} else {
 		// processing
 
-		close(fd);
+
 
 		///
 		int counter = 0;
