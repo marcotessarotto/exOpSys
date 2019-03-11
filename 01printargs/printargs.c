@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 
 
 int main(int argc, char *argv[])
@@ -26,6 +28,12 @@ int main(int argc, char *argv[])
     int v = 10;
 
     fprintf(stdout,"v= %d altro valore %d \n", v, 20);
+
+    //
+
+	char msg[] = "ciao! uso la system call write\n";
+
+	write(STDOUT_FILENO,msg,strlen(msg));
 
     exit(EXIT_SUCCESS);
 }
