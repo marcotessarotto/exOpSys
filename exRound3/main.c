@@ -8,7 +8,7 @@
 #define SIZE 30
 
 int my_enum_function(long id, void * data) {
-	printf("key=%d value=%s\n", id, data);
+	printf("key=%ld value=%s\n", id, (char *)data);
 
 	return -1; // for the enumerator: go ahead!
 }
@@ -16,7 +16,7 @@ int my_enum_function(long id, void * data) {
 void test_array_list() {
 
 	// create array
-	struct ARRAY_LIST * array = create_new_array01();
+	ARRAY_LIST * array = create_new_array01();
 
 	if (array == NULL) {
 		exit(EXIT_FAILURE);
@@ -56,7 +56,7 @@ void test_array_list() {
 	value_to_search[SIZE-1] = 0;
 
 	// search for values
-	long search_result = find_value06(array, value_to_search, strcmp);
+	long search_result = find_value06(array, (void * )value_to_search, strcmp);
 
 	printf("risultato della ricerca con find_value06 = %ld\n", search_result); // should be found!
 

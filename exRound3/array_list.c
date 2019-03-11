@@ -2,14 +2,14 @@
 #include "array_list.h"
 
 // crea ed inizializza un nuovo array list
-struct ARRAY_LIST  * create_new_array01() {
+ARRAY_LIST  * create_new_array01() {
 	// usare malloc o calloc
 
 
 }
 
 // aggiunge all’array list un nuovo item, la cui chiave è id ed il valore è data
-void put_item02(struct ARRAY_LIST * array, long id, void * data) {
+void put_item02(ARRAY_LIST * array, long id, void * data) {
 
 	// controlla se la chiave id è già presente; se sì, sovrascrive il valore vecchio con il nuovo
 
@@ -18,11 +18,11 @@ void put_item02(struct ARRAY_LIST * array, long id, void * data) {
 }
 
 // cerca e resituisce il valore associato alla chiave id; restituisce NULL se non presente
-void * get_item03(struct ARRAY_LIST * array, long id) {
+void * get_item03(ARRAY_LIST * array, long id) {
 }
 
 // rimuove, se presente, l’item individuato dalla chiave id; restituisce il valore che era associato alla chiave id (se era presente), altrimenti restituisce NULL
-void * remove_item04(struct ARRAY_LIST * array, long id) {
+void * remove_item04(ARRAY_LIST * array, long id) {
 
 	// ricerca il nodo da cancellare;
 	// al primo nodo con uguale id, free del nodo MA il valore viene restituito così come sta (ci pensa il chiamante a fare free del valore
@@ -30,7 +30,7 @@ void * remove_item04(struct ARRAY_LIST * array, long id) {
 }
 
 // free dell’intero array list, per ogni value da distruggere chiama free_fun
-void destroy_array05(struct ARRAY_LIST  * array, void (*free_fun)(void *)) {
+void destroy_array05(ARRAY_LIST  * array, void (*free_fun)(void *)) {
 	// eliminare un item per volta; per eliminare il singolo value, invocare il metodo free_fun:
 	/*
 	 * void * value_cancellare = ....
@@ -43,7 +43,7 @@ void destroy_array05(struct ARRAY_LIST  * array, void (*free_fun)(void *)) {
 }
 
 // cerca il valore data nell’array e restituisce la chiave corrispondente; restituisce -1 se non trovata; value_cmp è il comparatore di valori
-long find_value06(struct ARRAY_LIST * array, void * value, int (*value_cmp)(void *, void*)) {
+long find_value06(ARRAY_LIST * array, void * value, int (*value_cmp)(void *, void*)) {
 	// scorrere tutta la linked list alla ricerca del valore (attenzione! non l'id) ricercato
 	// usare value_cmp per confrontare value, in questo modo:
 	/*
@@ -60,7 +60,7 @@ long find_value06(struct ARRAY_LIST * array, void * value, int (*value_cmp)(void
 }
 
 // enumera tutto il contenuto dell’array, chiama fun_ptr per ogni item; fun_ptr restituisce 0 per terminare l’enumerazione
-void enumerate_values07(int (*enum_fun)(long, void *)) {
+void enumerate_values07(ARRAY_LIST * array, int (*enum_fun)(long, void *)) {
 	// scorrere tutta la linked list;
 	// per ogni item, invocare fun_ptr:
 
