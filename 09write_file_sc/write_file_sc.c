@@ -8,6 +8,23 @@
 
 #include <errno.h>
 
+/*
+ * in alternativa a read_random_bytes, si può usare:
+ *
+GETRANDOM(2)                                                                    Linux Programmer's Manual                                                                    GETRANDOM(2)
+
+NAME
+       getrandom - obtain a series of random bytes
+
+SYNOPSIS
+       #include <sys/random.h>
+
+       ssize_t getrandom(void *buf, size_t buflen, unsigned int flags);
+
+       attenzione che solo la richiesta fino a 256 bytes è garantita (leggere il manuale),
+ *
+ */
+
 char * read_random_bytes(int size) {
 
 	char * fileName = "/dev/urandom";
