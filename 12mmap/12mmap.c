@@ -7,7 +7,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-
 char * sample_file_name = "/boot/initrd.img-4.9.0-8-amd64";
 
 long getFileSize(int fd) {
@@ -30,7 +29,7 @@ int main() {
 	fd = open(sample_file_name, O_RDONLY);
 
 	if (fd == -1) {
-		perror("errore nell'apertura del file");
+		perror("error opening file");
 		exit(EXIT_FAILURE);
 	}
 
@@ -41,14 +40,14 @@ int main() {
 
 	char * file_content = mmap(NULL, file_size, PROT_READ, MAP_SHARED, fd, 0);
 
-	close(fd);
+	int res = close(fd); // possiamo chiudere l'handle al file subito dopo mmap
+	if (res)
+		perror("error in close\n");
 
 	if (file_content == MAP_FAILED) {
 		perror("mmap failed!");
 	} else {
-		// processing
-
-
+		// file processing
 
 		///
 		int counter = 0;
@@ -72,7 +71,6 @@ int main() {
 		}
 	}
 
-//	close(fd);
 
 	printf("finished!\n");
 }
