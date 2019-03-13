@@ -108,6 +108,13 @@ void temperature_conversion_int() {
 
 }
 
+////////
+
+// introduciamo delle "costanti simboliche" per rendere più leggibile il codice
+#define LOWER 0
+#define UPPER 300
+#define STEP 20
+
 
 void temperature_conversion_float() {
 
@@ -120,9 +127,9 @@ void temperature_conversion_float() {
 	// float è un intero con decimali dopo la virgola, 32 bit (4 byte)
 
 	// istruzioni di assegnazione di valore
-	lower = 0;   /* lower limit of temperature table */
-	upper = 300; /* upper limit */
-	step = 20;  /* step size */
+	lower = LOWER;   /* lower limit of temperature table */
+	upper = UPPER; /* upper limit */
+	step = STEP;  /* step size */
 
 	// scriviamo una tabella di valori
 	fahr = lower;
@@ -136,11 +143,52 @@ void temperature_conversion_float() {
 
 		printf("%3.0f \t %6.1f \n", fahr, celsius);
 
+		// %3.0f: il numero in virgola mobile deve essere largo almeno 3 caratteri, con zero decimali
+		// %6.1f: il numero in virgola mobile deve essere largo almeno 6 caratteri, con una cifra decimale
+
 		fahr = fahr + step; // fahr è di tipo float, step è int..... .float + int ?
 
 	}
 
+/*
+%d		scrivi un intero decimale
+%6d 	scrivi un intero decimale, largo almeno 6 caratteri
+%f      scrivi un numero in virgola mobile
+#6f     scrivi un numero in virgola mobile largo almeno 6 caratteri
+%.2f    scrivi un numero in virgola mobile con due cifre decimali dopo la virgola
+%6.2f   scrivi un numero in virgola mobile largo almeno 6 caratteri e con due cifre decimali
+ */
+
+/*
+ * %o   intero in base 8
+ * %x   intero in base 16
+ * %c   carattere
+ * %s   stringa di caratteri
+ * %%   il simbolo %
+ */
+	/*
+	 * ESERCIZIO:
+	 * scrivere una funzione che calcoli la conversione da gradi Celsius in Fahrnenhei.
+	 */
+
+
+
 	printf("\n\n");
 
 }
+
+
+void temperature_conversion_float_for() {
+
+	printf("conversione da temperatura in gradi Fahrenheit a gradi Celsius (usando float e for):\n");
+
+	printf("\nC\tF\n");
+
+	for (int fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
+		printf("%3d \t %6.1f \n", fahr, (5.0 / 9.0) * (fahr-32));
+
+	printf("\n\n");
+
+}
+
 

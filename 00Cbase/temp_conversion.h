@@ -10,5 +10,7 @@ void temperature_conversion_int();
 
 void temperature_conversion_float();
 
+void temperature_conversion_float_for();
+
 
 #endif /* TEMP_CONVERSION_H_ */

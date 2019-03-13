@@ -4,6 +4,7 @@
 #include <unistd.h>   // ad esempio: path completo è /usr/include/unist.h (è un file "di sistema")
 
 #include "temp_conversion.h"
+#include "char_io.h"
 
 // DUE TIPI DI COMMENTI...
 
@@ -68,7 +69,7 @@ hello_world_printf() {
 
 
 enum COSA_ESEGUIRE_TYPE {
-	PRINTF, TEMPERATURE
+	NOP, PRINTF, TEMPERATURE, CHAR_IO
 } cosa_eseguire;
 
 
@@ -77,10 +78,13 @@ int main(int argc, char *argv[]) {
 
 	//////////////////////////////////////////
 	// modificare questa variabile per eseguire la sezione di codice voluta
-	cosa_eseguire = TEMPERATURE;
+	cosa_eseguire = CHAR_IO;
 	//////////////////////////////////////////
 
-	if (cosa_eseguire == PRINTF) {
+
+	if (cosa_eseguire == NOP) {
+		printf("non faccio nulla! cambia il valore della variabile cosa_eseguire\n");
+	} else if (cosa_eseguire == PRINTF) {
 
 		hello_world();
 		hello_world_string_multi_line();
@@ -92,6 +96,14 @@ int main(int argc, char *argv[]) {
 		temperature_conversion_int();
 
 		temperature_conversion_float();
+
+		temperature_conversion_float_for();
+	} else if (cosa_eseguire == CHAR_IO) { // IO: input-output
+
+		copy_input_to_output();
+
+
+
 
 	}
 
