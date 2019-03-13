@@ -6,6 +6,12 @@
 #include "temp_conversion.h"
 #include "char_io.h"
 
+/*
+ * NOTA BENE:
+ * questi esempi sono tratti dal libro "The C Programming Language (Second Edition)"
+ * di Kernighan e Ritchie
+ */
+
 // DUE TIPI DI COMMENTI...
 
 /*

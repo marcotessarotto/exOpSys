@@ -35,6 +35,7 @@ void copy_input_to_output() {
 
 }
 
+// come copy_input_to_output ma codice più compatto
 void copy_input_to_output_2() {
 	int c;
 
@@ -62,5 +63,16 @@ void copy_input_to_output_2() {
 	// fare un programma che scriva il valore di EOF.
 
 
+
+}
+
+
+void count_lines_in_input() {
+	// TODO
+
+}
+
+void word_count() {
+	// TODO
 
 }

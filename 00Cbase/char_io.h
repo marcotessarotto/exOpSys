@@ -18,6 +18,9 @@
 
 void copy_input_to_output();
 
+void count_lines_in_input();
+
+void word_count();
 
 
 #endif /* CHAR_IO_H_ */
