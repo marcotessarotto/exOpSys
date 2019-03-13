@@ -6,7 +6,9 @@
 // nei file di inclusione scriviamo le DEFINIZIONI DI FUNZIONE (il "contratto")
 // le DICHIARAZIONI di FUNZIONE (cioè l'implementazione) le mettiamo nei file .c
 
-void temperature_conversion();
+void temperature_conversion_int();
+
+void temperature_conversion_float();
 
 
 #endif /* TEMP_CONVERSION_H_ */

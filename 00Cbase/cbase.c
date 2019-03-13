@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
 
 	//////////////////////////////////////////
 	// modificare questa variabile per eseguire la sezione di codice voluta
-	cosa_eseguire = PRINTF;
+	cosa_eseguire = TEMPERATURE;
 	//////////////////////////////////////////
 
 	if (cosa_eseguire == PRINTF) {
@@ -88,6 +88,10 @@ int main(int argc, char *argv[]) {
 		hello_world_printf();
 
 	} else if (cosa_eseguire == TEMPERATURE) {
+
+		temperature_conversion_int();
+
+		temperature_conversion_float();
 
 	}
 
