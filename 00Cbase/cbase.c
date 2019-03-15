@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
 
 
 	if (cosa_eseguire == NOP) {
-		printf("non faccio nulla! cambia il valore della variabile cosa_eseguire\n");
+		printf("non faccio nulla! devi cambiare il valore della variabile 'cosa_eseguire'! Bye!\n");
 	} else if (cosa_eseguire == PRINTF) {
 
 		hello_world();
@@ -108,8 +108,9 @@ int main(int argc, char *argv[]) {
 
 		copy_input_to_output();
 
+		count_lines_in_input();
 
-
+		word_count();
 
 	}
 
