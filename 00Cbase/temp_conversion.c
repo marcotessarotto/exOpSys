@@ -154,7 +154,7 @@ void temperature_conversion_float() {
 %d		scrivi un intero decimale
 %6d 	scrivi un intero decimale, largo almeno 6 caratteri
 %f      scrivi un numero in virgola mobile
-#6f     scrivi un numero in virgola mobile largo almeno 6 caratteri
+%6f     scrivi un numero in virgola mobile largo almeno 6 caratteri
 %.2f    scrivi un numero in virgola mobile con due cifre decimali dopo la virgola
 %6.2f   scrivi un numero in virgola mobile largo almeno 6 caratteri e con due cifre decimali
  */

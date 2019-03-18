@@ -39,8 +39,9 @@ void copy_input_to_output() {
 void copy_input_to_output_2() {
 	int c;
 
-	while ((c = getchar()) != EOF)
+	while ((c = getchar()) != EOF) // precedenze operatori: libro pag. 53
 		putchar(c);
+
 
 	// l'espressione nel while viene valutata così:
 	// 1 - viene chiamato getchar(), che restituisce un valore (int)

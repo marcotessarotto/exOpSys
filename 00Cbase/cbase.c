@@ -59,9 +59,9 @@ int main(int argc, char *argv[]) {
 
 		copy_input_to_output();
 
-		count_lines_in_input();
-
-		word_count();
+//		count_lines_in_input();
+//
+//		word_count();
 
 	}
 
