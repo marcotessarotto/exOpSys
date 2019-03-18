@@ -192,3 +192,11 @@ void temperature_conversion_float_for() {
 }
 
 
+void temperature_conversion_celsius_to_fahrenheit() {
+
+	// TODO
+
+
+
+}
+
