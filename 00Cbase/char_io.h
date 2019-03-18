@@ -22,5 +22,9 @@ void count_lines_in_input();
 
 void word_count();
 
+void count_to_array();
+
+
+
 
 #endif /* CHAR_IO_H_ */

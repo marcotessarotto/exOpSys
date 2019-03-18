@@ -194,9 +194,16 @@ void temperature_conversion_float_for() {
 
 void temperature_conversion_celsius_to_fahrenheit() {
 
-	// TODO
+	printf("conversione da temperatura in gradi "
+			"Celsius a gradi Fahrenheit (usando float e for):\n");
 
 
+	printf("\nC\tF\n");
+
+	for (int celsius = -100; celsius <= 100; celsius += 20)
+		printf("%4d\t%6.1f\n", celsius, 9.0 / 5 * celsius + 32);
+
+	printf("\n\n");
 
 }
 

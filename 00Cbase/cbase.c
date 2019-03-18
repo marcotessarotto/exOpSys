@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
 	//////////////////////////////////////////
 	// modificare questa variabile per eseguire la sezione di codice voluta
-	cosa_eseguire = TEMPERATURE;
+	cosa_eseguire = CHAR_IO;
 	//////////////////////////////////////////
 
 
@@ -57,11 +57,13 @@ int main(int argc, char *argv[]) {
 
 	} else if (cosa_eseguire == CHAR_IO) { // IO: input-output
 
-		copy_input_to_output();
+//		copy_input_to_output();
 
 //		count_lines_in_input();
 //
-//		word_count();
+		word_count();
+
+//		count_to_array();
 
 	}
 

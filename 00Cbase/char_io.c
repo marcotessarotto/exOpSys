@@ -67,13 +67,141 @@ void copy_input_to_output_2() {
 
 }
 
+void count_characters() {
+
+	long number_of_chars = 0;
+
+	while (getchar() != EOF)
+		++number_of_chars;
+
+	printf("numero di caratteri letti: %ld", number_of_chars);
+
+}
+
+void mini_esempio_con_puntatori() {
+
+
+	int a = 0;
+	int b;
+
+	b = a++;
+	/*
+	 * b = a;
+	 * a = a +1;
+	 */
+
+	printf("b vale %d\n",b);
+
+	b = ++a;
+	/*
+	 * a = a + 1;
+	 * b = a;
+	 */
+
+	printf("b vale %d\n",b);
+
+}
 
 void count_lines_in_input() {
-	// TODO
+
+	int c;
+	int numero_linee = 0;
+
+	while ((c = getchar()) != EOF)
+		if (c == '\n')
+			numero_linee++;
+
+	char spazio_vuoto = ' ';
+
+	// scrivere il risultato
 
 }
+
+enum STATO_PAROLA {
+	IN, OUT
+};
 
 void word_count() {
-	// TODO
+
+	int c;
+	int numero_linee = 0;
+	int numero_parole = 0;
+	int numero_caratteri = 0;
+
+	enum STATO_PAROLA stato = OUT;
+
+	printf("prima del while\n");
+
+	while ((c = getchar()) != EOF) {
+
+		printf("ho letto il carattere %d\n",c);
+
+		numero_caratteri++;
+
+		if (c == '\n')
+			numero_linee++;
+
+		if (c == ' ' || c == '\n' || c == '\t') {
+			stato = OUT;
+		} else if (stato == OUT) {
+			stato = IN;
+			numero_parole++;
+		}
+	}
+
+	// scrivere i risultati
+	printf("numero_caratteri = %d\n", numero_caratteri);
+	printf("numero_parole = %d\n", numero_parole);
+	printf("numero_linee = %d\n", numero_linee);
+}
+
+void count_to_array() {
+
+	int c;
+	int numero_white_space = 0;
+	int numero_altri_caratteri = 0;
+
+	int numero_cifre[10];
+
+	for (int i = 0; i < 10; i++)
+		numero_cifre[i] = 0;
+
+	while ((c = getchar()) != EOF) {
+		if (c >= '0' && c <= '9')
+			numero_cifre[c - '0']++;
+		else if (c == ' ' || c == '\n' || c == '\t')
+			numero_white_space++;
+		else
+			numero_altri_caratteri++;
+	}
+
+	printf("risultati:\n");
+	for (int i = 0; i < 10; i++)
+		printf("contatore '%d' = %d\n", i, numero_cifre[i]);
+
+	printf("numero_white_space = %d\n", numero_white_space);
+	printf("numero_altri_caratteri = %d\n", numero_altri_caratteri);
+
 
 }
+
+// dichiarazione
+//int power(int m, int n);
+
+
+//int altra_funzione() {
+//	power(a,b);
+//}
+//
+//// definizione
+//int power(int base, int n) {
+//
+//
+//
+//}
+
+
+
+
+
+
