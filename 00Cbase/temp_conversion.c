@@ -51,7 +51,7 @@ void temperature_conversion_int() {
 	fahr = lower; // prendo il valore della variabile "lower" e lo copio nella variabile "fahr"
 
 	// intestazione della tabella
-	printf("\nC\tF\n");
+	printf("\nF\tC\n");
 
 	// "mentre" la condizione è "vera" (cioè l'espressione calcolata a runtime è diversa da zero) itera sul blocco di codice tra le graffe
 
@@ -135,7 +135,7 @@ void temperature_conversion_float() {
 	fahr = lower;
 
 	// intestazione della tabella
-	printf("\nC\tF\n");
+	printf("\nF\tC\n");
 
 	while (fahr <= upper) {
 
@@ -182,7 +182,7 @@ void temperature_conversion_float_for() {
 
 	printf("conversione da temperatura in gradi Fahrenheit a gradi Celsius (usando float e for):\n");
 
-	printf("\nC\tF\n");
+	printf("\nF\tC\n");
 
 	for (int fahr = LOWER; fahr <= UPPER; fahr = fahr + STEP)
 		printf("%3d \t %6.1f \n", fahr, (5.0 / 9.0) * (fahr-32));
