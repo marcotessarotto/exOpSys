@@ -61,9 +61,23 @@ int main(int argc, char *argv[]) {
 
 //		count_lines_in_input();
 //
-		word_count();
+//		word_count();
 
 //		count_to_array();
+
+		struct INNER_ARRAY local_var;
+
+		local_var = return_a_struct(); //
+
+		printf("%s\n", local_var.data);
+
+		pass_a_struct(local_var); // by value?
+
+		printf("%s\n", local_var.data);
+
+		pass_a_struct_ptr(&local_var);
+
+		printf("%s\n", local_var.data);
 
 	}
 
