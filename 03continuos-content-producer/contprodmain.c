@@ -9,8 +9,6 @@
 
 int main(int argc, char *argv[]) {
 
-	printf("argc = %d\n", argc);
-
 	int counter = -1;
 
 	if (argc > 1) {
@@ -24,14 +22,14 @@ int main(int argc, char *argv[]) {
 		time_t now = time(NULL);
 
 		printf("%ld\n", now);
-		fflush(stdout);
+//		fflush(stdout);
 
 		sleep(1); // http://man7.org/linux/man-pages/man3/sleep.3.html
 
 		if (counter > 0 && --counter == 0)
-			return 0;
+			break;
 
 	}
 
-
+	return EXIT_SUCCESS;
 }
