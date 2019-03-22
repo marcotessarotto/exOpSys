@@ -160,3 +160,32 @@ void copy_io_replace_1_10(void) {
 
 }
 
+
+void input_one_word_per_line_1_12(void) { // pag 21
+	// TODO
+}
+
+void histogram_word_length_1_13(void) { // pag 24
+	// TODO
+}
+
+void histogram_char_freq_1_14(void) {
+	// TODO
+}
+
+/*
+ * in C, non è ammesso il "function overloading"
+ */
+
+/*
+void function1(int arg) {
+
+}
+
+// no function overloading: seconda dichiarazione di function1 => errore di compilazione
+void function1(int arg1, int arg2) {
+
+}
+*/
+
+
