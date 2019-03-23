@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "call_examples.h"
 
 /*

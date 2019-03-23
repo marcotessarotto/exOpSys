@@ -3,6 +3,7 @@
 #include <string.h>   // il preprocessore legge tutto il file string.h e lo inserisce al posto della singola linea
 #include <unistd.h>   // ad esempio: path completo è /usr/include/unist.h (è un file "di sistema")
 
+#include "common_settings.h"
 #include "hello_world.h"
 #include "temp_conversion.h"
 #include "char_io.h"
@@ -20,11 +21,41 @@
  * altro tipo di commento
  */
 
+extern char **environ;  /* Or define _GNU_SOURCE to get it from <unistd.h> */
 
+int DEBUG = 0;
+
+int isDebugEnabled() {
+	return DEBUG;
+}
+
+int prefix(const char *pre, const char *str);
+
+void isDebugEnvSet(void) {
+
+    char **ep;
+
+    for (ep = environ; *ep != NULL; ep++) {
+//    	puts(*ep);
+    	if (prefix("DEBUG=", *ep)) {
+    		printf("DEBUG is set\n");
+    		DEBUG = 1;
+
+    		return;
+    	}
+    }
+
+}
+
+// "java".startsWith("abc"): restituisce true se la stringa inizia per ....
+int prefix(const char *pre, const char *str)
+{
+    return strncmp(pre, str, strlen(pre)) == 0;
+}
 
 
 enum COSA_ESEGUIRE_TYPE {
-	NOP, PRINTF, TEMPERATURE, CHAR_IO
+	NOP, PRINTF, TEMPERATURE, CHAR_IO, FUNCTION_CALLS
 } cosa_eseguire;
 
 
@@ -36,6 +67,7 @@ int main(int argc, char *argv[]) {
 	cosa_eseguire = CHAR_IO;
 	//////////////////////////////////////////
 
+	isDebugEnvSet();
 
 	if (cosa_eseguire == NOP) {
 		printf("non faccio nulla! devi cambiare il valore della variabile 'cosa_eseguire'! Bye!\n");
@@ -62,13 +94,17 @@ int main(int argc, char *argv[]) {
 
 //		count_lines_in_input();
 //
-//		word_count();
+		word_count();
 
 //		count_to_array();
 
+	} else if (cosa_eseguire == FUNCTION_CALLS) {
+
+		function_call_examples();
+
 	}
 
-	function_call_examples();
+
 
 
 }

@@ -1,6 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "char_io.h"
+#include "common_settings.h"
 
 
 void copy_input_to_output() {
@@ -121,6 +123,7 @@ enum STATO_PAROLA {
 	IN, OUT
 };
 
+
 void word_count() {
 
 	int c;
@@ -130,11 +133,16 @@ void word_count() {
 
 	enum STATO_PAROLA stato = OUT;
 
-	printf("prima del while\n");
 
-	while ((c = getchar()) != EOF) {
+	printf("word_count()\n");
 
-		printf("ho letto il carattere %d\n",c);
+	if (isDebugEnabled())
+		printf("prima del while\n");
+
+	while ((c = my_getchar()) != EOF) {
+
+		if (isDebugEnabled())
+			printf("ho letto il carattere %d\n",c);
 
 		numero_caratteri++;
 
