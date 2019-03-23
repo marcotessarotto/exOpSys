@@ -56,3 +56,5 @@ Release/
 /.metadata/
 
 .settings/language.settings.xml
+.settings/
+
