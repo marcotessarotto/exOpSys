@@ -26,6 +26,9 @@ void isDebugEnvSet(void) {
 
 }
 
+
+// "java".startsWith("abc"): restituisce true se la stringa inizia per ....
+
 int prefix(const char *pre, const char *str)
 {
     return strncmp(pre, str, strlen(pre)) == 0;
@@ -93,7 +96,7 @@ void count_blanks_tabs_newlines_es_1_8(void) {
 
 	printf("results:\n");
 
-	printf(STR(BLANK) " = %d\n", counters[BLANK]);
+	printf("BLANK" " = %d\n", counters[BLANK]);
 	printf(STR(TAB) " = %d\n", counters[TAB]);
 	printf(STR(NEWLINE) " = %d\n", counters[BLANK]);
 
@@ -187,5 +190,73 @@ void function1(int arg1, int arg2) {
 
 }
 */
+
+
+int get_line(char buffer[], int limit) {
+
+	int c;
+	int i;
+
+	for (i = 0; i < limit-1 && (c = getchar()) != EOF && c != '\n'; i++) {
+		buffer[i] = c;
+	}
+
+	if (c == '\n') {
+		buffer[i] = c;
+		i++;
+	}
+
+	buffer[i] = '\0'; // 0
+
+	return i;
+}
+
+void copy_linea(char * target, char * source);
+
+
+#define MAXLINE 1000
+
+void cerca_max_linea() {
+
+	int current_line_len;
+
+	int max_line_len;
+
+	char current_line[MAXLINE];
+	char max_line[MAXLINE];
+
+	max_line_len = 0;
+
+	while ((current_line_len = get_line(current_line, MAXLINE)) > 0 ) {
+
+		if (current_line_len > max_line_len) {
+			max_line_len = current_line_len;
+
+			copy_linea(max_line, current_line);
+		}
+
+	}
+
+	if (max_line_len > 0) {
+		printf("trovato! la riga ha lunghezza %d ed è:\n%s", max_line_len, max_line);
+	} else {
+		printf("non ho trovato una lina di testo di lunghezza maggiore di zerp.\n");
+	}
+
+
+}
+
+
+void copy_linea(char * target, char * source) {
+
+	int i = 0;
+
+	while ((target[i] = source[i]) != '\0')
+		i++;
+
+}
+
+
+
 
 

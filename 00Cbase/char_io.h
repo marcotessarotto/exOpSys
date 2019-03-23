@@ -25,16 +25,4 @@ void word_count();
 void count_to_array();
 
 
-struct INNER_ARRAY {
-	char data[80];
-};
-
-
-struct INNER_ARRAY return_a_struct();
-
-void pass_a_struct(struct INNER_ARRAY param);
-
-
-void pass_a_struct_ptr(struct INNER_ARRAY * param);
-
 #endif /* CHAR_IO_H_ */

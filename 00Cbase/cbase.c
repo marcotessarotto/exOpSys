@@ -6,6 +6,7 @@
 #include "hello_world.h"
 #include "temp_conversion.h"
 #include "char_io.h"
+#include "call_examples.h"
 
 /*
  * NOTA BENE:
@@ -65,21 +66,9 @@ int main(int argc, char *argv[]) {
 
 //		count_to_array();
 
-		struct INNER_ARRAY local_var;
-
-		local_var = return_a_struct(); //
-
-		printf("%s\n", local_var.data);
-
-		pass_a_struct(local_var); // by value?
-
-		printf("%s\n", local_var.data);
-
-		pass_a_struct_ptr(&local_var);
-
-		printf("%s\n", local_var.data);
-
 	}
+
+	function_call_examples();
 
 
 }

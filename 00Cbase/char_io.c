@@ -201,35 +201,5 @@ void count_to_array() {
 //}
 
 
-struct INNER_ARRAY return_a_struct() {
-
-	struct INNER_ARRAY result;
-
-	for (int i = 0; i < 79; i++)
-		result.data[i] = i % 10 + '0';
-
-	result.data[79] = '\0';
-
-	return result;
-}
-
-void pass_a_struct(struct INNER_ARRAY param) {
-
-	printf("inside pass_a_struct\n");
-
-	for (int i = 0; i < 79; i++)
-		param.data[i] = i % 3 + 'A';
-
-}
-
-void pass_a_struct_ptr(struct INNER_ARRAY * param) {
-
-	printf("inside pass_a_struct_ptr\n");
-
-	for (int i = 0; i < 79; i++)
-		param->data[i] = i % 3 + 'D';
-
-}
-
 
 
