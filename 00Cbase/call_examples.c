@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "call_examples.h"
 
@@ -13,10 +14,10 @@ struct INNER_ARRAY return_a_struct() {
 
 	printf("return_a_struct - inizializzo struct INNER_ARRAY e lo restituisco\n");
 
-	for (int i = 0; i < 79; i++)
+	for (int i = 0; i < INNER_ARRAY_LEN - 1; i++)
 		result.data[i] = i % 10 + '0';
 
-	result.data[79] = '\0';
+	result.data[INNER_ARRAY_LEN - 1] = '\0';
 
 	return result;
 }
@@ -25,7 +26,7 @@ void pass_a_struct(struct INNER_ARRAY param) {
 
 	printf("inside pass_a_struct - modifico param, passato by value (l'originale non viene toccato)\n");
 
-	for (int i = 0; i < 79; i++)
+	for (int i = 0; i < INNER_ARRAY_LEN - 1; i++)
 		param.data[i] = i % 3 + 'A';
 
 }
@@ -34,7 +35,7 @@ void pass_a_struct_ptr(struct INNER_ARRAY * param) {
 
 	printf("inside pass_a_struct_ptr - modifico param by address\n");
 
-	for (int i = 0; i < 79; i++)
+	for (int i = 0; i < INNER_ARRAY_LEN - 1; i++)
 		param->data[i] = i % 3 + 'D';
 
 }
@@ -42,20 +43,27 @@ void pass_a_struct_ptr(struct INNER_ARRAY * param) {
 
 void function_call_examples(void) {
 
+	printf("function_call_examples\n");
+
+	printf("sizeof(struct INNER_ARRAY) = %ld\n", sizeof(struct INNER_ARRAY));
+
+	printf("\n");
+
 	struct INNER_ARRAY local_var;
 
 	local_var = return_a_struct(); // viene copiato l'intero valore (array dentro struct) restituito dalla funzione in local_var
 
 	printf("valore restituito da return_a_struct: %s\n", local_var.data);
 
-
 	struct INNER_ARRAY * heap_var;
 
 	heap_var = malloc(sizeof(struct INNER_ARRAY));
 
 	// inizializzo temp_var
-	for (int i = 0; i < 80; i++)
+	for (int i = 0; i < INNER_ARRAY_LEN - 1; i++)
 		heap_var->data[i] = 'Z';
+
+	heap_var->data[INNER_ARRAY_LEN - 1] = 0;
 
 	printf("\n");
 

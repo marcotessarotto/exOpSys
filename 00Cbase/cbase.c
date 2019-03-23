@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
 	//////////////////////////////////////////
 	// modificare questa variabile per eseguire la sezione di codice voluta
-	cosa_eseguire = CHAR_IO;
+	cosa_eseguire = FUNCTION_CALLS;
 	//////////////////////////////////////////
 
 	isDebugEnvSet();

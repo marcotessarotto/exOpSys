@@ -1,9 +1,10 @@
 #ifndef CALL_EXAMPLES_H_
 #define CALL_EXAMPLES_H_
 
+#define INNER_ARRAY_LEN 80
 
 struct INNER_ARRAY {
-	char data[80];
+	char data[INNER_ARRAY_LEN];
 };
 
 

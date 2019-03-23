@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <string.h>
 
 #include "common_settings.h"
+
+
 
 
 
@@ -18,7 +21,8 @@ int my_getchar() {
 
 	if (s == -1) {
 		// error
-		fprintf(stderr, "my_getchar error: %d\n", errno);
+		fprintf(stderr, "my_getchar error: %d  %s\n", errno, strerror(errno));
+		// https://stackoverflow.com/a/504039/974287
 
 		return EOF;
 	} else if (s == 0) {
