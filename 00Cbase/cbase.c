@@ -38,6 +38,8 @@ int main(int argc, char *argv[]) {
 	//////////////////////////////////////////
 
 	check_debug_env_set();
+
+	// TTY_ECHO_OFF= DEBUG= ./00Cbase
 	check_tty_echo_off_env_set();
 
 	if (is_tty_echo_enabled())
