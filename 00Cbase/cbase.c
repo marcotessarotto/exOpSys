@@ -21,37 +21,7 @@
  * altro tipo di commento
  */
 
-extern char **environ;  /* Or define _GNU_SOURCE to get it from <unistd.h> */
 
-int DEBUG = 0;
-
-int isDebugEnabled() {
-	return DEBUG;
-}
-
-int prefix(const char *pre, const char *str);
-
-void isDebugEnvSet(void) {
-
-    char **ep;
-
-    for (ep = environ; *ep != NULL; ep++) {
-//    	puts(*ep);
-    	if (prefix("DEBUG=", *ep)) {
-    		printf("DEBUG is set\n");
-    		DEBUG = 1;
-
-    		return;
-    	}
-    }
-
-}
-
-// "java".startsWith("abc"): restituisce true se la stringa inizia per ....
-int prefix(const char *pre, const char *str)
-{
-    return strncmp(pre, str, strlen(pre)) == 0;
-}
 
 
 enum COSA_ESEGUIRE_TYPE {
@@ -64,10 +34,14 @@ int main(int argc, char *argv[]) {
 
 	//////////////////////////////////////////
 	// modificare questa variabile per eseguire la sezione di codice voluta
-	cosa_eseguire = FUNCTION_CALLS;
+	cosa_eseguire = CHAR_IO;
 	//////////////////////////////////////////
 
-	isDebugEnvSet();
+	check_debug_env_set();
+	check_tty_echo_off_env_set();
+
+	if (is_tty_echo_enabled())
+		set_tty_echo(0);
 
 	if (cosa_eseguire == NOP) {
 		printf("non faccio nulla! devi cambiare il valore della variabile 'cosa_eseguire'! Bye!\n");
@@ -104,7 +78,8 @@ int main(int argc, char *argv[]) {
 
 	}
 
-
+	if (is_tty_echo_enabled())
+		set_tty_echo(1); // quando è TTY_ECHO_OFF, dovremo interrompere il programma con ctrl-C, quindi non passiamo di qui
 
 
 }

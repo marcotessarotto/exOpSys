@@ -10,7 +10,7 @@ int DEBUG = 0;
 
 int prefix(const char *pre, const char *str);
 
-void isDebugEnvSet(void) {
+void check_debug_env_set(void) {
 
     char **ep;
 

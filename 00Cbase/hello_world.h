@@ -15,6 +15,6 @@ void hello_world_string_multi_line() ;
 
 void hello_world_multi_printf();
 
-hello_world_printf(); // permesso ma provoca un warning; il compilatore lo considera come int hello_world_printf()
+hello_world_printf(); // permesso ma provoca un warning; il compilatore lo considera come: int hello_world_printf()
 
 #endif /* HELLO_WORLD_H_ */

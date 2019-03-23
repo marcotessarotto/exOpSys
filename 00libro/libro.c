@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	isDebugEnvSet();
+	check_debug_env_set();
 
 	switch (exercise) {
 		case EX1_8:

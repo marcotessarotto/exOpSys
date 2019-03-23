@@ -136,12 +136,12 @@ void word_count() {
 
 	printf("word_count()\n");
 
-	if (isDebugEnabled())
+	if (is_debug_enabled())
 		printf("prima del while\n");
 
 	while ((c = my_getchar()) != EOF) {
 
-		if (isDebugEnabled())
+		if (is_debug_enabled())
 			printf("ho letto il carattere %d\n",c);
 
 		numero_caratteri++;

@@ -1,7 +1,7 @@
 #ifndef CAP1_H_
 #define CAP1_H_
 
-void isDebugEnvSet(void);
+void check_debug_env_set(void);
 
 void count_lines_in_input();
 
