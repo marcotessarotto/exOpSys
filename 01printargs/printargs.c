@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 
+#define DEBUG 0
 
 int main(int argc, char *argv[])
 {
@@ -18,22 +19,23 @@ int main(int argc, char *argv[])
 
 	printf("il mio pid è: %d\n", pid);
 
+	if (DEBUG) {
+		//
+		printf("hello world!\n"); // utilizza stdout
 
-	//
-    printf("hello world!\n"); // utilizza stdout
+		fprintf(stdout,"stessa cosa\n");
+		//
 
-    fprintf(stdout,"stessa cosa\n");
-    //
+		int v = 10;
 
-    int v = 10;
+		fprintf(stdout,"v= %d altro valore %d \n", v, 20);
 
-    fprintf(stdout,"v= %d altro valore %d \n", v, 20);
+		//
 
-    //
+		char msg[] = "ciao! uso la system call write\n";
 
-	char msg[] = "ciao! uso la system call write\n";
-
-	write(STDOUT_FILENO,msg,strlen(msg));
+		write(STDOUT_FILENO,msg,strlen(msg));
+	}
 
     exit(EXIT_SUCCESS);
 }
