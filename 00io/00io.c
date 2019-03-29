@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "read_samples.h"
+
 #define STR_SIZE 10
 
 void fflush_stdin();
@@ -69,17 +71,19 @@ void fflush_stdin()
 
 int main(int argc, char * argv[]) {
 
-	read_input_unsafe();
-
-	read_input_safe();
-
-	read_input_safe_macro();
+//	read_input_unsafe();
+//
+//	read_input_safe();
+//
+//	read_input_safe_macro();
 
 
 
 	printf("\nesempio di lettura valori da stringa con sscanf\n");
 
 	char * sample_input_string = "1,100.1,3.14,0xFF24,A";
+
+	printf("input string: %s\n", sample_input_string);
 
 
 	int a;
@@ -88,9 +92,80 @@ int main(int argc, char * argv[]) {
 	int d;
 	char e;
 
-	sscanf(sample_input_string, "%d,%f,%lf,%x,%c", &a, &b, &c, &d, &e);
+	int numero_variabili_lette = sscanf(sample_input_string, "%d,%f,%lf,%x,%c", &a, &b, &c, &d, &e);
+
+	printf("ho letto %d variabili\n", numero_variabili_lette);
 
 	printf("risultato: a=%d b=%f c=%lf d=%x e=%c\n", a, b, c, d, e);
+
+
+	///////////////
+
+
+//	char *ptr="fruit|apple|lemon",type[10],fruit1[10],fruit2[10];
+//
+//	sscanf(ptr, "%[^|]%*c%[^|]%*c%s", type, fruit1, fruit2);
+//	printf("%s,%s,%s\n", type, fruit1, fruit2);
+
+
+	///////////////
+
+
+	printf("\nesempio di lettura valori da stringa con sscanf(2)\n");
+
+	sample_input_string = "\"nome\",\"cognome\",\"123456789\",\"1234.56789\"";
+
+	printf("input string: %s\n", sample_input_string);
+
+	char nome[64] = {};
+	char cognome[64] = {};
+	long numero_intero = 0;
+	double numero_double = 0.0;
+
+	printf("così scanf NON funziona bene....\n");
+	// NON riesce a leggere.... legge tutto come una unica stringa di caratteri
+	numero_variabili_lette = sscanf(sample_input_string, "\"%64s\",\"%64s\",\"%ld\",\"%lf\"",nome, cognome, &numero_intero, &numero_double);
+
+	printf("ho letto %d variabili\n", numero_variabili_lette);
+
+	printf("risultato: nome=%s, len(nome)=%ld, cognome=%s, len(cognome)=%ld, numero_intero=%ld, numero_double=%lf\n",
+			nome, strlen(nome), cognome, strlen(cognome), numero_intero, numero_double);
+
+
+	printf("\ncosì scanf funziona bene!\n");
+
+	numero_variabili_lette = sscanf(sample_input_string, "\"%64[^\"]\",\"%64[^\"]\",\"%ld\",\"%lf\"",nome, cognome, &numero_intero, &numero_double);
+	/*
+	 * \"%[^\"]\"  ->    \"   %s (tutti i caratteri diversi da \")   \"
+	 */
+
+	printf("ho letto %d variabili\n", numero_variabili_lette);
+
+	printf("risultato: nome=%s, len(nome)=%ld, cognome=%s, len(cognome)=%ld, numero_intero=%ld, numero_double=%lf\n\n",
+			nome, strlen(nome), cognome, strlen(cognome), numero_intero, numero_double);
+
+
+	/////
+	// esempio dove ' sostituisce \"
+
+	sample_input_string = "'nome2','cognome2','987654321','9876.54321'";
+
+	printf("altro esempio con scanf\n");
+
+	printf("input string: %s\n", sample_input_string);
+
+	numero_variabili_lette = sscanf(sample_input_string, "'%64[^']','%64[^']','%ld','%lf'",nome, cognome, &numero_intero, &numero_double);
+
+	printf("ho letto %d variabili\n", numero_variabili_lette);
+
+	printf("risultato: nome=%s, len(nome)=%ld, cognome=%s, len(cognome)=%ld, numero_intero=%ld, numero_double=%lf\n",
+				nome, strlen(nome), cognome, strlen(cognome), numero_intero, numero_double);
+
+
+
+//	read_2_ints();
+
+	test_strlen();
 
 	printf("bye!\n");
 
