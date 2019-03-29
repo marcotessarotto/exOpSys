@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "read_samples.h"
+#include "strtoi_samples.h"
 
 #define STR_SIZE 10
 
@@ -161,13 +162,46 @@ int main(int argc, char * argv[]) {
 	printf("risultato: nome=%s, len(nome)=%ld, cognome=%s, len(cognome)=%ld, numero_intero=%ld, numero_double=%lf\n",
 				nome, strlen(nome), cognome, strlen(cognome), numero_intero, numero_double);
 
+	// prove con puntatori
+
+	printf("\nesempio con puntatori\n");
+
+	char str[100];
+
+	char * ptr;
+
+	printf("sizeof(char *) = %ld\n", sizeof(char *));
+	printf("sizeof(char [100]) = %ld\n", sizeof(char [100]));
+	printf("sizeof(char * [100]) = %ld\n", sizeof(char * [100]));
+	printf("sizeof(char (*) [100]) = %ld\n", sizeof(char (*) [100]));
+	printf("\n");
+
+	ptr = str; //  conversione da char [] a char *
+	printf("str = %p\n", ptr); // puntatore a char *
+
+	ptr = &str; // puntatore a 'char [100]'
+	printf("&str = %p\n",ptr); //
+
+	ptr = &str[0]; // indirizzo di str[0]
+	printf("&str[0] = %p\n", ptr);
+
+	ptr = &str[1]; // indirizzo di str[1]
+	printf("&str[1] = %p\n", ptr);
+
+//	scanf("%s", str);
+//    printf("Entered string is %s \n", str);
 
 
 //	read_2_ints();
 
 	test_strlen();
 
-	printf("bye!\n");
+
+	//
+	strtoi_samples();
+
+
+	printf("\nbye!\n");
 
 	return 0;
 }
