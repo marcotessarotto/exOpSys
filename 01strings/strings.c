@@ -206,6 +206,19 @@ void string_operations() {
  	free(another_str);
 }
 
+void string_compare() {
+
+	printf("\n***string_compare()\n\n");
+
+
+	printf("risultato strcmp(\"a\",\"b\"): %d\n", strcmp("a","b"));
+
+	printf("risultato strcmp(\"b\",\"a\"): %d\n", strcmp("b","a"));
+
+	printf("risultato strcmp(\"aaa\",\"aaa\"): %d\n", strcmp("aaa","aaa"));
+
+}
+
 
 int main(int argc, char *argv[]) {
 
@@ -216,6 +229,8 @@ int main(int argc, char *argv[]) {
 	string_token();
 
 	string_operations();
+
+	string_compare();
 
 	// stringa -> terminato da \0
 	// array -> dimensione nota
