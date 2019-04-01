@@ -7,6 +7,9 @@
 
 int main(int argc, char *argv[])
 {
+	printf("***01printargs\n");
+
+
     int j;
     // scriviamo su stdout tutti gli argomenti a riga di comando del programma
     for (j = 0; j < argc; j++)
@@ -17,7 +20,7 @@ int main(int argc, char *argv[])
 
 	pid = getpid(); // il nostro process id
 
-	printf("il mio pid è: %d\n", pid);
+	printf("01printargs - il mio pid è: %d\n", pid);
 
 	if (DEBUG) {
 		//

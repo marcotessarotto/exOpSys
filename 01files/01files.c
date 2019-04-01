@@ -7,34 +7,6 @@
 
 #include "files_common.h"
 
-void string_token()
-{
-  char * word;
-  char * saveptr;
-  char cmd [] = "ls -la   notes.txt abcd.txt";
-
-  printf( "[%s]\n", cmd );
-
-//  char temp[1024];
-//  strcpy( temp, cmd );   /* first make a copy of the cmd */
-
-   /* before: "ls -la    notes.txt" */
-  word = strtok_r( cmd, " \t", &saveptr );
-   /* after:  "ls\0-la    notes.txt" */
-   /*          ^
-             word   */
-
-  while ( word != NULL )
-  {
-    printf( "[%s] %s\n", cmd, word );
-    word = strtok_r( NULL, " \t", &saveptr );
-  }
-
-   /* after: "ls\0-la\0   notes.txt\0 ...." */
-
-  printf( "[%s]\n", cmd );
-
-}
 
 int launch_program(char program_to_launch[]) {
 
@@ -65,12 +37,19 @@ int launch_program(char program_to_launch[]) {
 
 	 */
 
+	printf("[parent]sto per fare fork\n");
+
 	if ((child_pid = fork()) != 0) { // parent
 
-		printf("started child process, PID=%d\n", child_pid);
+		printf("[parent]avviato child process: il suo PID é %d\n", child_pid);
 
 		return -1;
 	}
+
+	// se sono qui, sono il processo figlio
+
+	printf("[child]sono il processo figlio\n");
+	printf("[child]ora avvierò un altro programma\n");
 
 	char *newargv[] = { NULL, "hello", "world", NULL };
 	char *newenviron[] = { NULL };
@@ -79,20 +58,24 @@ int launch_program(char program_to_launch[]) {
 
 	execve(program_to_launch, newargv, newenviron);
 
-	perror("execve");   /* execve() returns only on error */
+	// qua non ci passiamo, a meno di errori
+    printf("[child]c'è stato un problema con execve!\n");
+	perror("[child]execve");   /* execve() returns only on error */
 
 	exit(EXIT_FAILURE);
 }
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
-   string_token();
+   printf("esempio 01files\n\n");
 
    test_mmap();
 
 
    launch_program("../01printargs/Debug/01printargs");
+
+   printf("[parent]il fork del processo è riuscito, ora concludo\n\n");
 
    return EXIT_SUCCESS;
 }

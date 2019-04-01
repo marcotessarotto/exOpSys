@@ -13,7 +13,8 @@
 
 void * create_anon_mmap(size_t size) {
 
-
+	// MAP_SHARED: condivisibile tra processi
+	// PROT_READ | PROT_WRITE: posso leggere e scrivere nello spazio di memoria
 	void * memory = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
 
 	if (memory == MAP_FAILED) {
@@ -31,6 +32,8 @@ void * create_anon_mmap(size_t size) {
 
 void test_mmap(void) {
 
+	printf("esempio di allocazione di spazio di memoria con system call mmap\n");
+
 
 	void * buffer = create_anon_mmap(ONE_GB);
 
@@ -47,6 +50,6 @@ void test_mmap(void) {
 		fprintf(stderr, "munmap error:%s\n", strerror(errno));
 	}
 
-	printf("free mmap\n");
+	printf("free mmap\n\n");
 
 }
