@@ -37,18 +37,48 @@ int launch_program(char program_to_launch[]) {
 
 	 */
 
+	char * shared_memory = create_anon_mmap(1024);
+
+	if (shared_memory != NULL)
+		strcpy(shared_memory, "messaggio per child process!");
+
+
 	printf("[parent]sto per fare fork\n");
 
 	if ((child_pid = fork()) != 0) { // parent
 
 		printf("[parent]avviato child process: il suo PID é %d\n", child_pid);
 
+		printf("[parent]ora aspetterò 5 secondi\n");
+
+		for (int i = 1; i <= 5; i++) {
+			printf("[parent]%d...\n", i);
+
+			sleep(1);
+		}
+
+		printf("\n[parent]fine sleep\n");
+
+		printf("[parent]contenuto shared memory:[%s]\n", shared_memory);
+
+		munmap(shared_memory, 1024);
+
 		return -1;
 	}
 
 	// se sono qui, sono il processo figlio
 
-	printf("[child]sono il processo figlio\n");
+	printf("\n[child]sono il processo figlio, il mio PID è:%d\n", getpid());
+
+	if (shared_memory != NULL) {
+		printf("[child]contenuto della shared memory condivisa con parent: [%s]\n", shared_memory);
+
+		printf("[child]modifico la shared memory con un messaggio per il parent process\n");
+		strcpy(shared_memory,"ok ricevuto! messaggio da child process");
+
+		munmap(shared_memory, 1024);
+	}
+
 	printf("[child]ora avvierò un altro programma\n");
 
 	char *newargv[] = { NULL, "hello", "world", NULL };
@@ -75,7 +105,7 @@ int main(int argc, char *argv[]) {
 
    launch_program("../01printargs/Debug/01printargs");
 
-   printf("[parent]il fork del processo è riuscito, ora concludo\n\n");
+   printf("[parent]fine\n\n");
 
    return EXIT_SUCCESS;
 }

@@ -20,7 +20,9 @@ int main(int argc, char *argv[])
 
 	pid = getpid(); // il nostro process id
 
-	printf("01printargs - il mio pid è: %d\n", pid);
+	printf("***01printargs - il mio pid è: %d\n\n", pid);
+
+	printf("***01printargs - fine del programma\n");
 
 	if (DEBUG) {
 		//
