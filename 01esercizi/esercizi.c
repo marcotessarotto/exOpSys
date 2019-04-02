@@ -98,7 +98,21 @@ void print_input(INPUT_PROCESSATO input) {
 }
 
 
+void esercizio2(void);
+
 int main(int argc, char *argv[]) {
+
+	printf("eseguo esercizio 1 o 2?");
+	int esercizio;
+	scanf("%d", &esercizio);
+
+	if (esercizio == 2) {
+
+		esercizio2();
+
+		return 0;
+	}
+
 
 	printf("esercizio 1 - 29/03/2019\n");
 
