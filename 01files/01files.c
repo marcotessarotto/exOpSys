@@ -5,13 +5,22 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <sys/mman.h>
+#include <semaphore.h>
 
 #include "files_common.h"
 
 
+#define CONTINUE 0
+#define FINISHED 1
+
+#define USE_SLEEP 0
+#define USE_USLEEP1 0
+#define USE_USLEEP2 0
+
 int launch_program(char program_to_launch[]) {
 
 	int child_pid;
+	char buf[5];
 
 	/*
 
@@ -38,30 +47,85 @@ int launch_program(char program_to_launch[]) {
 
 	 */
 
+	sem_t * shared_memory_semaphore = create_anon_mmap(sizeof(sem_t));
 	char * shared_memory = create_anon_mmap(1024);
 
-	if (shared_memory != NULL)
-		strcpy(shared_memory, "messaggio per child process!");
+
+	printf("sizeof(sem_t) = %ld\n", sizeof(sem_t));
+
+	if (shared_memory_semaphore == NULL || shared_memory == NULL) {
+		perror("non abbiamo la shared memory! fine!");
+		exit(EXIT_FAILURE);
+	}
+
+	if (sem_init(shared_memory_semaphore, 1, 1) == -1) {
+		perror("errore in sem_init");
+		exit(EXIT_FAILURE);
+	}
+
+	strcpy(shared_memory, "messaggio per child process!");
+
+	// usiamo l'ultima posizione della shared memory per comunicare al child process che abbiamo finito il lavoro
+	shared_memory[1023] = CONTINUE;
+
+	// contatore dei "produtti"
+	shared_memory[1022] = 0;
+
 
 
 	printf("[parent]sto per fare fork\n");
 
 	if ((child_pid = fork()) != 0) { // parent
 
-		printf("[parent]avviato child process: il suo PID é %d\n", child_pid);
-
-		printf("[parent]ora aspetterò 5 secondi\n");
-
-		for (int i = 1; i <= 5; i++) {
-			printf("[parent]%d...\n", i);
-
-			sleep(1);
+		if (USE_USLEEP1) {
+			printf("[parent]sto per dormire per n microsecondi...\n");
+			usleep(100);
 		}
 
-		printf("\n[parent]fine sleep\n");
+		printf("[parent]avviato child process: il suo PID é %d\n", child_pid);
 
-		printf("[parent]contenuto shared memory:[%s]\n", shared_memory);
+		printf("[parent]ora 'lavorerò' per 5 cicli...\n");
 
+		for (int i = 1; i <= 5; i++) {
+
+			if (USE_SLEEP)
+				sleep(1);
+
+			if (USE_USLEEP2)
+				usleep(100); // dormo n microsecondi
+
+			// occupiamo il semaforo come processo parent
+			printf("\n[parent]provo ad occupare il semaforo...\n");
+			sem_wait(shared_memory_semaphore);
+			printf("\n[parent]ho occupato il semaforo!\n");
+
+			shared_memory[1022]++; // contatore dei "prodotti"
+
+			// facciamo finta che stiamo lavorando sulla shared memory...
+			if (USE_SLEEP)
+				sleep(1);
+
+			sprintf(buf, "%d...", i);
+			strcat(shared_memory, buf);
+
+			printf("[parent]ciclo %d, nuovo contenuto shared memory:[%s]\n", i, shared_memory);
+
+			printf("[parent]libero il semaforo\n");
+			sem_post(shared_memory_semaphore);
+		}
+
+		printf("\n[parent]fine ciclo sleep\n");
+
+		printf("[parent]provo ad occupare il semaforo....\n");
+		sem_wait(shared_memory_semaphore);
+
+		printf("[parent]comunico al child process di avere concluso\n");
+		shared_memory[1023] = FINISHED;
+
+		printf("\n[parent]libero il semaforo\n");
+		sem_post(shared_memory_semaphore);
+
+		munmap(shared_memory_semaphore, sizeof(sem_t));
 		munmap(shared_memory, 1024);
 
 		return -1;
@@ -71,14 +135,46 @@ int launch_program(char program_to_launch[]) {
 
 	printf("\n[child]sono il processo figlio, il mio PID è:%d\n", getpid());
 
-	if (shared_memory != NULL) {
-		printf("[child]contenuto della shared memory condivisa con parent: [%s]\n", shared_memory);
+	int finished = 0;
+	int contatore_produttore = 0;
 
-		printf("[child]modifico la shared memory con un messaggio per il parent process\n");
-		strcpy(shared_memory,"ok ricevuto! messaggio da child process");
+	while (!finished) {
+		// aspettiamo il via libera dal semaforo...
+		printf("[child]sto per eseguire wait sul semaforo...\n");
+		sem_wait(shared_memory_semaphore);
 
-		munmap(shared_memory, 1024);
+		printf("[child]semaforo libero!\n");
+
+		if (shared_memory[1022] != contatore_produttore) {
+
+			printf("[child]contenuto della shared memory condivisa con parent: [%s]\n", shared_memory);
+
+			contatore_produttore = shared_memory[1022];
+		} else {
+			printf("[child]niente di nuovo dal processo parent\n");
+		}
+
+		finished = shared_memory[1023];
+		if (finished)
+			printf("[child]il processo parent mi ha comunicato di avere finito; allora finisco anche io!\n");
+
+		printf("[child]liberiamo il semaforo\n");
+		sem_post(shared_memory_semaphore);
+
+		if (USE_SLEEP) {
+			printf("[child]non ho nulla da fare, dormo un po'....\n");
+			sleep(1);
+		}
+
+//		printf("[child]modifico la shared memory con un messaggio per il parent process\n");
+//		strcpy(shared_memory,"ok ricevuto! messaggio da child process");
+
 	}
+
+
+	munmap(shared_memory_semaphore, sizeof(sem_t));
+	munmap(shared_memory, 1024);
+
 
 	printf("[child]ora avvierò un altro programma\n");
 
