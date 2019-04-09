@@ -68,7 +68,7 @@ int launch_program(char program_to_launch[]) {
 	// usiamo l'ultima posizione della shared memory per comunicare al child process che abbiamo finito il lavoro
 	shared_memory[1023] = CONTINUE;
 
-	// contatore dei "produtti"
+	// contatore dei "prodotti"
 	shared_memory[1022] = 0;
 
 
