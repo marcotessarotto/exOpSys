@@ -1,4 +1,5 @@
 // from: https://stackoverflow.com/a/45128487/974287
+// https://github.com/cirosantilli/linux-kernel-module-cheat/blob/25f9913e0c1c5b4a3d350ad14d1de9ac06bfd4be/kernel_module/user/common.h
 
 #define _XOPEN_SOURCE 700
 #include <fcntl.h> /* open */

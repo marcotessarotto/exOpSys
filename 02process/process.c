@@ -5,6 +5,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <termios.h>
+#include <sched.h>
 
 char * cat(char * file_name);
 
@@ -202,6 +203,9 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
     if (isatty(STDERR_FILENO))
         tcflush(STDERR_FILENO, TCIOFLUSH);
 
+    int cpu = sched_getcpu();
+
+    printf("running on cpu %d\n\n", cpu);
 
 	uid_t real_user_id = getuid(); // l'utente proprietario del processo
 
@@ -351,7 +355,7 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
      */
 
 
-    printf("\n\nget_process_memory_mappings\n");
+    printf("\n\nget_process_memory_mappings():\n\n");
 
     proc_maps_item_t * result = get_process_memory_mappings();
     int i = 0;
@@ -368,7 +372,7 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
     	i++;
     }
 
-    printf("bye!\n");
+    printf("\nbye!\n");
 
 	return 0;
 }
