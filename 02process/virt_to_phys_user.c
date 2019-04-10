@@ -7,6 +7,8 @@
 #include <stdlib.h> /* size_t */
 #include <unistd.h> /* pread, sysconf */
 
+#define DEBUG
+
 typedef struct {
     uint64_t pfn : 54;
     unsigned int soft_dirty : 1;
@@ -29,7 +31,13 @@ int pagemap_get_entry(PagemapEntry *entry, int pagemap_fd, uintptr_t vaddr)
     uint64_t data;
     uintptr_t vpn;
 
-    vpn = vaddr / sysconf(_SC_PAGE_SIZE);
+    long page_size = sysconf(_SC_PAGE_SIZE);
+
+#ifdef DEBUG
+    printf("PAGE_SIZE = %ld\n", page_size);
+#endif
+
+    vpn = vaddr / page_size;
     nread = 0;
     while (nread < sizeof(data)) {
         ret = pread(pagemap_fd, &data, sizeof(data) - nread,
@@ -59,7 +67,7 @@ int virt_to_phys_user(uintptr_t *paddr, pid_t pid, uintptr_t vaddr)
     char pagemap_file[BUFSIZ];
     int pagemap_fd;
 
-    snprintf(pagemap_file, sizeof(pagemap_file), "/proc/%ju/pagemap", (uintmax_t)pid);
+    snprintf(pagemap_file, sizeof(pagemap_file), pid > 0 ? "/proc/%ju/pagemap" : "/proc/self/pagemap" , (uintmax_t)pid);
     pagemap_fd = open(pagemap_file, O_RDONLY);
     if (pagemap_fd < 0) {
         return 1;

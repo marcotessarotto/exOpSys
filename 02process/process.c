@@ -1,10 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <unistd.h>
 #include <string.h>
-
+#include <sys/types.h>
+#include <termios.h>
 
 char * cat(char * file_name);
+
+int virt_to_phys_user(uintptr_t *paddr, pid_t pid, uintptr_t vaddr);
 
 int count_chars(const char* string, char ch)
 {
@@ -108,13 +112,6 @@ proc_maps_item_t * get_process_memory_mappings() {
 		else if (!strcmp(result[i].path,"[stack]"))
 			result[i].region_type = "STACK ";
 
-//		if (region_type != NULL)
-//			printf("%s start=%p stop=%p size=%6lx perms=%s inode=%lu %s\n",
-//				region_type,
-//				result[i].region_start, result[i].region_stop,
-//				result[i].region_stop - result[i].region_start,
-//				region_permissions, result[i].inode, result[i].path);
-
 		i++;
 	}
 
@@ -194,9 +191,69 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
 
     // GNU Standard C Library (malloc, calloc, free) -> system calls brk, sbrk, mmap
 
+    /* If the standard streams are connected to a tty,
+     * tell the kernel to discard already buffered data.
+     * (That is, in kernel buffers. Not C library buffers.)
+    */
+    if (isatty(STDIN_FILENO))
+        tcflush(STDIN_FILENO, TCIOFLUSH);
+    if (isatty(STDOUT_FILENO))
+        tcflush(STDOUT_FILENO, TCIOFLUSH);
+    if (isatty(STDERR_FILENO))
+        tcflush(STDERR_FILENO, TCIOFLUSH);
+
+
+	uid_t real_user_id = getuid(); // l'utente proprietario del processo
+
+	uid_t effective_user_id = geteuid(); // l'utente che il kernel utilizza per decidere sui permessi
+
+	printf("real UID: %d\neffective UID: %d\n\n", real_user_id, effective_user_id);
+
+	printf("quale utente effettivo devo diventare? (-1 per saltare questo passaggio) ");
+
+	int target_uid = 1000;
+
+	scanf("%d", &target_uid); // scanf non consuma i caratteri dopo il numero che ha letto
+
+	getchar(); // legge il carattere residuo \n (o altro...)
+
+	if (target_uid != -1) {
+
+		printf("\nda shell:\nid -ur  # mostra 'real UID'\nid -u   # mostra 'effective UID'\n");
+
+		printf("\nprovo a diventare effective user %d...\n", target_uid);
+
+		// root ha UID 0
+		// utente dovrebbe avere UID 1000 (in ogni caso, vedere /etc/passwd)
+
+		if (seteuid(target_uid) == -1) {
+			perror("seteuid() fail");
+		} else {
+			printf("seteuid() ok!\n");
+			printf("real UID: %d\neffective UID: %d\n\n", getuid(), geteuid());
+		}
+
+	}
+
+	printf("premi enter per continuare\n");
+	getchar();
+
+
+	uintptr_t physical_addr;
+
+	if (geteuid() != 0) {
+		printf("***attenzione!!! effective user non è 0 => non posso determinare correttamente gli indirizzi fisici***\n");
+	}
+
+	// la lettura di /proc/PID/pagemap è una operazione 'privilegiata'
+	virt_to_phys_user(&physical_addr, -1, (uintptr_t) &etext);
+
     printf("First address past:\n");
-    printf("    program text (etext)      %10p\n", &etext);
-    printf("    initialized data (edata)  %10p\n", &edata);
+    printf("    program text (etext)      %10p, physical addr: %10p (%lu)\n", &etext, (void * )physical_addr, physical_addr);
+
+    virt_to_phys_user(&physical_addr, -1, (uintptr_t) &edata);
+
+    printf("    initialized data (edata)  %10p, physical addr: %10p (%lu)\n", &edata, (void * )physical_addr, physical_addr);
     printf("    uninitialized data (end)  %10p\n", &end);
 
     printf("edata - text: %lu\n", &edata - &etext);
@@ -206,7 +263,7 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
     ////////
 
     printf("un processore a 32 bit indirizza 4 GB di memoria\n");
-    printf("i primi 3 GB sono riservati allo 'user space', l'ultimo 1 GB è riservato al 'kernel space' ed inizia da 0xc0000000\n");
+    printf("i primi 3 GB sono riservati allo 'user space', l'ultimo GB è riservato al 'kernel space' a partire da 0xc0000000\n");
 
     printf("processori a 64 bit: 'solo' i 48 bit meno significativi sono usati per l'indirizzamento\n");
     printf("i processori a 64 bit hanno a disposizione 256 Terabyte di indirizzamento.\n");
@@ -293,76 +350,6 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
 
      */
 
-//
-//    char * maps_content = cat("/proc/self/maps");
-//
-//
-//    void * region_start, * region_stop;
-//    char region_permissions[5];
-//    unsigned long offset;
-//    unsigned long inode;
-//    char path[4096] = {};
-//
-//    char * ptr = maps_content;
-//
-//    while (ptr != NULL) {
-//
-//    	if (ptr[0] == '\n') {
-//    		ptr++;
-//    		continue;
-//    	}
-//
-//
-//    	// il formato di /proc/<id>/maps non è regolare:
-//    	char * end_of_line = strchr(ptr,'\n');
-//    	if (end_of_line == NULL)
-//    		break;
-//    	*end_of_line = 0;
-//
-//    	path[0] = '\0';
-//
-//		int read_vars = sscanf(ptr, "%p-%p %s %lx %*s %lu %s", &region_start, &region_stop, region_permissions, &offset, &inode, path);
-//
-//		if (read_vars == -1)
-//			break;
-//
-//		ptr = end_of_line + 1;
-//
-//		struct perms_struct {
-//		   int r:1;
-//		   int w:1;
-//		   int x:1;
-//		   int p:1;
-//		   int s:1;
-//		} p = {0,0,0,0,0};
-//
-//		p.r = region_permissions[0] =='r';
-//		p.w = region_permissions[1] =='w';
-//		p.x = region_permissions[2] =='x';
-//		p.p = region_permissions[3] =='p';
-//		p.s = region_permissions[3] =='s';
-//
-//		char * region_type = "      ";
-//		if (p.x && p.r)
-//			region_type = "TEXT  ";
-//		else if (p.r && p.w)
-//			region_type = "DATARW";
-//		else if (p.r)
-//			region_type = "DATARO";
-//		if (!strcmp(path,"[heap]"))
-//			region_type = "HEAP  ";
-//		else if (!strcmp(path,"[stack]"))
-//			region_type = "STACK ";
-//
-//		if (region_type != NULL)
-//			printf("%s start=%p stop=%p size=%6lx perms=%s inode=%lu %s\n",
-//				region_type,
-//				region_start, region_stop,
-//				region_stop - region_start,
-//				region_permissions, inode, path);
-//
-//
-//    }
 
     printf("\n\nget_process_memory_mappings\n");
 
@@ -381,6 +368,7 @@ Heap segment is shared by all shared libraries and dynamically loaded modules in
     	i++;
     }
 
+    printf("bye!\n");
 
 	return 0;
 }
