@@ -37,6 +37,25 @@ int pagemap_get_entry(PagemapEntry *entry, int pagemap_fd, uintptr_t vaddr)
     printf("PAGE_SIZE = %ld\n", page_size);
 #endif
 
+    /*
+     * https://github.com/torvalds/linux/blob/v4.9/Documentation/vm/pagemap.txt
+     *
+   /proc/pid/pagemap.  This file lets a userspace process find out which
+   physical frame each virtual page is mapped to.  It contains one 64-bit
+   value for each virtual page, containing the following data (from
+   fs/proc/task_mmu.c, above pagemap_read):
+
+    * Bits 0-54  page frame number (PFN) if present
+    * Bits 0-4   swap type if swapped
+    * Bits 5-54  swap offset if swapped
+    * Bit  55    pte is soft-dirty (see Documentation/vm/soft-dirty.txt)
+    * Bit  56    page exclusively mapped (since 4.2)
+    * Bits 57-60 zero
+    * Bit  61    page is file-page or shared-anon (since 3.5)
+    * Bit  62    page swapped
+    * Bit  63    page present
+     */
+
     vpn = vaddr / page_size;
     nread = 0;
     while (nread < sizeof(data)) {
