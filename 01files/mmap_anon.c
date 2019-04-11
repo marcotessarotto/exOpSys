@@ -28,7 +28,7 @@ void * create_anon_mmap(size_t size) {
 }
 
 
-#define ONE_GB (1024*1024*1024L)
+#define ONE_GB (1024*1024*1024UL)
 
 void test_mmap(void) {
 
@@ -56,13 +56,13 @@ void test_mmap(void) {
 	getchar();
 
 	print_system_info();
-	printf("ora utilizziamo il 30%% della memory map\n\n");
+	printf("ora utilizziamo il 10%% della memory map\n\n");
 
-	for (int i = 0; i < ONE_GB / 30; i++)
-		buffer[i] = 0;
+	for (unsigned long i = 0; i < ONE_GB / 10; i++)
+		buffer[i] = i & 0xFF;
 
 	print_system_info();
-	printf("ho usato il 30%% della memory map\n");
+	printf("ho usato il 10%% della memory map\n");
 
 	printf("\npremi invio per continuare\n");
 	getchar();
@@ -72,7 +72,9 @@ void test_mmap(void) {
 	}
 
 
+	printf("la memory map è stata liberata\n\n");
+	print_system_info();
 
-	printf("free mmap\n\n");
+	getchar();
 
 }
