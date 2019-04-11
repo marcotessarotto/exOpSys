@@ -32,23 +32,46 @@ void * create_anon_mmap(size_t size) {
 
 void test_mmap(void) {
 
-	printf("esempio di allocazione di spazio di memoria con system call mmap\n");
+	printf("esempio di allocazione di spazio di memoria con system call mmap\n\n");
+
+	print_system_info();
+
+    printf("prima di mmap\n\n");
 
 
-	void * buffer = create_anon_mmap(ONE_GB);
+
+	char * buffer = create_anon_mmap(ONE_GB);
 
 	if (buffer == NULL) {
-
 		return;
+	} else {
+		printf("la memory map anonima è stata allocata (ma non ancora utilizzata), size=%lu\n\n", ONE_GB);
 	}
 
-	printf("allocated mmap size=%ld\n", ONE_GB);
+	print_system_info();
 
-	// do something
+	printf("dopo mmap\n\n");
+
+	printf("premi invio per continuare\n");
+	getchar();
+
+	print_system_info();
+	printf("ora utilizziamo il 30%% della memory map\n\n");
+
+	for (int i = 0; i < ONE_GB / 30; i++)
+		buffer[i] = 0;
+
+	print_system_info();
+	printf("ho usato il 30%% della memory map\n");
+
+	printf("\npremi invio per continuare\n");
+	getchar();
 
 	if (munmap(buffer, ONE_GB) == -1) {
 		fprintf(stderr, "munmap error:%s\n", strerror(errno));
 	}
+
+
 
 	printf("free mmap\n\n");
 
