@@ -1,5 +1,8 @@
 /*
  * 10copy_file.c
+ *
+ * derived from: http://man7.org/tlpi/code/online/dist/fileio/copy.c.html
+ * http://man7.org/tlpi/code/ by Michael Kerrisk
 
    Copy the file named argv[1] to a new file named in argv[2].
 */
