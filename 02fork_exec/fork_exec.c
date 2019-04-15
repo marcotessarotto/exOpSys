@@ -7,7 +7,7 @@
 int var;
 
 /*
- * esempio dove
+ * esempio dove si utilizzano fork, execve, wait
  *
  */
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 		printf("[parent] dopo il fork, sono il processo parent\n"
 			   "[parent] il PID del processo figlio è %d\n", child_pid);
 
-		// se volessimo aspettare la terminazione del processo figlio:
+		// se vogliamo aspettare la terminazione del processo figlio:
 		if (wait(NULL) == -1) {
 			perror("wait error");
 		}
