@@ -32,15 +32,15 @@ int main(int argc, char *argv[]) {
 
 		char * newargv[] = { "ls", "-l", "/home/utente", NULL };
 
-	    char * newenviron[] = { NULL };
+		char * newenviron[] = { NULL };
 
-	    printf("[child] prima di execve\n");
+		printf("[child] prima di execve\n");
 
-	    execve("/bin/ls", newargv, newenviron);
+		execve("/bin/ls", newargv, newenviron);
 
-	    perror("[child] se siamo qui, qualcosa è andato storto\n");
+		perror("[child] se siamo qui, qualcosa è andato storto\n");
 
-	    exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 
 	} else {
 
