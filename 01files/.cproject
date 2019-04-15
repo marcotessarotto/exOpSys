@@ -63,7 +63,7 @@
                             							
                             <tool id="cdt.managedbuild.tool.gnu.c.linker.exe.debug.1276441189" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.debug">
                                 								
-                                <option id="gnu.c.link.option.pthread.1464665906" superClass="gnu.c.link.option.pthread" useByScannerDiscovery="false" value="true" valueType="boolean"/>
+                                <option id="gnu.c.link.option.pthread.1464665906" name="Support for pthread (-pthread)" superClass="gnu.c.link.option.pthread" useByScannerDiscovery="false" value="true" valueType="boolean"/>
                                 								
                                 <inputType id="cdt.managedbuild.tool.gnu.c.linker.input.1428209383" superClass="cdt.managedbuild.tool.gnu.c.linker.input">
                                     									
