@@ -75,6 +75,7 @@ void test_mmap(void) {
 	printf("la memory map è stata liberata\n\n");
 	print_system_info();
 
+	printf("\npremi invio per continuare\n");
 	getchar();
 
 }
