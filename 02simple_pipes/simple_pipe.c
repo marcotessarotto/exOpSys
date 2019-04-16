@@ -34,6 +34,9 @@ int main(int argc, char * argv[]) {
 	// pipe crea una struttura di comunicazione dati unidirezionale gestita dal kernel
 	// pipe è descritta da un file descriptor di sola lettura ed uno di sola scrittura (le due estremità del "tubo")
 
+	// pfd[0]: file descriptor per LEGGERE dalla PIPE
+	// pfd[1]: file descriptor per SCRIVERE nella PIPE
+
 	printf("file handler pipe, estremità di lettura: %d\n", pfd[0]); // dovrebbe valere 3 (se i descrittori 0,1,2 sono utilizzati)
 	printf("file handler pipe, estremità di scrittura: %d\n", pfd[1]); // dovrebbe valere 4
 
@@ -43,14 +46,15 @@ int main(int argc, char * argv[]) {
 
 			exit(EXIT_FAILURE);
 
-		case 0: // processo FIGLIO
+		case 0: // processo FIGLIO: leggerà dalla PIPE
 
 			close(pfd[1]); // chiudiamo l'estremità di scrittura della pipe, non ci serve
 
 #ifdef USE_EXEC
+
 			if (pfd[0] != STDIN_FILENO) {
 
-				if (dup2(pfd[0], STDIN_FILENO) == -1) { // chiude fd 0; riapre fd 0 lo rende identico a fd 3
+				if (dup2(pfd[0], STDIN_FILENO) == -1) { // chiude fd 0; riapre fd 0 e lo rende identico a fd 3 (cioè fd 3 e fd 0 puntano allo stesso "file", in questo caso l'estremità di una pipe)
 					perror("problema con dup2");
 					exit(EXIT_FAILURE);
 				}
@@ -63,12 +67,13 @@ int main(int argc, char * argv[]) {
 			// 1: stdout
 			// 2: stderr
 			// wc lavorerà col fd 0 senza sapere che non è stdin, è completamente trasparente
-			execlp("wc", "wc", (char * ) NULL);
+			execlp("wc", "wc", (char * ) NULL); // execlp utilizza la system call execve
 
-			// se la chiamata funziona, non si passa più di qua; altrimenti si è verificato un problema
-			perror("problema con execlp");
+			// se la chiamata execlp funziona, non si passa più di qua; altrimenti si è verificato un problema
+			perror("problema con execlp(1)");
 
 			exit(EXIT_FAILURE);
+
 #else
 
 			while (1) {
@@ -95,15 +100,17 @@ int main(int argc, char * argv[]) {
 
 			exit(EXIT_SUCCESS); // fine del processo figlio
 #endif
+
 		default:
-			// processo PADRE
+			// processo PADRE: scriverà dentro la PIPE
 
 			close(pfd[0]); // chiudiamo l'estremità di lettura della pipe, non ci serve
 
 #ifdef USE_EXEC
+
 			if (pfd[1] != STDOUT_FILENO) {
 
-				if (dup2(pfd[1], STDOUT_FILENO) == -1) {
+				if (dup2(pfd[1], STDOUT_FILENO) == -1) { // chiude fd 1; riapre fd 1 e lo rende identico a fd 4 (cioè fd 1 e fd 4 puntano allo stesso file...)
 					perror("problema con dup2");
 					exit(EXIT_FAILURE);
 				}
@@ -114,6 +121,11 @@ int main(int argc, char * argv[]) {
 			execlp("ls", "ls", "-l", "/home/utente", (char *) NULL);
 
 			// di qua non si passa più, a meno di errori
+
+			perror("problema con execlp(2)");
+
+			exit(EXIT_FAILURE);
+
 #else
 
 
