@@ -1,4 +1,4 @@
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -34,7 +34,7 @@ int main(int argc, char * argv[]) {
 	// pipe crea una struttura di comunicazione dati unidirezionale gestita dal kernel
 	// pipe è descritta da un file descriptor di sola lettura ed uno di sola scrittura (le due estremità del "tubo")
 
-	printf("file handler pipe, estremità di lettura: %d\n", pfd[0]); // dovrebbe valere 3
+	printf("file handler pipe, estremità di lettura: %d\n", pfd[0]); // dovrebbe valere 3 (se i descrittori 0,1,2 sono utilizzati)
 	printf("file handler pipe, estremità di scrittura: %d\n", pfd[1]); // dovrebbe valere 4
 
 	switch (fork()) {
@@ -59,17 +59,17 @@ int main(int argc, char * argv[]) {
 			}
 
 			// al programma wc passeremo i seguenti file descriptor aperti:
-			// 0: l'estremità di lettura della pipe
+			// 0: l'estremità di lettura della pipe (al posto di stdin)
 			// 1: stdout
 			// 2: stderr
 			// wc lavorerà col fd 0 senza sapere che non è stdin, è completamente trasparente
 			execlp("wc", "wc", (char * ) NULL);
 
-			// se la chiamata funziona, non si passa più di qua
+			// se la chiamata funziona, non si passa più di qua; altrimenti si è verificato un problema
 			perror("problema con execlp");
 
 			exit(EXIT_FAILURE);
-#endif
+#else
 
 			while (1) {
 
@@ -94,7 +94,7 @@ int main(int argc, char * argv[]) {
 			//printf("ciao\n");
 
 			exit(EXIT_SUCCESS); // fine del processo figlio
-
+#endif
 		default:
 			// processo PADRE
 
@@ -114,7 +114,7 @@ int main(int argc, char * argv[]) {
 			execlp("ls", "ls", "-l", "/home/utente", (char *) NULL);
 
 			// di qua non si passa più, a meno di errori
-#endif
+#else
 
 
 			char * msg = "messaggio per il processo figlio\n";
@@ -140,6 +140,7 @@ int main(int argc, char * argv[]) {
 			writemsg2stdout("*P* prima di exit\n");
 
 			exit(EXIT_SUCCESS);
+#endif
 
 	}
 
