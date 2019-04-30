@@ -100,7 +100,7 @@ int main(int argc, char * argv[]) {
 	int cicli = 1000000;
 #endif
 
-	// creato da parent process
+	// creato da parent process; condiviso tra i processi
 	semaphore = create_named_semaphore();
 
 	shared_counter = create_anon_mmap(sizeof(int));
@@ -108,12 +108,13 @@ int main(int argc, char * argv[]) {
 	*shared_counter = 0;
 
     if (semaphore == NULL || shared_counter == NULL) {
-    	printf("non posso proseguire!");
+    	printf("non posso proseguire!\n");
 
     	exit(EXIT_FAILURE);
     }
 
     char * prefix;
+    int parent = 0;
 
 	switch (fork()) {
 	case -1:
@@ -123,27 +124,36 @@ int main(int argc, char * argv[]) {
 
 		prefix = "[child]";
 
-		for (int i = 0; i < cicli; i++)
-			add_counter(1, prefix);
-
 		break;
 	default: // parent process
 
 		prefix = "[parent]";
+		parent = 1;
+	}
 
-		for (int i = 0; i < cicli; i++)
-			add_counter(1, prefix);
+	printf("%sprima del loop\n", prefix);
+	// entrambi i processi incrementano il contatore per lo stesso numero di volte
+	for (int i = 0; i < cicli; i++)
+		add_counter(1, prefix);
 
-		if (sem_unlink(semaphore_name) == -1) {
-			perror("sem_unlink");
-		}
+	printf("%sdopo il loop\n",prefix);
+
+	//il semaforo va chiuso da ogni processo che lo ha aperto
+	if (sem_close(semaphore) == -1) {
+		perror("sem_close");
 	}
 
 	sleep(1);
 
+	if (parent && sem_unlink(semaphore_name) == -1) {
+		perror("sem_unlink");
+	}
+
 	printf("%svalore finale contatore: %d, valore atteso: %d\n",prefix, *shared_counter, cicli * 2);
 
 	munmap(shared_counter, sizeof(int));
+
+	printf("%sbye\n", prefix);
 
 	return 0;
 }
