@@ -27,7 +27,7 @@ sem_t * create_named_semaphore() {
 	// se il named semaphore esiste, lo cancelliamo
 	sem_unlink(semaphore_name);
 
-	// valore iniziale del semaforo: 1
+	// valore iniziale del semaforo: 1 (provare a mettere valore iniziale 0 e vedere cosa succede)
 	if ((result = sem_open(semaphore_name, O_CREAT, 00600, 1)) == SEM_FAILED) {
 		perror("sem_open");
 		return NULL;
