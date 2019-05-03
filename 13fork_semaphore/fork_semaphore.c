@@ -16,7 +16,7 @@ int * shared_counter;
 
 sem_t * semaphore;
 
-//#define DEBUG
+#define DEBUG
 
 // provare a commentare questo define e vedere che valori si ottengono per il contatore
 #define USE_SEMAPHORE
@@ -39,7 +39,7 @@ sem_t * create_named_semaphore() {
  *
  */
 
-	printf("sem_open ok\n");
+	printf("sem_open ok - nome semaforo: %s (vedere files in /dev/shm/) \n", semaphore_name);
 
 	return result;
 }
@@ -130,6 +130,10 @@ int main(int argc, char * argv[]) {
 		prefix = "[parent]";
 		parent = 1;
 	}
+
+	printf("%sdormirò un secondo...\n", prefix);
+
+	sleep(1);
 
 	printf("%sprima del loop\n", prefix);
 	// entrambi i processi incrementano il contatore per lo stesso numero di volte
