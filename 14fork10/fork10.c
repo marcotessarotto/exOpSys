@@ -76,9 +76,10 @@ sem_t * process_counter_sem;
 
 int main(int argc, char * argv[]) {
 
+	// questo è il semaforo che fa funzionare correttamente la concorrenza tra processi
 	sem = create_anon_mmap(sizeof(sem_t));
 
-	//////////
+	////////// process_counter è in più, il "meccanismo" funziona grazie al solo semaforo sem
 	process_counter = create_anon_mmap(sizeof(int));
 	process_counter_sem = create_anon_mmap(sizeof(sem_t));
 
@@ -169,9 +170,17 @@ int main(int argc, char * argv[]) {
 	sem_getvalue(sem, &sem_val);
 	printf("bye! [%d] sem_val=%d  contatore_processi=%d\n", getpid(), sem_val, *process_counter);
 
-	sem_close(sem);
+	sem_close(sem); // chiudiamo il semaforo
 
-	munmap(sem, sizeof(sem_t));
+	munmap(sem, sizeof(sem_t)); // liberiamo la memoria condivisa tra i processi usata per il semaforo
+
+	///
+	sem_close(process_counter_sem);
+
+	munmap(process_counter_sem, sizeof(sem_t));
+
+	munmap(process_counter, sizeof(int));
+	///
 
 	return 0;
 }
