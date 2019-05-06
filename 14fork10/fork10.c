@@ -13,9 +13,8 @@
 
 #define NUM_PROCESSES 10
 
-// il segnale SIGINT(2) arriva, ad esempio, quando sul terminale (da cui si è lanciato il processo) viene premuto Ctrl-C.
-// il comportamento di default quando arriva SIGINT è di terminare il processo
-// #define CHECK_SIGINT
+// sem_wait e simili possono essere interrotti da un segnale; il comportamento corretto è verificare questo caso
+#define CHECK_EINTR
 
 void * create_anon_mmap(size_t size) {
 
@@ -41,8 +40,9 @@ void add_counter(sem_t * semaphore, int * var, int val) {
 
 	int res;
 
-#ifdef CHECK_SIGINT
+#ifdef CHECK_EINTR
 	// vedere esempio 16sem_signal
+	// mentre stiamo aspettando che il semaforo vanga sbloccato, la chiamata a sem_wait può essere interrotta da un gestore di segnale
 	while ((res = sem_wait(semaphore)) == -1 && errno == EINTR)
 		continue;
 
