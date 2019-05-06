@@ -13,6 +13,10 @@
 
 #define NUM_PROCESSES 10
 
+// il segnale SIGINT(2) arriva, ad esempio, quando sul terminale (da cui si è lanciato il processo) viene premuto Ctrl-C.
+// il comportamento di default quando arriva SIGINT è di terminare il processo
+// #define CHECK_SIGINT
+
 void * create_anon_mmap(size_t size) {
 
 	// MAP_SHARED: condivisibile tra processi
@@ -35,10 +39,24 @@ sem_t * sem; // contatore usato come "countdown" fino a 0
 
 void add_counter(sem_t * semaphore, int * var, int val) {
 
+	int res;
+
+#ifdef CHECK_SIGINT
+	// vedere esempio 16sem_signal
+	while ((res = sem_wait(semaphore)) == -1 && errno == EINTR)
+		continue;
+
+	if (res == -1) {
+		perror("sem_wait");
+		exit(EXIT_FAILURE);
+	}
+#else
+
 	if (sem_wait(semaphore) == -1) {
 		perror("sem_wait");
 		exit(EXIT_FAILURE);
 	}
+#endif
 
 	*var += val;
 
