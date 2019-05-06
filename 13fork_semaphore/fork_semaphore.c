@@ -16,7 +16,7 @@ int * shared_counter;
 
 sem_t * semaphore;
 
-#define DEBUG
+//#define DEBUG
 
 // provare a commentare questo define e vedere che valori si ottengono per il contatore
 #define USE_SEMAPHORE
@@ -79,7 +79,7 @@ void add_counter(int val, char * prefix) {
 #ifdef DEBUG
 	printf("%snuovo valore contatore: %d\n",prefix, *shared_counter);
 
-	sleep(1);
+	usleep(100); // dormo 100 usec
 #endif
 
 #ifdef USE_SEMAPHORE
@@ -156,6 +156,9 @@ int main(int argc, char * argv[]) {
 	printf("%svalore finale contatore: %d, valore atteso: %d\n",prefix, *shared_counter, cicli * 2);
 
 	munmap(shared_counter, sizeof(int));
+
+	if (parent)
+		wait(NULL);
 
 	printf("%sbye\n", prefix);
 
