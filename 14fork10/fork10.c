@@ -42,7 +42,9 @@ void add_counter(sem_t * semaphore, int * var, int val) {
 
 #ifdef CHECK_EINTR
 	// vedere esempio 16sem_signal
-	// mentre stiamo aspettando che il semaforo vanga sbloccato, la chiamata a sem_wait può essere interrotta da un gestore di segnale
+	// vedere http://man7.org/linux/man-pages/man7/signal.7.html
+	// mentre stiamo aspettando che il semaforo vanga sbloccato, la chiamata a sem_wait potrebbe essere interrotta
+	// da un segnale il cui handler è stato impostato senza flag SA_RESTART
 	while ((res = sem_wait(semaphore)) == -1 && errno == EINTR)
 		continue;
 
