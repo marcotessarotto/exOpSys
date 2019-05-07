@@ -78,7 +78,7 @@ int main(int argc, char * argv[]) {
 	int pid;
 
 	switch (pid = fork()) {
-		case 0:
+		case 0: // processo figlio
 
 			if (sem_init(&sem, 1, 0) == -1) { // valore iniziale del semaforo: 0
 				perror("sem_init");
@@ -96,6 +96,8 @@ int main(int argc, char * argv[]) {
 				sleep(2);
 				exit(EXIT_SUCCESS);
 			}
+
+			// in alternativa, potrei usare pause() al posto di wait_on_signal()
 
 			wait_on_signal(&sem);
 
