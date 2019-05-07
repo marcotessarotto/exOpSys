@@ -72,10 +72,26 @@ void add_counter(int val, char * prefix) {
 		perror("sem_wait");
 		exit(EXIT_FAILURE);
 	}
+
+	// se sono stati impostati gestori di segnali senza il flag SA_RESTART, allora il modo corretto di usare sem_wait è il seguente.
+	// vedere esempio 16sem_signal
+	// vedere http://man7.org/linux/man-pages/man7/signal.7.html
+	// mentre stiamo aspettando che il semaforo vanga sbloccato, la chiamata a sem_wait potrebbe essere interrotta
+	// da un segnale il cui handler è stato impostato senza flag SA_RESTART
+
+//	int res;
+//	while ((res = sem_wait(semaphore)) == -1 && errno == EINTR)
+//		continue;
+//
+//	if (res == -1) {
+//		perror("sem_wait");
+//		exit(EXIT_FAILURE);
+//	}
+
 #endif
-
+	// inizio sezione critica
 	*shared_counter += val;
-
+	// fine sezione critica
 #ifdef DEBUG
 	printf("%snuovo valore contatore: %d\n",prefix, *shared_counter);
 
