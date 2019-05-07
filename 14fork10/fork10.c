@@ -105,6 +105,8 @@ int main(int argc, char * argv[]) {
 
 	int child_process_pid;
 
+	int boss = 1;
+
 	while (1) {
 
 		sem_getvalue(sem, &sem_val);
@@ -125,6 +127,8 @@ int main(int argc, char * argv[]) {
 
 		switch(child_process_pid = fork()) {
 		case 0: // child process
+
+			boss = 0;
 
 			// incremento il contatore condiviso, protetto da semaforo "lock"
 			add_counter(process_counter_sem, process_counter, 1);
@@ -149,6 +153,8 @@ int main(int argc, char * argv[]) {
 		switch(child_process_pid = fork()) {
 		case 0: // child process
 
+			boss = 0;
+
 			// incremento il contatore condiviso, protetto da semaforo "lock"
 			add_counter(process_counter_sem, process_counter, 1);
 
@@ -170,12 +176,16 @@ int main(int argc, char * argv[]) {
 	sem_getvalue(sem, &sem_val);
 	printf("bye! [%d] sem_val=%d  contatore_processi=%d\n", getpid(), sem_val, *process_counter);
 
-	sem_close(sem); // chiudiamo il semaforo
+	if (boss == 1 && sem_destroy(sem) == -1) { // distruggiamo il semaforo
+		perror("sem_destroy");
+	}
 
 	munmap(sem, sizeof(sem_t)); // liberiamo la memoria condivisa tra i processi usata per il semaforo
 
 	///
-	sem_close(process_counter_sem);
+	if (boss == 1 && sem_destroy(process_counter_sem) == -1) { // distruggiamo il semaforo
+		perror("sem_destroy");
+	}
 
 	munmap(process_counter_sem, sizeof(sem_t));
 
