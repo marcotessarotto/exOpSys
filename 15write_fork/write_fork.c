@@ -93,6 +93,28 @@ int main(int argc, char * argv[]) {
 
 	printf("main process pid: %d\n", getpid());
 
+	/*
+	 * file mode creation mask
+	 *
+	 * umask di default: 022
+	 *
+	 * tratto da http://man7.org/linux/man-pages/man2/umask.2.html :
+	 *
+       The typical default value for the process umask is S_IWGRP | S_IWOTH
+       (octal 022).  In the usual case where the mode argument to open(2) is
+       specified as:
+
+           S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH
+
+       (octal 0666) when creating a new file, the permissions on the result‐
+       ing file will be:
+
+           S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH
+
+       (because 0666 & ~022 = 0644; i.e., rw-r--r--).
+	 *
+	 */
+
 	// creiamo un file nella cartella dei file temporanei /tmp/
 
 	if ((fd = open(filename,
