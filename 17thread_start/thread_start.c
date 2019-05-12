@@ -18,6 +18,31 @@ void * threadFunc(void * arg) {
 
 	printf("[thread] parametro: %s\n", str);
 
+	//// ATTENZIONE!!! fuori standard!!! funziona su Linux
+	pthread_t tid = pthread_self();
+	printf("thread ID: %lu\n", tid);
+	////
+
+	printf("premi x per exit, t per pthread_exit, qualsiasi altro per continuare\n");
+
+	int ch = getchar();
+
+	switch (ch) {
+	case 'x':
+		printf("[thread] prima di exit()\n");
+		exit(EXIT_SUCCESS);
+		break;
+	case 't':
+		printf("[thread] prima di pthread_exit\n");
+		pthread_exit((void *) 123);
+		break;
+	default:
+		break;
+	}
+
+
+
+
 	return (void *) strlen(str);
 }
 
@@ -36,7 +61,7 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	printf("ho creato un thread\n");
+	printf("ho creato un thread, prima di pthread_join\n");
 
 	s = pthread_join(t1, &res);
 
