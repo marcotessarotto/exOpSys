@@ -29,6 +29,10 @@ int main(int argc, char * argv[]) {
 		perror("signal");
 	}
 
+	int pid = getpid();
+
+	printf("prova uno dei seguenti comandi da shell:\nkill %d\nkill -9 %d\nkill -2 %d\n", pid, pid, pid);
+
 	getchar();
 
 
