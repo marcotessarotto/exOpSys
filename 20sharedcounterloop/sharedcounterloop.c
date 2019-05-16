@@ -40,6 +40,8 @@ void * mythread(void * mythread) {
 	printf("[thread]prima di sleep(2)\n");
 	sleep(2);
 
+	printf("[thread]prima di condition = 1\n");
+
 	pthread_mutex_lock(&mutex);
 
 	condition = 1; // sezione critica
