@@ -96,7 +96,7 @@ int main(int argc, char * argv[]) {
 
 	double result = (stop.tv_sec - start.tv_sec) * 1e6 + (stop.tv_nsec - start.tv_nsec) / 1e3;    // in microseconds
 
-	printf("[main]tempo trascorso (microsecondi): %lf, numero cicli do-while: %d\n", result, dowhile_counter);
+	printf("[main]tempo di CPU consumato (microsecondi): %lf, numero cicli do-while: %d\n", result, dowhile_counter);
 
 	if (pthread_join(t1, NULL) != 0) {
 		perror("pthread_join");
