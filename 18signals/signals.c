@@ -15,7 +15,7 @@
 
 static void sigHandler(int sig) {
 
-	printf("ricevuto segnale\n");
+	printf("ricevuto segnale %d, ora termino. bye!\n", sig);
 
 	exit(EXIT_SUCCESS);
 
