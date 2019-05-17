@@ -188,8 +188,6 @@ int main(int argc, char * argv[]) {
 
 	if (ch == -1) {
 		printf("\n[main]uscito da while a causa di EOF su stdin\n");
-	} else {
-
 	}
 
 	printf("[main]chiudo pipe, estremità di scrittura\n");
