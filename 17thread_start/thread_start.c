@@ -12,7 +12,7 @@
 #include <pthread.h>
 
 
-void * threadFunc(void * arg) {
+void * thread_function(void * arg) {
 
 	char * str = (char *) arg;
 
@@ -54,7 +54,7 @@ int main(int argc, char * argv[]) {
 
 	int s;
 
-	s = pthread_create(&t1, NULL, threadFunc, "ciao\n");
+	s = pthread_create(&t1, NULL, thread_function, "ciao\n");
 
 	if (s != 0) {
 		perror("pthread_create");
