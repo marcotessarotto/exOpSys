@@ -12,7 +12,17 @@
 #include <time.h>
 
 /**
- * esempio dove viene creato un file e viene scritto attraverso mmap
+ * esempio dove viene creato un file e viene scritto attraverso mmap.
+ *
+ *
+ * esercizio che si basa su questo esempio:
+ * scrivere un programma che origina N (=16) processi figli;
+ * il programma mappa in memoria un nuovo file di dimensione N*80 bytes
+ * tutti i processi lavorano sulla stessa memory map;
+ * ogni processo ha a disposizione 80 bytes, a partire dalla posizione i*80;
+ * il processo i-mo scrive nello spazio a disposizone, per M (=20) volte, un testo variabile, usando un contatore ed il suo pid
+ *
+ * monitorare l'output del file con il comando da shell: watch -n 1 -d cat filename
  */
 
 #define FILE_SIZE 1024
