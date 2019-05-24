@@ -54,9 +54,23 @@ sem_t * semB;
 #define NUM_CICLI 10
 
 int child_process_terminate = 0;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 void child_signal_handler(int sig) {
+	pthread_mutex_lock(&mutex);
 	child_process_terminate = 1;
+	pthread_mutex_unlock(&mutex);
+}
+
+int get_child_process_terminate() {
+
+	int retval;
+
+	pthread_mutex_lock(&mutex);
+	retval = child_process_terminate;
+	pthread_mutex_unlock(&mutex);
+
+	return retval;
 }
 
 void init() {
@@ -131,7 +145,7 @@ int main(int argc, char * argv[]) {
 			perror("signal");
 		}
 
-		while (child_process_terminate == 0) {
+		while (get_child_process_terminate() == 0) {
 
 			if (sem_wait(semB) == -1) {
 				perror("sem_wait");
@@ -195,7 +209,7 @@ int main(int argc, char * argv[]) {
 	}
 
 
-	if (kill(pid, SIGUSR1) == -1) { // SIGTERM
+	if (kill(pid, SIGUSR1) == -1) { // oppure SIGTERM
 		perror("kill");
 	}
 
