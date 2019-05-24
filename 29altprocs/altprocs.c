@@ -45,13 +45,8 @@ void * create_anon_mmap(size_t size) {
 
 }
 
-//sem_t * semaphore;
-
 #define TURNO_DI_A 0
 #define TURNO_DI_B 1
-
-int * a_chi_tocca;
-
 
 sem_t * semA;
 sem_t * semB;
@@ -65,9 +60,6 @@ void child_signal_handler(int sig) {
 }
 
 void init() {
-
-	a_chi_tocca = create_anon_mmap(sizeof(sem_t));
-	*a_chi_tocca = TURNO_DI_A;
 
 	///
 	semA = create_anon_mmap(sizeof(sem_t));
@@ -99,9 +91,6 @@ void cleanup() {
 		perror("sem_destroy semB");
 	}
 
-	if (munmap(a_chi_tocca, sizeof(int)) == -1) {
-		perror("munmap1");
-	}
 
 	if (munmap(semA, sizeof(sem_t)) == -1) {
 		perror("munmap1");
@@ -117,6 +106,7 @@ void cleanup() {
 int main(int argc, char * argv[]) {
 
 	printf("starting...\n");
+	printf("lanciare in una shell il comando:\ntail -f /tmp/esercizio3.log\n");
 
 	// se il file esiste già, il file viene 'troncato' (precedenti contenuti sono eliminati e size diventa zero)
 	fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 00600);
@@ -131,7 +121,6 @@ int main(int argc, char * argv[]) {
 	// comincia il processo A (processo padre)
 
 	int pid;
-	//int loc;
 	char buffer[1024];
 	int counter = 0;
 
