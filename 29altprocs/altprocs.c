@@ -75,7 +75,6 @@ int get_child_process_terminate() {
 
 void init() {
 
-	///
 	semA = create_anon_mmap(sizeof(sem_t));
 	semB = create_anon_mmap(sizeof(sem_t));
 
@@ -104,7 +103,6 @@ void cleanup() {
 	if (sem_destroy(semB) == -1) {
 		perror("sem_destroy semB");
 	}
-
 
 	if (munmap(semA, sizeof(sem_t)) == -1) {
 		perror("munmap1");
