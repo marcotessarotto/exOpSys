@@ -16,11 +16,14 @@
  *
  *
  * esercizio che si basa su questo esempio:
- * scrivere un programma che origina N (=16) processi figli;
- * il programma mappa in memoria un nuovo file di dimensione N*80 bytes
+ * scrivere un programma che:
+ * crea un file di dimensione N*80 bytes
+ * il programma mappa in memoria il file
+ * origina N (=16) processi figli;
  * tutti i processi lavorano sulla stessa memory map;
  * ogni processo ha a disposizione 80 bytes, a partire dalla posizione i*80;
- * il processo i-mo scrive nello spazio a disposizone, per M (=20) volte, un testo variabile, usando un contatore ed il suo pid
+ * il processo i-mo scrive nello spazio a disposizone, per M (=20) volte, un testo variabile,
+ * usando un contatore ed il suo pid
  *
  * monitorare l'output del file con il comando da shell: watch -n 1 -d cat filename
  */
