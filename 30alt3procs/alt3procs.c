@@ -12,21 +12,17 @@
 #include <pthread.h>
 
 /*
-Esercizio 3 –due processi
-
-Due processi: A (parent) e B (child), condividono un file aperto in modalità scrittura
-(e quindi anche l'offset del file).
-il processo A fa l'append di una riga di testo al file; dorme un secondo;
-comunica al processo B di continuare. Il processo A aspetta.
-il processo B, a sua volta, fa l'append di una riga di testo allo stesso file;
-dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
-Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B,
-aspetta che B termini e poi termina anche A.
-
+ho tre processi A, B e C; simile all'esercizio precedente; i tre processi
+condividono un file aperto.
+A scrive sul file; sleep 1 secondo; avvisa B di procedere
+B scrive sul file; sleep 1 secondo; avvisa C di procedere
+C scrive sul file; sleep 1 secondo; "tira il dado" per decidere se avvisare
+il processo A o il processo B di procedere.
  */
 
+
 int fd;
-const char * file_name = "/tmp/esercizio3.log";
+const char * file_name = "/tmp/esercizio4.log";
 
 
 void * create_anon_mmap(size_t size) {
@@ -45,11 +41,13 @@ void * create_anon_mmap(size_t size) {
 
 }
 
+
 #define TURNO_DI_A 0
 #define TURNO_DI_B 1
 
 sem_t * semA;
 sem_t * semB;
+sem_t * semC;
 
 #define NUM_CICLI 10
 
@@ -62,21 +60,12 @@ void child_signal_handler(int sig) {
 	pthread_mutex_unlock(&mutex);
 }
 
-int get_child_process_terminate() {
-
-	int retval;
-
-	pthread_mutex_lock(&mutex);
-	retval = child_process_terminate;
-	pthread_mutex_unlock(&mutex);
-
-	return retval;
-}
-
 void init() {
 
+	///
 	semA = create_anon_mmap(sizeof(sem_t));
 	semB = create_anon_mmap(sizeof(sem_t));
+	semC = create_anon_mmap(sizeof(sem_t));
 
 	if (sem_init(semA, 1, 1) == -1) {
 		perror("sem_init");
@@ -87,6 +76,11 @@ void init() {
 		perror("sem_init");
 		exit(EXIT_FAILURE);
 	}
+
+	if (sem_init(semC, 1, 0) == -1) {
+			perror("sem_init");
+			exit(EXIT_FAILURE);
+		}
 
 }
 
@@ -114,11 +108,21 @@ void cleanup() {
 
 }
 
+int get_child_process_terminate() {
+
+	int retval;
+
+	pthread_mutex_lock(&mutex);
+	retval = child_process_terminate;
+	pthread_mutex_unlock(&mutex);
+
+	return retval;
+}
 
 int main(int argc, char * argv[]) {
 
 	printf("starting...\n");
-	printf("lanciare in una shell il comando:\ntail -f /tmp/esercizio3.log\n");
+	printf("lanciare in una shell il comando:\ntail -f /tmp/esercizio4.log\n");
 
 	// se il file esiste già, il file viene 'troncato' (precedenti contenuti sono eliminati e size diventa zero)
 	fd = open(file_name, O_CREAT | O_TRUNC | O_WRONLY, 00600);
@@ -130,18 +134,20 @@ int main(int argc, char * argv[]) {
 
 	init();
 
+
 	// comincia il processo A (processo padre)
 
-	int pid;
+	int pid1, pid2;
 	char buffer[1024];
 	int counter = 0;
 
-	switch( pid = fork() ) {
-	case 0: // processo figlio
 
-		if (signal(SIGUSR1, child_signal_handler) == SIG_ERR) {
-			perror("signal");
-		}
+	if (signal(SIGUSR1, child_signal_handler) == SIG_ERR) {
+		perror("signal");
+	}
+
+	switch( pid1 = fork() ) {
+	case 0:
 
 		while (get_child_process_terminate() == 0) {
 
@@ -150,19 +156,21 @@ int main(int argc, char * argv[]) {
 				exit(EXIT_FAILURE);
 			}
 
-			sprintf(buffer,"processo figlio, linea %d\n", counter++);
+			printf("[procB]scrivo su file la linea %d\n", counter);
+
+			sprintf(buffer,"processo figlio1, linea %d\n", counter++);
 			write(fd,buffer,strlen(buffer));
 
 			sleep(1);
 
-			if (sem_post(semA) == -1) {
+			if (sem_post(semC) == -1) {
 				perror("sem_post");
 				exit(EXIT_FAILURE);
 			}
 
 		} // while
 
-		printf("[child] exit for\n");
+		printf("[child1] exit for\n");
 
 		cleanup();
 
@@ -176,7 +184,55 @@ int main(int argc, char * argv[]) {
 		;
 	}
 
-	// processo padre
+
+	switch( pid2 = fork() ) {
+	case 0:
+
+		while (get_child_process_terminate() == 0) {
+
+			if (sem_wait(semC) == -1) {
+				perror("sem_wait");
+				exit(EXIT_FAILURE);
+			}
+
+			printf("[procC]scrivo su file la linea %d\n", counter);
+
+			sprintf(buffer,"processo figlio2, linea %d\n", counter++);
+			write(fd,buffer,strlen(buffer));
+
+			sleep(1);
+
+			sem_t * next_sem;
+
+//			if (random() % 2 == 0)
+//				next_sem = semA;
+//			else
+//				next_sem = semB;
+
+			next_sem = random() % 2 == 0 ? semA : semB;
+
+			if (sem_post(next_sem) == -1) {
+				perror("sem_post");
+				exit(EXIT_FAILURE);
+			}
+
+		} // while
+
+		printf("[child2] exit for\n");
+
+		cleanup();
+
+		exit(EXIT_SUCCESS);
+
+		break;
+	case -1:
+		perror("fork");
+		exit(EXIT_FAILURE);
+	default:
+		;
+	}
+
+
 
 	for (int i = 0; i < NUM_CICLI; i++) {
 
@@ -184,6 +240,8 @@ int main(int argc, char * argv[]) {
 			perror("sem_wait");
 			exit(EXIT_FAILURE);
 		}
+
+		printf("[procA]scrivo su file la linea %d\n", i);
 
 		sprintf(buffer,"processo padre, linea %d\n", i);
 		write(fd,buffer,strlen(buffer));
@@ -207,10 +265,18 @@ int main(int argc, char * argv[]) {
 	}
 
 
-	if (kill(pid, SIGUSR1) == -1) { // oppure SIGTERM
+	if (kill(pid1, SIGUSR1) == -1) { // oppure SIGTERM
 		perror("kill");
 	}
 
+	if (kill(pid2, SIGUSR1) == -1) { // oppure SIGTERM
+		perror("kill");
+	}
+
+
+	if (wait(NULL) == -1) {
+		perror("wait");
+	}
 
 	if (wait(NULL) == -1) {
 		perror("wait");
