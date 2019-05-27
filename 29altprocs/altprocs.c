@@ -45,8 +45,6 @@ void * create_anon_mmap(size_t size) {
 
 }
 
-#define TURNO_DI_A 0
-#define TURNO_DI_B 1
 
 sem_t * semA;
 sem_t * semB;
