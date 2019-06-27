@@ -58,3 +58,6 @@ Release/
 .settings/language.settings.xml
 .settings/
 **/.settings/**
+
+build_dir/
+
