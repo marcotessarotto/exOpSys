@@ -206,9 +206,6 @@ void * control_thread(void * arg) {
 
 int main(int argc, char * argv[]) {
 
-	printf("***LAVORI IN CORSO***\n");
-	return 0;
-
   if (signal(SIGCHLD, signal_handler) == SIG_ERR) {
     perror("signal");
     exit(EXIT_FAILURE);

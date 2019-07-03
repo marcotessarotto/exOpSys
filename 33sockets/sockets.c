@@ -342,9 +342,6 @@ void connect_to_server(int id) {
 
 int main(int argc, char * argv[]) {
 
-	printf("***LAVORI IN CORSO***\n");
-	return 0;
-
 	pthread_t t;
 
 	init_thread_array();
