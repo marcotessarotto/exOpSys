@@ -103,6 +103,15 @@ void connetti_al_server() {
         i++;
     }
 
+    /*
+     * il protocollo di comunicazione tra client e server è il seguente:
+     *
+     * il client si connette al server
+     * il client manda un messaggio al server
+     * il server risponde con un messaggio
+     * il client chiude la comunicazione
+     */
+
     char * msg_al_server = "hello!";
 
     printf("client - mando i dati al server\n");
@@ -112,6 +121,19 @@ void connetti_al_server() {
 
     if (read(client_socket, buffer, BUF_MAX_SIZE) > 0) {
     	printf("client - dati ricevuti dal server: %s\n", buffer);
+    }
+
+    if (fork() == 0) {
+		char * newargv[] = { "sh", "-c", "netstat -ant | grep 40000", NULL };
+
+		char * newenviron[] = { NULL };
+
+		printf("\nesecuzione del comando netstat -ant | grep 40000\n");
+
+		execve("/bin/sh", newargv, newenviron);
+    } else {
+    	wait(NULL);
+    	printf("\n");
     }
 
     close(client_socket);
@@ -194,7 +216,8 @@ void simple_server() {
         	perror("write");
         }
 
-        // ci aspettiamo che il client chiuda il socket
+        // ci aspettiamo che il client chiuda il socket, ovvero aspettiamo EOF (len == 0)
+        // quando il client chiuderà la comunicazione (chiuderà il suo socket)
         len = read(incoming_socket, buff, sizeof(buff));
         printf("server - risultato secondo read: %d\n", len);
 
