@@ -19,8 +19,8 @@
 #include <netdb.h>
 
 #define SERVER_ADDR "localhost"
-#define PORT_NUM_STR "40001"
-#define PORT_NUM 40001
+#define PORT_NUM_STR "40000"
+#define PORT_NUM 40000
 #define BUF_MAX_SIZE 1024
 #define BACKLOG 10
 
@@ -80,17 +80,17 @@ void connetti_al_server() {
 
     for (rp = result; rp != NULL; rp = rp->ai_next) {
 
-    	printf("getaddrinfo #%d: ai_family=%s ai_socktype=%s ai_protocol=%s\n", i, decode_ai_family(rp->ai_family), decode_ai_socktype(rp->ai_socktype), decode_ai_protocol(rp->ai_protocol));
+    	printf("client - getaddrinfo #%d: ai_family=%s ai_socktype=%s ai_protocol=%s\n", i, decode_ai_family(rp->ai_family), decode_ai_socktype(rp->ai_socktype), decode_ai_protocol(rp->ai_protocol));
 
         client_socket = socket(rp->ai_family, rp->ai_socktype, rp->ai_protocol);
         if (client_socket == -1) {
-        	printf("apertura socket fallito #%d\n", i);
+        	printf("client - apertura socket fallito #%d\n", i);
         	perror("socket");
             continue;                           /* On error, try next address */
         }
 
         if (connect(client_socket, rp->ai_addr, rp->ai_addrlen) != -1) {
-        	printf("apertura socket riuscita #%d\n", i);
+        	printf("client - apertura socket riuscita #%d\n", i);
 
             break;                              /* Success */
         }
@@ -105,17 +105,18 @@ void connetti_al_server() {
 
     char * msg_al_server = "hello!";
 
+    printf("client - mando i dati al server\n");
     write(client_socket, msg_al_server, strlen(msg_al_server) + 1);
 
     char buffer[BUF_MAX_SIZE];
 
     if (read(client_socket, buffer, BUF_MAX_SIZE) > 0) {
-    	printf("dati ricevuti dal server: %s\n", buffer);
+    	printf("client - dati ricevuti dal server: %s\n", buffer);
     }
 
     close(client_socket);
 
-
+    printf("client - socket chiuso\n");
 
 }
 
@@ -177,21 +178,26 @@ void simple_server() {
     // viene restituito un nuovo socket
     while ((incoming_socket = accept(server_socket, (struct sockaddr *)&client_addr, &size)) != -1) {
 
-    	printf("nuova connessione in ingresso\n");
+    	printf("server - nuova connessione in ingresso\n");
 
     	int len;
         if ( (len = read(incoming_socket, buff, sizeof(buff))) > 0)
-        	printf("ricevuti dati dal client, len=%d, %s\n", len, buff);
+        	printf("server - ricevuti dati dal client, len=%d, %s\n", len, buff);
         else if (len == -1)
         	perror("read");
 
 
         // scriviamo qualcosa al client
-        sprintf(buff, "ciao! sei il client numero %d\n", client_number++);
+        sprintf(buff, "ciao! sei il client numero %d", client_number++);
 
         if (write(incoming_socket, buff, strlen(buff) + 1) == -1) {
         	perror("write");
         }
+
+        // ci aspettiamo che il client chiuda il socket
+        len = read(incoming_socket, buff, sizeof(buff));
+        printf("server - risultato secondo read: %d\n", len);
+
 
         // chiudiamo il socket
         if (shutdown(incoming_socket, SHUT_RDWR) == -1) {
@@ -210,7 +216,7 @@ void simple_server() {
     if (close(server_socket) == -1) {
     	perror("server - close server_socket");
     } else {
-    	printf("close server_socket ok\n");
+    	printf("server - close server_socket ok\n");
     }
 }
 
@@ -222,7 +228,7 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_SUCCESS);
 	}
 
-
+	sleep(1);
 
 	connetti_al_server();
 
