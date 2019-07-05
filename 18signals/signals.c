@@ -15,12 +15,24 @@
 
 static void sigHandler(int sig) {
 
-	printf("ricevuto segnale %d, ora termino. bye!\n", sig);
+	printf("ricevuto segnale %d\n", sig);
 
-	exit(EXIT_SUCCESS);
+//	printf("ricevuto segnale %d, ora termino. bye!\n", sig);
+//
+//	exit(EXIT_SUCCESS);
 
 }
 
+void test_sleep_signal() {
+	// verifica che sleep può essere interrotto da un segnale
+
+	printf("sto per invocare sleep(10), digitare Ctrl-C per interrompere sleep\n");
+
+	sleep(10);
+
+	printf("fine sleep(10)\n");
+
+}
 
 
 int main(int argc, char * argv[]) {
@@ -28,6 +40,8 @@ int main(int argc, char * argv[]) {
 	if (signal(SIGINT, sigHandler) == SIG_ERR) {
 		perror("signal");
 	}
+
+	test_sleep_signal();
 
 	int pid = getpid();
 
