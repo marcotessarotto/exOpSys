@@ -171,9 +171,7 @@ void simple_server_ipv6() {
 	    serv_addr.sin6_family = AF_INET6;
 
 	    // il server può ricevere connessioni su qualsiasi indirizzo disponibile della macchina
-	    memcpy( &serv_addr.sin6_addr  ,
-	    		&in6addr_any,
-				sizeof(in6addr_any) );
+	    serv_addr.sin6_addr=in6addr_any;
 
 	    // numero a 16 bit, porta di ascolto del server
 	    // htons (host to network short) interpreta correttamente l'endianess
