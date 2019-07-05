@@ -142,6 +142,121 @@ void connetti_al_server() {
 
 }
 
+void simple_server_ipv6() {
+
+		printf("tcp server using IPv6\n");
+
+	    // descrittori dei socket
+	    int server_socket, incoming_socket;
+
+	    // strutture di indirizzi per socket
+	    struct sockaddr_in6 serv_addr, client_addr;
+
+	    char buff[BUF_MAX_SIZE];
+
+	    // creiamo il socket, dominio IPv4, TCP
+	    server_socket = socket(AF_INET6, SOCK_STREAM, 0); // TCP socket
+
+	    if(server_socket == -1) {
+	      perror("socket");
+	      exit(EXIT_FAILURE);
+	    } else {
+	    	printf("server - socket ok\n");
+	    }
+
+	    // inizializzo l'indirizzo del server a zero
+	    bzero((char *)&serv_addr, sizeof(serv_addr));
+
+	    // famiglia di indirizzi
+	    serv_addr.sin6_family = AF_INET6;
+
+	    // il server può ricevere connessioni su qualsiasi indirizzo disponibile della macchina
+	    memcpy( &serv_addr.sin6_addr  ,
+	    		&in6addr_any,
+				sizeof(in6addr_any) );
+
+	    // numero a 16 bit, porta di ascolto del server
+	    // htons (host to network short) interpreta correttamente l'endianess
+	    serv_addr.sin6_port = htons(PORT_NUM);
+
+	    //serv_addr.sin6_scope_id
+
+
+	    // attachiamo il server socket ad un indirizzo ed una porta
+	    if (bind(server_socket, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) == -1) {
+	    	perror("bind");
+	    	exit(EXIT_FAILURE);
+	    } else {
+	    	printf("server - bind ok\n");
+	    }
+
+	    // il socket diventa passivo, specifico la dimensione della coda delle connessioni entranti in attesa di essere "accettate"
+	    if (listen(server_socket, BACKLOG) == -1) {
+	    	perror("listen");
+	    	exit(EXIT_FAILURE);
+	    } else {
+	    	printf("server - listen ok\n");
+	    }
+
+	    printf("server - before accept\n");
+	    socklen_t size = sizeof(client_addr);
+
+	    int client_number = 0;
+
+	    // aspetta fino a quando un client stabilisce una connessione con il server
+	    // viene restituito un nuovo socket
+	    while ((incoming_socket = accept(server_socket, (struct sockaddr *)&client_addr, &size)) != -1) {
+
+	    	char dst[INET6_ADDRSTRLEN];
+
+	    	if (inet_ntop(AF_INET6, &client_addr.sin6_addr, dst, INET6_ADDRSTRLEN) == NULL) {
+	    		perror("inet_ntop");
+	    	}
+
+
+	    	printf("server - nuova connessione in ingresso da %s\n", dst);
+
+
+	    	int len;
+	        if ( (len = read(incoming_socket, buff, sizeof(buff))) > 0)
+	        	printf("server - ricevuti dati dal client, len=%d, %s\n", len, buff);
+	        else if (len == -1)
+	        	perror("read");
+
+
+	        // scriviamo qualcosa al client
+	        sprintf(buff, "ciao! sei il client numero %d", client_number++);
+
+	        if (write(incoming_socket, buff, strlen(buff) + 1) == -1) {
+	        	perror("write");
+	        }
+
+	        // ci aspettiamo che il client chiuda il socket, ovvero aspettiamo EOF (len == 0)
+	        // quando il client chiuderà la comunicazione (chiuderà il suo socket)
+	        len = read(incoming_socket, buff, sizeof(buff));
+	        printf("server - risultato secondo read: %d\n", len);
+
+
+	        // chiudiamo il socket
+	        if (shutdown(incoming_socket, SHUT_RDWR) == -1) {
+	        	perror("shutdown");
+	        }
+
+	        if (client_number > 0) break;
+
+	    }
+
+	    if (incoming_socket == -1) {
+	    	perror("accept");
+	    }
+
+	    // chiudo il server socket
+	    if (close(server_socket) == -1) {
+	    	perror("server - close server_socket");
+	    } else {
+	    	printf("server - close server_socket ok\n");
+	    }
+}
 
 void simple_server() {
     // descrittori dei socket
@@ -200,7 +315,14 @@ void simple_server() {
     // viene restituito un nuovo socket
     while ((incoming_socket = accept(server_socket, (struct sockaddr *)&client_addr, &size)) != -1) {
 
-    	printf("server - nuova connessione in ingresso\n");
+    	char dst[INET_ADDRSTRLEN];
+
+    	if (inet_ntop(AF_INET, &client_addr.sin_addr, dst, INET_ADDRSTRLEN) == NULL) {
+    		perror("inet_ntop");
+    	}
+
+
+    	printf("server - nuova connessione in ingresso da %s\n", dst);
 
     	int len;
         if ( (len = read(incoming_socket, buff, sizeof(buff))) > 0)
@@ -243,11 +365,16 @@ void simple_server() {
     }
 }
 
+#define USE_IPV6
 
 int main(int argc, char * argv[]) {
 
 	if (fork() == 0) {
+#ifdef USE_IPV6
+		simple_server_ipv6();
+#else
 		simple_server();
+#endif
 		exit(EXIT_SUCCESS);
 	}
 
