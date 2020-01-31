@@ -6,6 +6,7 @@
 int main(int argc, char **argv) {
 
 
+
 	/*
 
 	printf("1 %d\n", 5 / 9); // cosa stamperebbe? attenzione che sto dividento due numeri interi
