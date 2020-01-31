@@ -42,24 +42,6 @@ C = 5/9 * (F-32)
  */
 
 
-//void convert_fahr_to_celsius(void) {
-//
-//	int celsius;
-//	int lower, upper, step;
-//
-//	lower = LOWER;
-//	upper = UPPER;
-//	step = STEP;
-//
-//	for (int fahr = lower; fahr <= upper; fahr += step) { // variable fahr dichiarata qui
-//
-//		int celsius = 5 * (fahr - 32) / 9;
-//
-//		printf("%d\t%d\n", fahr, celsius); // stringa di formattazione, parametro1, parametro2
-//	}
-//
-//}
-
 
 void convert_fahr_to_celsius() {
 
@@ -111,24 +93,28 @@ void convert_fahr_to_celsius() {
 
 	printf("\n\n");
 
-	/*
-
-	printf("1 %d\n", 5 / 9); // cosa stamperebbe? attenzione che sto dividento due numeri interi
-
-	printf("2 %f\n", 5 / 9); // cosa stamperebbe? printf si aspetta un valore float (floating point)
-
-	printf("3 %f\n", 5 / 9.);
-
-	printf("4 %f\n", 5. / 9);
-
-	printf("5 %f\n", 5. / 9);
-
-	printf("6 %d\n", 5. / 9);
-	*/
 
 }
 
 
+
+//void convert_fahr_to_celsius(void) {
+//
+//	int celsius;
+//	int lower, upper, step;
+//
+//	lower = LOWER;
+//	upper = UPPER;
+//	step = STEP;
+//
+//	for (int fahr = lower; fahr <= upper; fahr += step) { // variable fahr dichiarata qui
+//
+//		int celsius = 5 * (fahr - 32) / 9;
+//
+//		printf("%d\t%d\n", fahr, celsius); // stringa di formattazione, parametro1, parametro2
+//	}
+//
+//}
 
 int main(int argc, char **argv) {
 
