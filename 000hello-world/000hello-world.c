@@ -28,6 +28,7 @@ int main(int argc, char **argv) {
 	 * run time
 	 * linguaggio C non è object oriented
 	 *
+	 *
 	 * ls -l
 	 * ldd
 	 * Makefile
