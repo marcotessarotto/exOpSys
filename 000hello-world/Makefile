@@ -2,6 +2,8 @@ PROJECT_ROOT = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 OBJS = 000hello-world.o my_functions.o
 
+BUILD_MODE = debug
+
 ifeq ($(BUILD_MODE),debug)
 	CFLAGS += -g
 else ifeq ($(BUILD_MODE),run)
