@@ -9,22 +9,22 @@ l'output del programma sarà:
 
 conversione da temperatura in gradi Fahrenheit a gradi Celsius:
 C = 5/9 * (F-32)
-0	-17
-20	-6
-40	4
-60	15
-80	26
-100	37
-120	48
-140	60
-160	71
-180	82
-200	93
-220	104
-240	115
-260	126
-280	137
-300	148
+  0 	  -17.8
+ 20 	   -6.7
+ 40 	    4.4
+ 60 	   15.6
+ 80 	   26.7
+100 	   37.8
+120 	   48.9
+140 	   60.0
+160 	   71.1
+180 	   82.2
+200 	   93.3
+220 	  104.4
+240 	  115.6
+260 	  126.7
+280 	  137.8
+300 	  148.9
 
  */
 
@@ -37,7 +37,7 @@ C = 5/9 * (F-32)
 /*
  * esercizio: scrivere la funzione:
  *
- * int fahr_to_celsius(int fahr);
+ * float fahr_to_celsius(float fahr);
  *
  */
 
@@ -49,9 +49,9 @@ void convert_fahr_to_celsius() {
 
 	printf("C = 5/9 * (F-32)\n");
 
-	int fahr, celsius; // DICHIARAZIONE di variabili LOCALI, visibili soltanto all'interno di questa funzione
+	float fahr, celsius; // DICHIARAZIONE di variabili LOCALI, visibili soltanto all'interno di questa funzione
 	int lower, upper, step; // allocate sulla "stack"
-	// su architettura x86-64: int è un intero con segno, 32 bit (4 byte)
+	// su architettura x86-64: int è un intero con segno, 32 bit (4 byte); sizeof(float) = 32
 
 	lower = LOWER;   /* lower limit of temperature table */
 	upper = UPPER; /* upper limit */
@@ -72,7 +72,7 @@ void convert_fahr_to_celsius() {
 		// l'output è determinato dalla stringa di formattazione, che prevede degli argomenti denotati dal
 		// carattere '%'
 		// ogni parametro % si aspetta un corrispondente parametro della funzione dopo la stringa di formattazione.
-		printf("%d \t %d \n", fahr, celsius); // scrivo due numeri interi decimali, notare l'uso di \t e \n
+		printf("%3.0f \t %6.1f \n", fahr, celsius); // scrivo due numeri float notare l'uso di \t e \n
 
 		// l'output della tabella è un po' irregolare, per migliorare l'output possiamo usare:
 		//printf("%3d \t %6d \n", fahr, celsius); // gli spazi servono solo per rendere più leggibile la stringa di formattazione
