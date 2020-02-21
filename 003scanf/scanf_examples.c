@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
 	printf("sum = %d\n", sum);
 
 	/*
-	 * esercizio:
+	 * esercizio da fare:
 	 *
 	 * chiedere all'utente tre input:
 	 * l'operazione da fare (un char tra: + - /) e due numeri
