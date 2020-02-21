@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include <limits.h>
 
 
 
@@ -23,7 +24,8 @@ int main(int argc, char **argv) {
 	ua = 0xFFFFFFFF;
 	ub = 0;
 
-	la = 1L << 32; // provare: 1 << 32
+	la = 1L << 32;
+	lb = 1 << 32; // occhio al warning! quale è il problema?
 
 	c = 3.1492;
 
@@ -35,7 +37,10 @@ int main(int argc, char **argv) {
 
 	printf("scrivo unsigned int: ua=%u ub=%x \n", ua, ub);
 
-	printf("scrivo long: la=%ld\n", la);
+	printf("il valore massimo di unsigned int è %x\n", UINT_MAX); // provare ctrl-click sui simboli
+	printf("il valore minimo di int è %d\n", INT_MIN);
+
+	printf("scrivo long: la=%ld lb=%ld\n", la, lb);
 
 	printf("scrivo float: %f\n", c);
 
