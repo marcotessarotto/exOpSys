@@ -7,6 +7,8 @@
 
 void convert_fahr_to_celsius() {
 
+	// da qua in poi, premere F6 (step over) per eseguire un comando alla volta
+
 	printf("conversione da temperatura in gradi Fahrenheit a gradi Celsius (usando int):\n");
 
 	printf("C = 5/9 * (F-32)\n");
@@ -22,6 +24,7 @@ void convert_fahr_to_celsius() {
 
 	printf("\nF\tC\n");
 
+	// continuare con "step over" (F6); controllare i valori delle variabili
 	while (fahr <= upper) {
 
 		celsius = 5 * (fahr-32) / 9;
@@ -31,6 +34,8 @@ void convert_fahr_to_celsius() {
 		fahr = fahr + step;
 	}
 
+	// per fare continuare l'esecuzione senza stop, usare il comando "Resume": F8
+
 	printf("\n\n");
 
 
@@ -39,7 +44,12 @@ void convert_fahr_to_celsius() {
 
 int main(int argc, char **argv) {
 
+	// cominciare la sessione di debug con F11
+
+	// l'esecuzione si ferma qui:
+	// premere F5 (step into) per "entrare" nella funzione
 	convert_fahr_to_celsius();
+
 
 	return 0;
 }
