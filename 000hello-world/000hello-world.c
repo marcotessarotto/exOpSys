@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
 	 *
 	 */
 
-	// caratteri_ascii(); // provare in eclipse IDE: ctrl + click_tasto_sx_mouse su simbolo
+	caratteri_ascii(); // provare in eclipse IDE: ctrl + click_tasto_sx_mouse su simbolo
 	// hello_world_string_multi_line();
 	// hello_world_multi_printf();
 
