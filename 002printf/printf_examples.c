@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <string.h>
 #include <limits.h>
 
 
@@ -69,6 +69,13 @@ int main(int argc, char **argv) {
 	printf("sizeof(long double)=%ld\n", sizeof(long double));
 
 	printf("sizeof(char *)=%ld\n", sizeof(char *));
+
+
+	char * utf_8_str = "touch 😸.txt";
+
+	printf("UTF-8 string: %s\n", utf_8_str);
+
+	printf("len(utf_8_str) = %ld\n", strlen(utf_8_str));
 
 
 	/*
