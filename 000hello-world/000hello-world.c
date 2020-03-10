@@ -6,7 +6,8 @@
 int main(int argc, char **argv) {
 
 	// printf è una funzione di GLIBC per produrre output formattato
-	printf("ciao!\n");
+	printf("ciao!\nciao!\n");
+
 
 	/*
 	 * aspetti importanti:

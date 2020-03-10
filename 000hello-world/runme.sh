@@ -1,17 +1,16 @@
-# salvare il file come helloworld.sh in /home/utente
-# aprire un emulatore di terminale e lanciare lo script con questo comando:
-# sh helloworld.sh
-
+#!/bin/bash
 mkdir helloworld
 
 cd helloworld/
 
-echo "#include <stdio.h>
+cat > helloworld.c <<EOL
+#include <stdio.h>
 int main() {
-   printf(\"hello world!\");
+   printf("hello world!\n");
 
    return 0;
-}" > helloworld.c
+}
+EOL
 
 gedit helloworld.c &
 
