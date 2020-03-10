@@ -41,10 +41,17 @@ void convert_fahr_to_celsius() {
 
 }
 
+void test() {
+	printf("123\n");
+
+	printf("un altro printf\n");
+}
 
 int main(int argc, char **argv) {
 
 	// cominciare la sessione di debug con F11
+
+	test();
 
 	// l'esecuzione si ferma qui:
 	// premere F5 (step into) per "entrare" nella funzione
