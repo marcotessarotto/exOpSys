@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
 
 	// cominciare la sessione di debug con F11
 
-	test();
+	test(); // provate la differenza tra F5 (step into) e F6 (step over)
 
 	// l'esecuzione si ferma qui:
 	// premere F5 (step into) per "entrare" nella funzione
