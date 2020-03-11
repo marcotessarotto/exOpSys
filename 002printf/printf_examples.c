@@ -54,6 +54,7 @@ int main(int argc, char **argv) {
 
 	printf("scrivo float: %f\n", c);
 	printf("scrivo float: %1.3f\n", c);
+	printf("scrivo float con esponente: %e\n", c);
 
 	printf("scrivo double: %e\n", d);
 	printf("scrivo double: %1.12f\n", d);
@@ -65,7 +66,7 @@ int main(int argc, char **argv) {
 	printf("\n");
 
 
-	// vedi anche progetto 002data-types
+	// vedi progetto 002data-types
 	printf("sizeof(short int) = %ld bytes\n", sizeof(short int));
 	printf("sizeof(int) = %ld bytes\n", sizeof(int));
 
