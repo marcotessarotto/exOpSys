@@ -2,14 +2,17 @@
 #include <string.h>
 #include <limits.h>
 
-
+// #define SCRIVI_STRINGA
 
 int main(int argc, char **argv) {
 
 	char ch;
+
 	int a, b;
 	unsigned int ua, ub;
+
 	long la, lb;
+	unsigned long ula;
 
 	float c;
 	double d;
@@ -18,18 +21,26 @@ int main(int argc, char **argv) {
 	char * numeri = "0123456789";
 
 	ch = 'Z';
+
+	// int
 	a = 10;
 	b = -20;
 
+	// unsigned int
 	ua = 0xFFFFFFFF;
 	ub = 0;
 
+	// long
 	la = 1L << 32;
 	lb = 1 << 32; // occhio al warning! quale è il problema?
+
+	// unsigned long
+	ula = 1234567890000L;
 
 	c = 3.1492;
 
 	d = 0.123456789;
+
 
 	printf("scrivo un char: %c\n", ch);
 
@@ -42,8 +53,9 @@ int main(int argc, char **argv) {
 
 	printf("scrivo long: la=%ld lb=%ld\n", la, lb);
 
-	printf("scrivo float: %f\n", c);
+	printf("scrivo unsigned long: ula=%lu\n", ula);
 
+	printf("scrivo float: %f\n", c);
 	printf("scrivo float: %1.3f\n", c);
 
 	printf("scrivo double: %e\n", d);
@@ -55,21 +67,24 @@ int main(int argc, char **argv) {
 
 	printf("\n");
 
-	printf("sizeof(char)=%ld\n", sizeof(char));
-
-	printf("sizeof(short int)=%ld\n", sizeof(short int));
-	printf("sizeof(int)=%ld\n", sizeof(int));
-
-	printf("sizeof(long)=%ld\n", sizeof(long));
-	printf("sizeof(long long)=%ld\n", sizeof(long long));
 
 
-	printf("sizeof(float)=%ld\n", sizeof(float));
-	printf("sizeof(double)=%ld\n", sizeof(double));
+	printf("sizeof(short int) = %ld bytes\n", sizeof(short int));
+	printf("sizeof(int) = %ld bytes\n", sizeof(int));
+
+	printf("sizeof(long) = %ld bytes\n", sizeof(long));
+	printf("sizeof(unsigned long) = %ld bytes\n", sizeof(unsigned long));
+	printf("sizeof(long long) = %ld bytes\n", sizeof(long long));
+
+
+	printf("sizeof(float) = %ld bytes\n", sizeof(float));
+	printf("sizeof(double) = %ld bytes\n", sizeof(double));
 	printf("sizeof(long double)=%ld\n", sizeof(long double));
 
 	printf("sizeof(char *)=%ld\n", sizeof(char *));
 
+
+#ifdef SCRIVI_STRINGA
 
 	char * utf_8_str = "touch 😸.txt";
 
@@ -80,6 +95,8 @@ int main(int argc, char **argv) {
 	for (int i = 0; i < strlen(utf_8_str) + 1; i++) {
 		printf("utf_8_str[%d] = %d\n", i, (unsigned char)(utf_8_str[i]));
 	}
+
+#endif
 
 
 	/*
