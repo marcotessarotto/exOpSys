@@ -41,8 +41,15 @@ int main(int argc, char **argv) {
 
 	d = 0.123456789;
 
+	// il carattere 'Z'
 
-	printf("scrivo un char: %c\n", ch);
+	printf("(1)scrivo un char: %c\n", ch);
+	// oppure:
+	printf("(2)scrivo un char: ");
+	putchar(ch);
+	printf("\n");
+
+	printf("il valore numerico di '%c' è %d\n", ch, ch); // capirlo bene...
 
 	printf("scrivo int: a=%d b=%d\n", a, b);
 
