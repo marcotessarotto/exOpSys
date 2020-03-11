@@ -48,9 +48,6 @@ int main(int argc, char **argv) {
 
 	printf("scrivo unsigned int: ua=%u ub=%x \n", ua, ub);
 
-	printf("il valore massimo di unsigned int è %x\n", UINT_MAX); // provare ctrl-click sui simboli
-	printf("il valore minimo di int è %d\n", INT_MIN);
-
 	printf("scrivo long: la=%ld lb=%ld\n", la, lb);
 
 	printf("scrivo unsigned long: ula=%lu\n", ula);
@@ -68,7 +65,7 @@ int main(int argc, char **argv) {
 	printf("\n");
 
 
-
+	// vedi anche progetto 002data-types
 	printf("sizeof(short int) = %ld bytes\n", sizeof(short int));
 	printf("sizeof(int) = %ld bytes\n", sizeof(int));
 
