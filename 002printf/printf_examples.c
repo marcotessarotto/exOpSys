@@ -20,7 +20,8 @@ int main(int argc, char **argv) {
 	char * str = "hello world!";
 	char * numeri = "0123456789";
 
-	ch = 'Z';
+	ch = 'Z'; // valore numerico: 90
+	// ch = 90;
 
 	// int
 	a = 10;
