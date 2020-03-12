@@ -38,6 +38,8 @@ void altri_esempi_scanf() {
 	float c;
 	double d;
 
+	int result;
+
 	printf("scrivi un char: ");
 	scanf("%c", &ch);
 
@@ -46,16 +48,22 @@ void altri_esempi_scanf() {
 	printf("ho letto il seguente char: %c\n", ch);
 
 	printf("scrivi un int: ");
-	scanf("%d", &a);
-	printf("ho letto il seguente int: %d\n", a);
+	result = scanf("%d", &a);
+
+	if (result == 1) {
+		printf("ho letto il seguente int: %d\n", a);
+	} else {
+		printf("printf ha restituito %d\n", result);
+		scanf("%*s"); // scartiamo i caratteri che sono rimasti in stdin
+	}
 
 	printf("scrivi un unsigned int: ");
-	scanf("%u", &ub);
+	result = scanf("%u", &ub);
 	printf("ho letto il seguente unsigned int: %u\n", ub);
 
 	printf("scrivi un int in base 16: ");
-	scanf("%x", &a);
-	printf("ho letto il seguente int: %x\n", a);
+	result = scanf("%x", &a);
+	printf("ho letto il seguente int: %x, in base 10: %d\n", a, a);
 
 }
 
