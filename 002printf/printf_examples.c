@@ -29,7 +29,8 @@ int main(int argc, char **argv) {
 
 	// unsigned int
 	ua = 1234567890;
-	ub = 0;
+	ub = 4321;
+	// ub = -4321; // e questo?
 
 	// long
 	la = 1L << 32;
@@ -76,7 +77,6 @@ int main(int argc, char **argv) {
 
 	printf("scrivo due unsigned int: ua=%u ub=%x", ua, ub);
 	printf("\n\n");
-
 
 	// **** long ****
 
