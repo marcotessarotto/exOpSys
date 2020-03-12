@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 #include <dirent.h>
-
+#include <errno.h>
 
 // https://www.gnu.org/software/libc/manual/html_node/Simple-Directory-Lister.html
 
@@ -21,7 +21,9 @@ int main(int argc, char *argv[]) {
 //	printf("sizeof unsigned long int %i\n", sizeof(unsigned long int));
 //	printf("sizeof unsigned long long int %i\n", sizeof(unsigned long long int));
 
-	fileName = (argc == 1) ? "/home/utente" : argv[1];
+	fileName = (argc == 1) ? "." : argv[1];
+
+	errno = 0;
 
 	dp = opendir(fileName);  //   ./
 
@@ -31,12 +33,29 @@ int main(int argc, char *argv[]) {
 
 		printf("cannot open directory %s! bye", fileName);
 
-		return -1;
+		return EXIT_FAILURE;
 	}
 
-	while (ep = readdir(dp)) {
-		puts(ep->d_name);
+
+
+	while ((ep = readdir(dp)) != NULL) {
+		//puts(ep->d_name);
+
+		printf("%-10s ", (ep->d_type == DT_REG) ?  "regular" :
+		                                    (ep->d_type == DT_DIR) ?  "directory" :
+		                                    (ep->d_type == DT_FIFO) ? "FIFO" :
+		                                    (ep->d_type == DT_SOCK) ? "socket" :
+		                                    (ep->d_type == DT_LNK) ?  "symlink" :
+		                                    (ep->d_type == DT_BLK) ?  "block dev" :
+		                                    (ep->d_type == DT_CHR) ?  "char dev" : "???");
+
+		printf("%s \n", ep->d_name);
+
 		// file size?? costruire path a file ed usare stat (man 2 stat)
+	}
+
+	if (errno) {
+		perror("readdir() error");
 	}
 
 	closedir(dp);
