@@ -8,8 +8,8 @@ int main(int argc, char **argv) {
 
 	char ch;
 
-	int a, b;
-	unsigned int ua, ub;
+	int a, b; // intero con segno; potrei usare il tipo dati 'signed int'
+	unsigned int ua, ub; // intero senza segno
 
 	long la, lb;
 	unsigned long ula;
@@ -17,23 +17,23 @@ int main(int argc, char **argv) {
 	float c;
 	double d;
 
-	char * str = "hello world!";
+	char * str = "hello world!"; // stringhe di caratteri
 	char * numeri = "0123456789";
 
-	ch = 'Z'; // valore numerico: 90
+	ch = 'Z'; // carattere ASCII 90: Z
 	// ch = 90;
 
-	// int
-	a = 10;
-	b = -20;
+	// int (con segno)
+	a = 1000000;
+	b = -2000000;
 
 	// unsigned int
-	ua = 0xFFFFFFFF;
+	ua = 1234567890;
 	ub = 0;
 
 	// long
 	la = 1L << 32;
-	lb = 1 << 32; // occhio al warning! quale è il problema?
+	lb = 0x123456789abcdef0L;
 
 	// unsigned long
 	ula = 1234567890000L;
@@ -42,30 +42,66 @@ int main(int argc, char **argv) {
 
 	d = 0.123456789;
 
-	// il carattere 'Z'
 
-	printf("(1)scrivo un char: %c\n", ch);
+	// in Unix (e Linux) ogni processo, quando viene avviato, ha tre file descriptors (descrittori di file) pronti per l'uso:
+
+	// standard input (0, stdin) da cui leggere
+	// standard output (1, stdout) su cui scrivere
+	// standard error (2, stderr) su cui scrivere messaggi di errore o diagnostici
+
+	// tipicamente sono "attaccati" al terminale da cui viene avviato il processo
+	// quindi: input da tastiera, output (1 e 2) su schermo
+
+
+	// **** char ****
+	printf("(1)scrivo un char: %c", ch);
+	printf("\n");
 	// oppure:
 	printf("(2)scrivo un char: ");
-	putchar(ch);
+	putchar(ch); // putchar('Z');
+	printf("\n\n");
+
+	printf("il valore numerico di '%c' è %d ", ch, ch); // capirlo bene...
+	printf("\n\n");
+
+	// **** int ****
+
+	printf("scrivo un int: %d", a);
 	printf("\n");
 
-	printf("il valore numerico di '%c' è %d\n", ch, ch); // capirlo bene...
+	printf("scrivo due int: a=%d b=%d", a, b);
+	printf("\n\n");
 
-	printf("scrivo int: a=%d b=%d\n", a, b);
+	// **** unsigned int ****
 
-	printf("scrivo unsigned int: ua=%u ub=%x \n", ua, ub);
+	printf("scrivo due unsigned int: ua=%u ub=%x", ua, ub);
+	printf("\n\n");
 
-	printf("scrivo long: la=%ld lb=%ld\n", la, lb);
 
-	printf("scrivo unsigned long: ula=%lu\n", ula);
+	// **** long ****
+
+	printf("scrivo long: la=%ld lb=%lx", la, lb);
+	printf("\n\n");
+
+	// **** unsigned long ****
+
+	printf("scrivo unsigned long: ula=%lu", ula);
+	printf("\n\n");
+
+	// **** float ****
 
 	printf("scrivo float: %f\n", c);
 	printf("scrivo float: %1.3f\n", c);
-	printf("scrivo float con esponente: %e\n", c);
+	printf("scrivo float con esponente: %e", c);
+	printf("\n\n");
+
+	// **** double ****
 
 	printf("scrivo double: %e\n", d);
-	printf("scrivo double: %1.12f\n", d);
+	printf("scrivo double: %1.12f", d);
+	printf("\n\n");
+
+	// stringhe di caratteri
 
 	printf("scrivo stringa di caratteri: %s\n", str);
 	printf("scrivo stringa di caratteri: %s\n", numeri);
@@ -81,6 +117,7 @@ int main(int argc, char **argv) {
 	printf("sizeof(long) = %ld bytes\n", sizeof(long));
 	printf("sizeof(unsigned long) = %ld bytes\n", sizeof(unsigned long));
 	printf("sizeof(long long) = %ld bytes\n", sizeof(long long));
+	printf("sizeof(unsigned long long) = %ld bytes\n", sizeof(unsigned long long));
 
 
 	printf("sizeof(float) = %ld bytes\n", sizeof(float));
