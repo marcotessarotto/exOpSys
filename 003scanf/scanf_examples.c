@@ -101,11 +101,12 @@ int main(int argc, char **argv) {
 	}
 
 	/*
-	 * esercizio da fare:
+	 * ESERCIZIO DA FARE:
 	 *
 	 * chiedere all'utente tre input:
-	 * l'operazione da fare (un char tra: + - /) e due numeri
+	 * l'operazione da fare e due numeri (i due operandi)
 	 * eseguire l'operazione richiesta e scrivere il risultato
+	 * le operazioni ammesse sono: + - * /
 	 *
 	 * esempio:
 	 *
@@ -114,6 +115,10 @@ int main(int argc, char **argv) {
 	 *
 	 * risultato:
 	 * 30
+	 *
+	 * * 2 2
+	 * risultato:
+	 * 4
 	 *
 	 */
 
