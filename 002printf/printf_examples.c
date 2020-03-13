@@ -2,7 +2,6 @@
 #include <string.h>
 #include <limits.h>
 
-// #define SCRIVI_STRINGA
 
 int main(int argc, char **argv) {
 
@@ -125,21 +124,6 @@ int main(int argc, char **argv) {
 	printf("sizeof(long double)=%ld\n", sizeof(long double));
 
 	printf("sizeof(char *)=%ld\n", sizeof(char *));
-
-
-#ifdef SCRIVI_STRINGA
-
-	char * utf_8_str = "touch 😸.txt";
-
-	printf("UTF-8 string: %s\n", utf_8_str);
-
-	printf("len(utf_8_str) = %ld\n", strlen(utf_8_str));
-
-	for (int i = 0; i < strlen(utf_8_str) + 1; i++) {
-		printf("utf_8_str[%d] = %d\n", i, (unsigned char)(utf_8_str[i]));
-	}
-
-#endif
 
 
 	/*
