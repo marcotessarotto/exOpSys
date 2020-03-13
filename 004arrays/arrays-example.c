@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * chiede all'utente di scrivere 10 numeri interi.
+ * una volta letti i dati, li scrive su standard output
+ */
 void read_static_array() {
 
 	// static array
@@ -25,18 +29,19 @@ void read_static_array() {
 
 }
 
-void read_dynamic_array(int array_size) {
+void read_dynamic_array(unsigned int array_size) {
 
 	int * numbers;
 
 	numbers = calloc(array_size, sizeof(int));
 
-	// esercizio: scrivi la dimensione in bytes dell'array dinamico
+	// esercizio 1: scrivi la dimensione in bytes dell'array dinamico
 
-	// esercizio: completare
-	// ..... leggi i valori da stdin
+	// esercizio 2: completare:
 
-	// scrivi i valori letti
+	// a - leggi i valori da stdin
+
+	// b - scrivi i valori letti
 
 	free(numbers);
 
@@ -44,13 +49,24 @@ void read_dynamic_array(int array_size) {
 
 int main() {
 
-	read_static_array();
+	if (1) {
 
-	int n;
+		read_static_array();
+	}
 
-	//scanf("valore di array_size: %d", &n);
+	if (0) {
+		read_dynamic_array(5);
+	}
 
-	//read_dynamic_array(n);
+	if (0) {
+		unsigned int n;
+
+		scanf("quanti valori sono da leggere? %d", &n);
+
+
+		read_dynamic_array(n);
+	}
+
 
 	return 0;
 }
