@@ -46,10 +46,11 @@ int main(int argc, char **argv) {
 
 	char ch;
 	ch = 'Z'; // 'Z' è una costante carattere
-	// ch = 90; // 90 è una costante di tipo int (4 byte), che viene convertita in char (1 byte)
+	//ch = 90; // 90 è una costante di tipo int (4 byte), che viene convertita in char (1 byte)
 
 	// ASCII chart: ad esempio, vedere http://www.asciitable.com/
 
+	// vedere anche: Kernighan&Ritchie, pag. 37
 	ch = '\012'; // valore 012 in base 8, o valore 10 in base 10
 	ch = '\xa'; // valore a in base 16 o valore ... in base 10
 
@@ -101,7 +102,6 @@ int main(int argc, char **argv) {
 	printf("sizeof(long) = %ld byte\n", sizeof(long));
 
 	long int var_signed_long_int = 1234567890L; // suffisso L
-
 
 	// esercizio: mostrare le stesse informazioni per unsigned long
 
