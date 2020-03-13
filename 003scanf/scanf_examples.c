@@ -74,14 +74,14 @@ int main(int argc, char **argv) {
 	int sum;
 	int res;
 
-	if (1) {
+	if (0) {
 
 		altri_esempi_scanf();
 
 		return 0;
 	}
 
-	if (0) {
+	if (1) {
 
 		printf("scrivi due numeri interi: ");
 
@@ -91,8 +91,14 @@ int main(int argc, char **argv) {
 
 		if (res == EOF) {
 			printf("EOF! bye!");
-			return 1;
+			return -1;
 		}
+
+		if (res < 2) {
+			printf("non ho letto due valori (me ne servono due), esco\n");
+			return -1;
+		}
+
 
 		sum = a + b;
 
@@ -120,6 +126,14 @@ int main(int argc, char **argv) {
 	 * risultato:
 	 * 4
 	 *
+	 * per chi vuole condividere la soluzione con me (e la classe):
+	 *
+	 * 1 - mi potete mandate la soluzione via telegram (o email), entro la prossima lezione
+	 * oppure:
+	 *
+	 * 2- create un account su github
+	 * create una repository su github contenente il progetto Eclipse
+	 * e poi mi mandate l'indirizzo della repo (via telegram o email)
 	 */
 
 	return 0;
