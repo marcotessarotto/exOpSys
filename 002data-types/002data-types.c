@@ -20,18 +20,18 @@ int main(int argc, char **argv) {
 
 
 	   Little endian             Big endian
-       +----+----+              +----+----+
+       +----+----+               +----+----+
        |0x23|0x01|              |0x01|0x23|
-       +----+----+              +----+----+
+       +----+----+               +----+----+
  byte:    0    1                   0    1
 
 
  	   0x01234567 costante intera in base 16, utilizza 4 bytes: 01 23 45 67
 
            Little endian             Big endian
-       +----+----+----+----+    +----+----+----+----+
+       +----+----+----+----+        +----+----+----+----+
        |0x67|0x45|0x23|0x01|    |0x01|0x23|0x45|0x67|
-       +----+----+----+----+    +----+----+----+----+
+       +----+----+----+----+        +----+----+----+----+
  byte:    0    1    2    3         0    1    2    3
 
 
@@ -88,7 +88,7 @@ int main(int argc, char **argv) {
 
 	printf("\n***unsigned int***\n");
 	printf("valore minimo di unsigned int: %d\n", 0);
-	printf("valore massimo di unsigned int: %d\n", UINT_MAX);
+	printf("valore massimo di unsigned int: %u\n", UINT_MAX);
 	printf("sizeof(unsigned int) = %ld byte\n", sizeof(unsigned int));
 
 	unsigned int var_unsigned_int;
