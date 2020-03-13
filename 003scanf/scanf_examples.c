@@ -53,7 +53,7 @@ void altri_esempi_scanf() {
 	if (result == 1) {
 		printf("ho letto il seguente int: %d\n", a);
 	} else {
-		printf("printf ha restituito %d\n", result);
+		printf("scanf ha restituito %d\n", result);
 		scanf("%*s"); // scartiamo i caratteri che sono rimasti in stdin
 	}
 
@@ -74,7 +74,7 @@ int main(int argc, char **argv) {
 	int sum;
 	int res;
 
-	if (0) {
+	if (1) {
 
 		altri_esempi_scanf();
 
