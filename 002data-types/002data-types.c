@@ -7,6 +7,7 @@
 int main(int argc, char **argv) {
 
 	// fare riferimento anche a Kernighan&Ritchie, pag 35-38
+	// per le definizioni dei tipi dati del linguaggio C
 
 	// endianess: ordine dei byte per immagazzinare in memoria dati di dimensione superiore al byte
 	// Intel, AMD -> big endian
@@ -45,8 +46,8 @@ int main(int argc, char **argv) {
 	printf("sizeof(char) = %ld byte\n", sizeof(char));
 
 	char ch;
-	ch = 'Z'; // 'Z' è una costante carattere
-	//ch = 90; // 90 è una costante di tipo int (4 byte), che viene convertita in char (1 byte)
+	ch = 'Z'; // 'Z' è una costante carattere; ASCII 90
+	ch = 90; // 90 è una costante di tipo int (4 byte), che viene convertita dal compilatore in char (1 byte)
 
 	// ASCII chart: ad esempio, vedere http://www.asciitable.com/
 
@@ -54,9 +55,13 @@ int main(int argc, char **argv) {
 	ch = '\012'; // valore 012 in base 8, o valore 10 in base 10
 	ch = '\xa'; // valore a in base 16 o valore ... in base 10
 
-	ch = '\x5A'; // esercizio: a che simbolo corrisponde?
+	ch = '\x5A'; // esercizio: a che simbolo corrisponde? consultare una tabella ASCII
 
-	ch = '\0'; // carattere con valore 0
+	ch = '\0'; // carattere con valore 0 (ASCII 0)
+	ch = 0; // come sopra
+
+	// questo non fa parte dello standard del linguaggio C ma è una estensione supportata da gcc
+	ch = 0b00001111; // 1111 base 2, 15 in base 10
 
 
 	// short int
