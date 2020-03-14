@@ -49,6 +49,22 @@ void read_dynamic_array(unsigned int array_size) {
 
 int main() {
 
+	int first_array[3] = { 100, 1000, 10000 };
+
+	int second_array[5];
+
+	// gli indici validi di first_array sono: 0, 1, 2
+	// gli indici validi di second_array sono: 0, 1, 2, 3, 4 ,5
+
+	first_array[0] = -1;
+
+	// non viene fatto un controllo sugli indici quando accedo all'array,
+	// dipende da chi scrive il programma
+	// first_array[1000] = 0XDEADBEEF; // errore! 1000 è un indice NON valido
+
+	int z = first_array[2] + first_array[0];
+	// quanto vale z?
+
 	if (1) {
 
 		read_static_array();
