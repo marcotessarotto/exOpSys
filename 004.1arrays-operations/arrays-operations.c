@@ -131,3 +131,23 @@ void * make_copy_of_array(void * src_array, unsigned int array_total_size) {
 }
 
 
+// function to swap two char
+void swap(char *x, char *y) {
+	char t = *x;
+	*x = *y;
+	*y = t;
+}
+
+// function to reverse array[i..j]
+char * reverse(char * array, unsigned int i, unsigned int j)
+{
+	while (i < j)
+		swap(&array[i++], &array[j--]);
+
+	return array;
+}
+
+char * full_reverse(char * array, unsigned int array_len) {
+	return reverse(array, 0, array_len);
+}
+
