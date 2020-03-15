@@ -45,7 +45,7 @@ void altri_esempi_scanf() {
 
 	// ch = getchar();
 
-	printf("ho letto il seguente char: %c\n", ch);
+	printf("ho letto il seguente char: %c (il valore numerico è %d)\n", ch, ch);
 
 	printf("scrivi un int: ");
 	result = scanf("%d", &a);
