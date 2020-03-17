@@ -49,21 +49,56 @@ void read_dynamic_array(unsigned int array_size) {
 
 int main() {
 
-	int first_array[3] = { 100, 1000, 10000 };
-
-	int second_array[5];
-
+	int first_array[3] = { 0x123, 0x1234, 0x12345 };
+	// ogni cella dell'array ha dimensione (in bytes) ...
 	// gli indici validi di first_array sono: 0, 1, 2
-	// gli indici validi di second_array sono: 0, 1, 2, 3, 4 ,5
+	// dimensione totale dell'array in bytes: ....
+
+	/*
+
+                        Big endian (Intel, AMD)
+       +----+----+----+----+----+----+----+----+----+----+----+----+
+       |0x00|    |    |    |    |    |    |    |    |    |    |    |
+       +----+----+----+----+----+----+----+----+----+----+----+----+
+ byte     0    1    2    3   4     5    6    7    8    9   10   11
+ address
+						Little endian (ARM)
+       +----+----+----+----+----+----+----+----+----+----+----+----+
+       |    |    |    |    |    |    |    |    |    |    |    |    |
+       +----+----+----+----+----+----+----+----+----+----+----+----+
+ byte     0    1    2    3   4     5    6    7    8    9   10   11
+ address
+
+
+	 */
+
+	int second_array[5] = {2, 1, 0};
+	// ogni cella dell'array ha dimensione (in bytes) ...
+	// gli indici validi di second_array sono: 0, 1, ....
+	// dimensione totale dell'array in bytes: ....
+
+	short int third_array[10];
+	// ogni cella dell'array ha dimensione (in bytes) ...
+	// gli indici validi di second_array sono: ....
+	// dimensione totale dell'array in bytes: ....
+
+	char fourth_array[1024];
+	// ogni cella dell'array ha dimensione (in bytes) ...
+	// gli indici validi di second_array sono: ....
+	// dimensione totale dell'array in bytes: ....
+
 
 	first_array[0] = -1;
 
 	// non viene fatto un controllo sugli indici quando accedo all'array,
-	// dipende da chi scrive il programma
-	// first_array[1000] = 0XDEADBEEF; // errore! 1000 è un indice NON valido
+	// dipende dal programma
+
+	// provare!!! se messaggio di errore riporta un signal,
+	// andare a vedere: man 7 signal
+	//first_array[100000] = 0XDEADBEEF; // errore! 1000 è un indice NON valido
 
 	int z = first_array[2] + first_array[0];
-	// quanto vale z?
+	// quanto vale z? ....
 
 	if (1) {
 
