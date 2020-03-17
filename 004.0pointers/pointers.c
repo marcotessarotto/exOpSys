@@ -26,21 +26,30 @@ int main(int argc, char * argv[]) {
 
 	int * ptr;
 
+	// &: restituisce l'indirizzo dell'oggetto in memoria
 	ptr = &a;
 
-	*ptr = 300;
+	// * : operatore "indirezione" o "dereferencing"
+	*ptr = 300; // quale variabile viene modificata?
+
+	//
 
 	ptr = &b;
 
-	*ptr = 400;
+	*ptr = 400; // quale variabile viene modificata?
+
+	*ptr = *ptr + 10;
 
 	//
+
+	a = *ptr + 1;
+	// quanto vale a?
 
 	swap_wrong(a,b);
 
 	swap(&a, &b);
 
-	// usare il debugger per scoprire:
+	// potete usare il debugger per scoprire:
 
 	// quanto vale a?
 
