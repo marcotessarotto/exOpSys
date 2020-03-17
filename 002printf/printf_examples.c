@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <limits.h>
+#include <stdarg.h>
+
+
+void my_dummy_printf(char * fmt, ...);
 
 
 int main(int argc, char **argv) {
@@ -126,20 +130,84 @@ int main(int argc, char **argv) {
 	printf("sizeof(char *)=%ld\n", sizeof(char *));
 
 
-	/*
+
 
 	printf("1 %d\n", 5 / 9); // cosa stamperebbe? attenzione che sto dividento due numeri interi
 
-	printf("2 %f\n", 5 / 9); // cosa stamperebbe? printf si aspetta un valore float (floating point)
+	printf("2 %f\n", 5 / 9); // errore: printf si aspetta un double (8 bytes) ma arrivano 4 bytes
 
-	printf("3 %f\n", 5 / 9.);
+	printf("3 %f\n", 5 / 9.); // ok
 
-	printf("4 %f\n", 5. / 9);
+	printf("4 %f\n", 5. / 9); // ok
 
-	printf("5 %f\n", 5. / 9);
+	printf("5 %e\n", 5. / 9); // ok
 
-	printf("6 %d\n", 5. / 9);
-	*/
+
+	// da qua in poi, l'esempio è complesso
+	// ma il messaggio è: controllare che la stringa di formattazione ed i parametri passati a printf corrispondano
+
+	double dd;
+
+	dd = 5. / 9;
+
+	long ll;
+
+	memcpy(&ll, &dd, sizeof(double));
+
+	printf("6 %d\n", dd); // errore: sizeof(dd) = 8 ma printf si aspetta 4 bytes
+
+	printf("7 %lx\n",dd); // errore
+
+	my_dummy_printf("7 %lx\n",dd);
+
+	printf("8 %lx\n",ll); // ok
+
+
+	printf("\nrappresentazione in memoria del numero double %f, sizeof(double)=%d\n\n", dd, sizeof(double));
+	char * ptr = &dd;
+	for (int i = 0; i < sizeof(double); i++) {
+		printf("%02x ", *ptr & 0xFF);
+		ptr++;
+	}
+	printf("\n");
 
 	return 0;
+}
+
+
+void my_dummy_printf(char * fmt, ...) {
+
+	va_list valist;
+
+    va_list ap;
+    int d;
+    char c, *s;
+
+    unsigned long ul;
+
+    va_start(ap, fmt);
+    while (*fmt)
+        switch (*fmt++) {
+        case 's':              /* string */
+            s = va_arg(ap, char *);
+            printf("string %s\n", s);
+            break;
+        case 'd':              /* int */
+            d = va_arg(ap, int);
+            printf("int %d\n", d);
+            break;
+        case 'c':              /* char */
+            /* need a cast here since va_arg only
+               takes fully promoted types */
+            c = (char) va_arg(ap, int);
+            printf("char %c\n", c);
+            break;
+        case 'x': /* expect an unsigned LONG int */
+        	ul = (unsigned long) va_arg(ap, unsigned long);
+        	printf("unsigned long %lx\n", ul);
+
+        }
+    va_end(ap);
+
+
 }
