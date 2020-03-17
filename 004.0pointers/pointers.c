@@ -9,12 +9,20 @@ void swap_wrong(int a, int b) {
 }
 
 
-void swap(int * a, int * b) {
+void swap(int * indirizzo_di_a, int * indirizzo_di_b) {
 	int temp;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	temp = *indirizzo_di_a;
+	*indirizzo_di_a = *indirizzo_di_b;
+	*indirizzo_di_b = temp;
+
+	//// ciò che segue è sbagliato:
+
+//	int * temp;
+//	temp = indirizzo_di_a;
+//	indirizzo_di_a = indirizzo_di_b;
+//	indirizzo_di_b= temp;
+
 }
 
 
@@ -30,22 +38,25 @@ int main(int argc, char * argv[]) {
 	ptr = &a;
 
 	// * : operatore "indirezione" o "dereferencing"
-	*ptr = 300; // quale variabile viene modificata?
+	*ptr = 300; // quale variabile viene modificata? a
 
 	//
 
 	ptr = &b;
 
-	*ptr = 400; // quale variabile viene modificata?
+	*ptr = 400; // quale variabile viene modificata? b
 
-	*ptr = *ptr + 10;
+	*ptr = *ptr + 10; // il valore di b diventa 410
 
 	//
 
 	a = *ptr + 1;
-	// quanto vale a?
+	// quanto vale a? 411
 
+	// a = 411, b = 410
 	swap_wrong(a,b);
+
+	// quale sarà il valore di a e b?
 
 	swap(&a, &b);
 
