@@ -3,23 +3,24 @@
 #include <unistd.h>
 #include <string.h>
 
-// allocare (creare) un array
-// liberare (distruggere) un array
-// ridimensionare un array
-// copiare un array
-// accedere ad array
+// allocare (creare) un array (OK)
+// liberare (distruggere) un array (OK)
+// ridimensionare un array (OK)
+// copiare un array (OK)
+// accedere ad array (OK)
 
-// concatenare un array
+// concatenare un array (TODO)
 
-// reverse array
+// reverse array (OK)
 
-// sort di array
+// sort di array (TODO)
 
-// sottoinsieme di array
-// cercare in un array
+// sottoinsieme di array (TODO)
+// cercare in un array (TODO)
 
-// array di array
+// array di array (TODO)
 
+// dichiarazione di funzione definita dopo main()
 void * make_copy_of_array(void * src_array, unsigned int array_length);
 
 int main(int argc, char *argv[]) {
