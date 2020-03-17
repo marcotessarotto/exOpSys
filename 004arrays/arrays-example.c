@@ -41,8 +41,6 @@ void read_dynamic_array(unsigned int array_size) {
 	// in Java:
 	// int [] numbers = new int[array_size];
 
-
-
 	// ESERCIZIO 1: scrivi la dimensione in bytes dell'array dinamico
 	//
 
@@ -53,6 +51,18 @@ void read_dynamic_array(unsigned int array_size) {
 
 	// b - scrivi i valori letti
 	// ......
+
+	// soluzione:
+	printf("dimensione totale dell'array numbers: %ld\n", array_size*sizeof(int));
+	printf("scrivi %u numeri interi: ", array_size);
+
+	for (int i = 0; i < array_size; i++) {
+		scanf("%d", &numbers[i]);
+	}
+
+	for(int i = 0; i < array_size; i++) {
+		printf("numbers[%d] = %d\n", i, numbers[i]);
+	}
 
 	free(numbers);
 
@@ -118,12 +128,12 @@ int main() {
 	int z = first_array[2] + first_array[0];
 	// quanto vale z? 0x12344
 
-	if (1) {
+	if (0) {
 
 		read_static_array();
 	}
 
-	if (0) {
+	if (1) {
 		read_dynamic_array(5);
 	}
 
