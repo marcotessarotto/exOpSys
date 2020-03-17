@@ -35,13 +35,15 @@ void read_dynamic_array(unsigned int array_size) {
 
 	numbers = calloc(array_size, sizeof(int));
 
-	// esercizio 1: scrivi la dimensione in bytes dell'array dinamico
+	// ESERCIZIO 1: scrivi la dimensione in bytes dell'array dinamico
 
-	// esercizio 2: completare:
+	// ESERCIZIO 2: completare:
 
 	// a - leggi i valori da stdin
+	// ......
 
 	// b - scrivi i valori letti
+	// ......
 
 	free(numbers);
 
@@ -55,6 +57,7 @@ int main() {
 	// dimensione totale dell'array in bytes: ....
 
 	/*
+	   ESERCIZIO: completare la rappresentazione in memoria degli array
 
                         Big endian (Intel, AMD)
        +----+----+----+----+----+----+----+----+----+----+----+----+
