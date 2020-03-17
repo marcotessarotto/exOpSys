@@ -38,6 +38,12 @@ void read_dynamic_array(unsigned int array_size) {
 	// array_size * sizeof(int)
 	// e la inizializza a zero
 
+	if (numbers == NULL) {
+		printf("calloc ha fallito!\n avevo chiesto di allocare %u celle di dimensione %lu\n",
+				array_size, sizeof(int));
+		exit(1);
+	}
+
 	// in Java:
 	// int [] numbers = new int[array_size];
 
@@ -64,7 +70,7 @@ void read_dynamic_array(unsigned int array_size) {
 		printf("numbers[%d] = %d\n", i, numbers[i]);
 	}
 
-	free(numbers);
+	free(numbers); // "distrugge" o "libera" l'array dinamico
 
 }
 
@@ -133,17 +139,33 @@ int main() {
 		read_static_array();
 	}
 
-	if (1) {
+	if (0) {
 		read_dynamic_array(5);
 	}
 
-	if (0) {
+	if (1) {
 		unsigned int n;
 
-		scanf("quanti valori sono da leggere? %d", &n);
-
+		printf("quanti valori sono da leggere? ");
+		scanf("%d", &n);
 
 		read_dynamic_array(n);
+	}
+
+	if (0) {
+
+		int * prova;
+
+		prova = calloc(0, 0);
+
+		if (prova == NULL) {
+			printf("calloc ha restituito NULL\n");
+		}
+
+		free(prova);
+
+		printf("finito\n");
+
 	}
 
 
