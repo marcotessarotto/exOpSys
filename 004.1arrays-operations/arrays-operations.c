@@ -34,12 +34,15 @@ int main(int argc, char *argv[]) {
 
 	char_array = NULL;
 
+	// cosa succede?
+	*char_array = 'A';
+
 	// allocare (creare) un array
 	// ogni cella ha dimensione sizeof(char)
 	// l'array ha 'size' celle
 	char_array = calloc(size, sizeof(char)); // inizializza a zero la memoria allocata
 	// oppure
-	// char_array = malloc(size * sizeof(char));
+	//char_array = malloc(size * sizeof(char)); // NON inizializza a zero la memoria allocata
 
 	// controllare se calloc ha funzionato:
 	if (char_array == NULL) {
@@ -51,6 +54,7 @@ int main(int argc, char *argv[]) {
 
 	// liberare (distruggere) un array
 	free(char_array);
+	//char_array = NULL;
 
 	// attenzione! char_array contiene lo stesso valore di prima ma
 	// non punta più ad una zona di memoria allocata!
@@ -79,12 +83,12 @@ int main(int argc, char *argv[]) {
 	long * copia_array;
 	size = 20;
 
-	array_a = calloc(size, sizeof(char)); // array_a non viene inizializzato da calloc
+	array_a = malloc(size * sizeof(long)); // array_a non viene inizializzato da malloc
 
 	// che valori ha array_a?
-	memset(array_a, 0, size * sizeof(char)); // inizializziamo array_a (ogni cella avrà il valore 0)
+	memset(array_a, 0, size * sizeof(long)); // inizializziamo array_a (ogni cella avrà il valore 0)
 
-	copia_array = make_copy_of_array(array_a, size * sizeof(char));
+	copia_array = make_copy_of_array(array_a, size * sizeof(long)); // importante!!!
 
 	//
 	free(copia_array);
