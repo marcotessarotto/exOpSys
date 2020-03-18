@@ -109,6 +109,8 @@ int main(int argc, char **argv) {
 	/*
 	 * ESERCIZIO DA FARE:
 	 *
+	 * soluzione: vedere progetto 003.1calculator
+	 *
 	 * chiedere all'utente tre input:
 	 * l'operazione da fare e due numeri (i due operandi)
 	 * eseguire l'operazione richiesta e scrivere il risultato
