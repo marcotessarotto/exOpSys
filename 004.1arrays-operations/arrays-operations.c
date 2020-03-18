@@ -21,7 +21,8 @@
 // array di array (TODO)
 
 // dichiarazione di funzione definita dopo main()
-void * make_copy_of_array(void * src_array, unsigned int array_length);
+long * make_copy_of_array(long * src_array, unsigned int array_dimension);
+
 
 int main(int argc, char *argv[]) {
 
@@ -35,7 +36,9 @@ int main(int argc, char *argv[]) {
 	char_array = NULL;
 
 	// cosa succede?
-	*char_array = 'A';
+	//*char_array = 'A'; // WRONG! perchè? (in quale indirizzo di memoria va a scrivere?)
+
+	//char_array = 'A'; // WRONG! perchè?
 
 	// allocare (creare) un array
 	// ogni cella ha dimensione sizeof(char)
@@ -47,11 +50,36 @@ int main(int argc, char *argv[]) {
 	// NOTA: malloc, calloc e free richiedono:
 	// #include <stdlib.h>
 
-	// controllare se calloc ha funzionato:
+	// è necessario controllare se calloc ha funzionato:
 	if (char_array == NULL) {
 		perror("calloc error!");
 		exit(EXIT_FAILURE);
 	}
+
+	// esempio: allochiamo 100 GB di memoria:
+
+	// vedere:
+	// man 3 malloc
+
+	// void *malloc(size_t size);
+	// size_t è 'unsigned long'
+
+	//printf("sizeof(size_t)= %lu\n", sizeof(size_t));
+
+	// nota:
+	// perchè scrivo "100 * 1024 * 1024 * 1024L" (con la L sull'ultimo 1024) ?
+	// se scrivessi "100 * 1024 * 1024 * 1024" cosa cambia? (provate...)
+
+	char * crash_test = malloc(100 * 1024 * 1024 * 1024L);
+
+	if (crash_test == NULL) {
+		printf("richiesta malloc(100 GB): fallita!\n");
+	} else {
+		printf("malloc(100 GB) ok!\n");
+	}
+
+	free(crash_test); // se passo NULL a free è ok, non succede nulla (vedere man free)
+
 
 	printf("indirizzo contenuto in char_array: %p\n", char_array);
 
@@ -60,7 +88,7 @@ int main(int argc, char *argv[]) {
 	//char_array = NULL;
 
 	// attenzione! char_array contiene lo stesso valore di prima ma
-	// non punta più ad una zona di memoria allocata!
+	// non punta più ad una zona di memoria allocata! non bisogna utilizzarla più!
 
 	/////////////////////////////////////////
 
@@ -109,13 +137,61 @@ int main(int argc, char *argv[]) {
 	return EXIT_SUCCESS;
 }
 
+
+/*
+ * crea una copia dell'array di long
+ * parametri: indirizzo dell'array, dimensione dell'array (numero di celle)
+ * restituisce l'indirizzo della copia
+ */
+long * make_copy_of_array(long * src_array, unsigned int array_dimension) {
+
+	/*
+	 * in Java, quando passo un array come argomento di una funzione, oltre al riferimento all'oggetto
+	 * viene passato "automaticamente" anche la lunghezza dell'array.
+	 *
+	 * in C l'array non si porta dietro "automaticamente" la lunghezza di se stesso:
+	 * bisogna passare l'indirizzo dell'array E la lunghezza dell'array, in due parametri distinti
+	 */
+
+	if (src_array == NULL || array_dimension < 0)
+		return NULL;
+
+	long * result;
+
+	// allochiamo lo spazio di memoria per la copia
+	result = malloc(array_dimension * sizeof(long));
+
+	memcpy(result, src_array, array_dimension * sizeof(long));
+
+	// invece di memcpy potrei fare così:
+//	long * dest = result;
+//	long * src = src_array;
+//	for (unsigned int i = 0; i < array_dimension; i++) {
+//		dest[i] = src[i];
+//	}
+
+	// IMPORTANTE: chi riceve il risultato, dovrà occuparsi di liberare la memoria allocata per la copia dell'array
+	return result;
+}
+
+
+
 /*
  * crea una copia dell'array
  * parametri: indirizzo dell'array, dimensione totale in bytes dell'array
  * restituisce l'indirizzo della copia
+ *
+ * il tipo dati 'void *' indica un puntatore 'generico'
  */
-// il tipo dati 'void *' indica un puntatore 'generico'
-void * make_copy_of_array(void * src_array, unsigned int array_total_size) {
+void * make_copy_of_array_generic(void * src_array, unsigned int array_total_size) {
+
+	/*
+	 * in Java, quando passo un array come argomento di una funzione, oltre al riferimento all'oggetto
+	 * viene passato "automaticamente" anche la lunghezza dell'array.
+	 *
+	 * in C l'array non si porta dietro "automaticamente" la lunghezza di se stesso:
+	 * bisogna passare l'indirizzo dell'array E la lunghezza dell'array, in due parametri distinti
+	 */
 
 	if (src_array == NULL || array_total_size < 0)
 		return NULL;
@@ -126,13 +202,6 @@ void * make_copy_of_array(void * src_array, unsigned int array_total_size) {
 	result = malloc(array_total_size);
 
 	memcpy(result, src_array, array_total_size);
-
-	// invece di memcpy potrei fare così:
-//	char * dest = result;
-//	char * src = src_array;
-//	for (unsigned int i = 0; i < array_total_size; i++) {
-//		dest[i] = src[i];
-//	}
 
 	// chi riceve il risultato, dovrà occuparsi di liberare la memoria allocata per la copia dell'array
 	return result;
