@@ -9,11 +9,11 @@
 // copiare un array (OK)
 // accedere ad array (OK)
 
-// concatenare un array (TODO)
+// concatenare un array (ESERCIZIO)
 
 // reverse array (OK)
 
-// sort di array (TODO)
+// sort di array (ESERCIZIO)
 
 // sottoinsieme di array (TODO)
 // cercare in un array (TODO)
@@ -28,6 +28,8 @@ void * make_copy_of_array_generic(void * src_array, unsigned int array_total_siz
 void swap(char *x, char *y);
 char * reverse(char * array, unsigned int i, unsigned int j);
 char * complete_reverse(char * array, unsigned int array_len);
+
+char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension);
 
 
 int main(int argc, char *argv[]) {
@@ -136,10 +138,6 @@ int main(int argc, char *argv[]) {
 	array_a[1] = 0xFFFF;
 	// ...
 
-
-
-
-
 	return EXIT_SUCCESS;
 }
 
@@ -233,4 +231,56 @@ char * reverse(char * array, unsigned int i, unsigned int j)
 char * complete_reverse(char * array, unsigned int array_len) {
 	return reverse(array, 0, array_len);
 }
+
+
+char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension) {
+
+	// ESERCIZIO:
+
+
+	// allocare lo spazio per un new_array, numero di celle = array1_dimension + array2_dimension
+
+
+
+	// copiare array1 in new_array, a partire da nuovo_array[0]
+
+
+
+	// copiare array2 in new_array, a partire da nuovo_array[array1_dimension]
+
+
+	// restituire new_array
+
+}
+
+
+/*
+ * la funzione bubble_sort ordina l'array passato come parametro
+ * array_dimension: numero di celle dell'array
+ */
+void bubble_sort(int * array, int array_dimension) {
+
+	// ESERCIZIO: implementare bubble sort (pseudocodice riportato sotto
+
+/*
+
+procedure bubbleSort(A : list of sortable items)
+    n := length(A)
+    repeat
+        newn := 0
+        for i := 1 to n - 1 inclusive do
+            if A[i - 1] > A[i] then
+                swap(A[i - 1], A[i])
+                newn := i
+            end if
+        end for
+        n := newn
+    until n ≤ 1
+end procedure
+*/
+
+}
+
+// insertion sort (TBC)
+
 
