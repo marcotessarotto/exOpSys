@@ -23,6 +23,12 @@
 // dichiarazione di funzione definita dopo main()
 long * make_copy_of_array(long * src_array, unsigned int array_dimension);
 
+void * make_copy_of_array_generic(void * src_array, unsigned int array_total_size);
+
+void swap(char *x, char *y);
+char * reverse(char * array, unsigned int i, unsigned int j);
+char * complete_reverse(char * array, unsigned int array_len);
+
 
 int main(int argc, char *argv[]) {
 
@@ -224,7 +230,7 @@ char * reverse(char * array, unsigned int i, unsigned int j)
 	return array;
 }
 
-char * full_reverse(char * array, unsigned int array_len) {
+char * complete_reverse(char * array, unsigned int array_len) {
 	return reverse(array, 0, array_len);
 }
 
