@@ -33,6 +33,9 @@ void read_dynamic_array(unsigned int array_size) {
 
 	int * numbers;
 
+	// NOTA: malloc, calloc e free richiedono:
+	// #include <stdlib.h>
+
 	numbers = calloc(array_size, sizeof(int));
 	// prova ad allocare una zona di memoria di dimensione totale (bytes)
 	// array_size * sizeof(int)
@@ -84,8 +87,8 @@ int main() {
 	int var1 = 0x00000123;
 
 	/*
-	 * 00 00 01 23
-	 *
+	   (int, 32 bit con segno) 0x123 => 00 00 01 23
+
 	   ESERCIZIO: completare la rappresentazione in memoria degli array
 
                         Big endian (Intel, AMD)

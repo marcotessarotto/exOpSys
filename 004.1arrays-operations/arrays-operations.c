@@ -44,6 +44,9 @@ int main(int argc, char *argv[]) {
 	// oppure
 	//char_array = malloc(size * sizeof(char)); // NON inizializza a zero la memoria allocata
 
+	// NOTA: malloc, calloc e free richiedono:
+	// #include <stdlib.h>
+
 	// controllare se calloc ha funzionato:
 	if (char_array == NULL) {
 		perror("calloc error!");

@@ -3,17 +3,26 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
+#include <sys/types.h>
 
 
 static void sig_handler(int sig) {
 	printf("ho ricevuto il segnale %d\n", sig);
 }
 
-
 int main(int argc, char * argv[]) {
 
 	// il file descriptor 0 è stato predisposto dal kernel per ...
 	// quali altri file descriptor sono pronti per l'uso?
+
+	// come trovo il process id di questo programma?
+	// da shell: https://www.youtube.com/watch?v=JxSc5mQltII
+
+	// oppure con la system call getpid(), vedere: man 2 getpid
+	pid_t pid = getpid();
+
+	printf("il mio process id è %u\n", pid);
+
 
 	// provare a mandare il segnale -2 al programma
 	if (signal(SIGINT, sig_handler) == SIG_ERR) {
