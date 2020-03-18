@@ -21,7 +21,30 @@
 // array di array (TODO)
 
 // dichiarazione di funzione definita dopo main()
-long * make_copy_of_array(long * src_array, unsigned int array_dimension);
+long * make_copy_of_array(long src_array [], unsigned int array_dimension);
+
+/*
+
+ lo standard C99 prevede 'variable-length array' (VLA) , ad esempio:
+
+float read_and_process(int n)
+{
+    float vals[n];
+
+    for (int i = 0; i < n; ++i)
+        vals[i] = read_val();
+
+    return process(n, vals);
+}
+
+ considerare però:
+
+ "The Linux Kernel Is Now VLA-Free: A Win For Security, Less Overhead & Better For Clang"
+ https://www.phoronix.com/scan.php?page=news_item&px=Linux-Kills-The-VLA
+
+ da C11, 'variable-length array' diventa opzionale
+
+ */
 
 void * make_copy_of_array_generic(void * src_array, unsigned int array_total_size);
 
@@ -147,7 +170,7 @@ int main(int argc, char *argv[]) {
  * parametri: indirizzo dell'array, dimensione dell'array (numero di celle)
  * restituisce l'indirizzo della copia
  */
-long * make_copy_of_array(long * src_array, unsigned int array_dimension) {
+long * make_copy_of_array(long src_array [], unsigned int array_dimension) {
 
 	/*
 	 * in Java, quando passo un array come argomento di una funzione, oltre al riferimento all'oggetto
