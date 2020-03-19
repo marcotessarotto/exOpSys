@@ -44,6 +44,15 @@ float read_and_process(int n)
 
  da C11, 'variable-length array' diventa opzionale
 
+ ***
+ Linux Kernel viene tipicamente compilato con gcc.
+
+ gcc (GNU Compiler Collection) include il compilatore C, GNU C library (più altre cose);
+ è sviluppato dal Progetto GNU promosso dalla Free Software Foundation. Open source.
+
+ clang include il compilatore C. Pensato come rimpiazzo di gcc, promosso da Apple, Microsoft ed altri. Open source.
+
+
  */
 
 void * make_copy_of_array_generic(void * src_array, unsigned int array_total_size);
