@@ -96,7 +96,17 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	// esempio: allochiamo 100 GB di memoria:
+	printf("indirizzo contenuto in char_array: %p\n", char_array);
+
+	// liberare (distruggere) un array
+	free(char_array);
+	//char_array = NULL;
+	// attenzione! char_array contiene lo stesso valore di prima ma
+	// non punta più ad una zona di memoria allocata! non bisogna utilizzarla più!
+
+
+
+	// esempio: allochiamo 1, 10, 100 GB di memoria:
 
 	// vedere:
 	// man 3 malloc
@@ -107,28 +117,32 @@ int main(int argc, char *argv[]) {
 	//printf("sizeof(size_t)= %lu\n", sizeof(size_t));
 
 	// nota:
-	// perchè scrivo "100 * 1024 * 1024 * 1024L" (con la L sull'ultimo 1024) ?
-	// se scrivessi "100 * 1024 * 1024 * 1024" cosa cambia? (provate...)
+	// perchè scrivo "1024 * 1024 * 1024L" (con la L sull'ultimo 1024) ?
+	// cosa succede se scrivo "1024 * 1024 * 1024" ? (provate...)
 
-	char * crash_test = malloc(100 * 1024 * 1024 * 1024L);
+#define ONE_GIGABYTE (1024 * 1024 * 1024L)
 
-	if (crash_test == NULL) {
-		printf("richiesta malloc(100 GB): fallita!\n");
-	} else {
-		printf("malloc(100 GB) ok!\n");
+	unsigned long alloc_test [] = { ONE_GIGABYTE, 10 * ONE_GIGABYTE, 100 * ONE_GIGABYTE, -1 };
+
+	unsigned long * ptr = alloc_test;
+
+	while (*ptr != -1) {
+		printf("provo ad allocare %lu GB...", *ptr / ONE_GIGABYTE);
+
+		char * test = malloc(*ptr);
+
+		if (test == NULL) {
+			printf("richiesta malloc: fallita!\n");
+		} else {
+			printf("richiesta malloc: OK!\n");
+		}
+
+		free(test); // se passo NULL a free è ok, non succede nulla (vedere man free)
+
+		ptr++;
 	}
 
-	free(crash_test); // se passo NULL a free è ok, non succede nulla (vedere man free)
 
-
-	printf("indirizzo contenuto in char_array: %p\n", char_array);
-
-	// liberare (distruggere) un array
-	free(char_array);
-	//char_array = NULL;
-
-	// attenzione! char_array contiene lo stesso valore di prima ma
-	// non punta più ad una zona di memoria allocata! non bisogna utilizzarla più!
 
 	/////////////////////////////////////////
 
