@@ -132,7 +132,7 @@ int main() {
 
 	// provare!!! se messaggio di errore riporta un signal,
 	// andare a vedere: man 7 signal
-	// first_array[100000] = 0XDEADBEEF; // errore! 100000 è un indice NON valido
+	// first_array[100000] = 0XDEADBEEF; // errore a tempo di esecuzione! 100000 è un indice NON valido
 
 	int z = first_array[2] + first_array[0];
 	// quanto vale z? 0x12344
