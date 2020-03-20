@@ -89,7 +89,7 @@ int main() {
 	/*
 	   (int, 32 bit con segno) 0x123 => 00 00 01 23
 
-	   ESERCIZIO: completare la rappresentazione in memoria degli array
+	   ESERCIZIO: completare la rappresentazione in memoria di first_array
 
                         Big endian (Intel, AMD)
        +----+----+----+----+----+----+----+----+----+----+----+----+
