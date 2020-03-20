@@ -307,6 +307,7 @@ int main(int argc, char *argv[]) {
 
 
 
+    // ESERCIZIO PER CASA:
 	// esempio con bubble sort
 
     // https://www.random.org/integer-sets/?sets=1&num=100&min=-2000&max=2000&seqnos=on&commas=on&order=index&format=html&rnd=new
@@ -320,6 +321,7 @@ int main(int argc, char *argv[]) {
 
     int rnd_array_int_len = sizeof(rnd_array_int) / sizeof(int); // numero di celle dell'array
 
+    // SCRIVERE bubble_sort (definizione più sotto)
     bubble_sort(rnd_array_int, rnd_array_int_len);
 
     printf("risultato di bubble_sort():\n");
