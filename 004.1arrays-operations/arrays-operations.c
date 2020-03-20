@@ -20,8 +20,6 @@
 
 // array di array (TODO)
 
-// dichiarazione di funzione definita dopo main()
-long * make_copy_of_array(long src_array [], unsigned int array_dimension);
 
 /*
 
@@ -55,6 +53,8 @@ float read_and_process(int n)
 
  */
 
+// dichiarazioni di funzione definite dopo main()
+long * make_copy_of_array(long src_array [], unsigned int array_dimension);
 void * make_copy_of_array_generic(void * src_array, unsigned int array_total_size);
 
 void swap(char *x, char *y);
