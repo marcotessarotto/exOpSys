@@ -290,10 +290,45 @@ int main(int argc, char *argv[]) {
 	// ESERCIZIO: completare la funzione concat_arrays
 	// esempio con concat di due array
 
+	char char_array_1 [] = {'p', 'r', 'o', 'v', 'a'};
+	char char_array_2 [] = { 'O', 'K' , '\0'};
+
+	char * prova_stringa = "provaOK";
+
+    char * concat_char_array;
+
+    // restituisce una concatenazione dei due array
+    concat_char_array = concat_arrays(char_array_1, sizeof(char_array_1),
+    		char_array_2, sizeof(char_array_2)
+    		);
+
+    printf("risultato di concat_arrays:\n%s\n", concat_char_array);
+    printf("scrivo prova_stringa:\n%s\n", prova_stringa);
+
+
 
 	// esempio con bubble sort
 
+    // https://www.random.org/integer-sets/?sets=1&num=100&min=-2000&max=2000&seqnos=on&commas=on&order=index&format=html&rnd=new
 
+    int rnd_array_int [] = {
+    		-1958, 140, 607, 1447, -22, -1400, -1748, -1150, 1623, -971, 891, -94, 1805, 105, 814, 1286, -1791, 359, -1277, -520, -1535, 663, -533, -383, -979, -694, -748, 347, 495, -169, -157, -751, 1302, -1307, -405, 311, 595, 1344, -604, -262, 777, 779, 1491, 13, 1333, 357, -240, -197, 685, 1309, 195, -207, -1545, 601, -1227, 1411, 172, 1487, 572, -1268, 1719, 1276, -1943, -352, -1366, -263, -1955, 118, -1407, -582, -1229, 193, 1818, -188, -594, 688, 1534, -1458, 1455, -1623, -1167, 1208, -1383, 1022, -1465, -1586, -300, 851, 515, 1959, 659, 486, 1039, 115, -1063, -591, 566, -1609, 655, -1410
+    };
+
+    // sizeof(rnd_array_int) restituisce la dimensione totale dell'array,
+    // lo può fare perchè il numero di celle dell'array è noto
+
+    int rnd_array_int_len = sizeof(rnd_array_int) / sizeof(int); // numero di celle dell'array
+
+    bubble_sort(rnd_array_int, rnd_array_int_len);
+
+    printf("risultato di bubble_sort():\n");
+
+    for (int i = 0; i < rnd_array_int_len; i++) {
+    	printf("%d ", rnd_array_int[i]);
+    }
+
+    printf("\n");
 
 	// quando il programma termina, tutte le allocazioni di memoria sono automaticamente liberate
 	return EXIT_SUCCESS;
@@ -428,24 +463,48 @@ int * complete_reverse_int(int * array, unsigned int array_len) {
  * concat di array è { 0, 1, 2, 10, 11, 12, 13}
  *
  */
-char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension) {
+//char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension) {
+//
+//	// ESERCIZIO: seguire le specifiche e completare la funzione
+//
+//
+//	// allocare lo spazio per un new_array, numero di celle = array1_dimension + array2_dimension
+//
+//
+//
+//	// copiare array1 in new_array, a partire da nuovo_array[0]
+//    // for qui
+//
+//
+//	// copiare array2 in new_array, a partire da nuovo_array[array1_dimension]
+//
+//
+//	// restituire new_array
+//
+//}
 
-	// ESERCIZIO: seguire le specifiche e completare la funzione
+char *concat_arrays(char *array1, int array1_dim, char *array2, int array2_dim) {
 
+	char *new_array;
 
-	// allocare lo spazio per un new_array, numero di celle = array1_dimension + array2_dimension
+	int tot_len = array1_dim + array2_dim;
 
+	new_array = malloc(sizeof(char)*tot_len);
 
+	if (new_array == NULL) {
+		perror("malloc ha restituito errore");
+		return NULL;
+	}
 
-	// copiare array1 in new_array, a partire da nuovo_array[0]
+	for (int i=0; i<array1_dim; i++) {
+		new_array[i] = array1[i];
+	}
 
+	for (int j=array1_dim; j<tot_len; j++) {
+		new_array[j] = array2[j - array1_dim];
+	}
 
-
-	// copiare array2 in new_array, a partire da nuovo_array[array1_dimension]
-
-
-	// restituire new_array
-
+	return new_array;
 }
 
 
@@ -456,6 +515,9 @@ char * concat_arrays(char * array1, int array1_dimension, char * array2, int arr
 void bubble_sort(int * array, int array_dimension) {
 
 	// ESERCIZIO: implementare bubble sort (pseudocodice riportato sotto)
+
+
+
 
 /*
 
