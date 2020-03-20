@@ -201,6 +201,9 @@ int main(int argc, char *argv[]) {
 	size = 20;
 
 	array_a = malloc(size * sizeof(long)); // array_a non viene inizializzato da malloc
+	// dovrei verificare che sia non NULL ...
+
+	long l = array_a[0]; // cosa trovo? c'è sicuramente un valore, ma è random
 
 	// che valori ha array_a dopo memset?
 	// man 3 memset
@@ -208,7 +211,9 @@ int main(int argc, char *argv[]) {
 
 	copia_array = make_copy_of_array(array_a, size * sizeof(long)); // importante!!!
 
-	//
+	// operiamo su copia_array
+	// quando abbiamo finito, la liberiamo
+
 	free(copia_array);
 
 	// accediamo agli elementi dell'array:
@@ -260,7 +265,8 @@ int main(int argc, char *argv[]) {
 	free(char_array);
 
 	////////
-	// ESERCIZIO: scrivere una funzione 'complete_reverse_int' che inverte le celle di un array di int
+	// ESERCIZIO: scrivere una funzione 'complete_reverse_int' che
+	// inverte le celle di un array di int
 	// la funzione va definita più sotto, dopo complete_reverse
 
 
@@ -299,7 +305,7 @@ int main(int argc, char *argv[]) {
  * parametri: indirizzo dell'array, dimensione dell'array (numero di celle)
  * restituisce l'indirizzo della copia
  */
-long * make_copy_of_array(long src_array [], unsigned int array_dimension) {
+long * make_copy_of_array(long src_array [] /* long * src_array */, unsigned int array_dimension) {
 
 	/*
 	 * in Java, quando passo un array come argomento di una funzione, oltre al riferimento all'oggetto
@@ -309,7 +315,7 @@ long * make_copy_of_array(long src_array [], unsigned int array_dimension) {
 	 * bisogna passare l'indirizzo dell'array E la lunghezza dell'array, in due parametri distinti
 	 */
 
-	if (src_array == NULL || array_dimension < 0)
+	if (src_array == NULL)
 		return NULL;
 
 	long * result;
@@ -317,16 +323,21 @@ long * make_copy_of_array(long src_array [], unsigned int array_dimension) {
 	// allochiamo lo spazio di memoria per la copia
 	result = malloc(array_dimension * sizeof(long));
 
+	if (result == NULL) {
+		return NULL;
+	}
+
 	memcpy(result, src_array, array_dimension * sizeof(long));
 
 	// invece di memcpy potrei fare così:
-//	long * dest = result;
-//	long * src = src_array;
+//	long * destination = result;
+//	long * source = src_array;
 //	for (unsigned int i = 0; i < array_dimension; i++) {
-//		dest[i] = src[i];
+//		destination[i] = source[i];
 //	}
 
-	// IMPORTANTE: chi riceve il risultato, dovrà occuparsi di liberare la memoria allocata per la copia dell'array
+	// IMPORTANTE: chi riceve il risultato, dovrà occuparsi di liberare
+	// la memoria allocata per la copia dell'array
 	return result;
 }
 
@@ -374,8 +385,14 @@ void swap(char *x, char *y) {
 // function to reverse array[i..j]
 char * reverse(char * array, unsigned int i, unsigned int j)
 {
-	while (i < j)
-		swap(&array[i++], &array[--j]);
+//	while (i < j)
+//		swap(&array[i++], &array[--j]);
+
+	while (i < j) {
+		j--;
+		swap(&array[i], &array[j]);
+		i++;
+	}
 
 	return array;
 }
