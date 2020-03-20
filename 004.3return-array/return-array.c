@@ -13,15 +13,16 @@
 // typedef: Kernighan&Ritchie pag. 146
 // struct: Kernighan&Ritchie pag. 127
 
-typedef struct {
-	char * data;
-	unsigned int length;
-} array_result;
+typedef
+	struct {
+		char * data;
+		unsigned int length;
+	} char_array_type;
 
 
-array_result example_function() {
+char_array_type example_function() {
 
-	array_result result;
+	char_array_type result;
 
 	result.data = calloc(10, sizeof(int));
 
@@ -38,9 +39,9 @@ array_result example_function() {
 int main(int argc, char * argv[]) {
 
 
-	array_result ar = example_function();
+	char_array_type ar = example_function();
 
-	printf("example_function ha restituito un array di lunghezza %u\n", ar.length);
+	printf("example_function ha restituito un array di lunghezza %u\n\n", ar.length);
 
 	// lavoriamo con l'array ar.data
 
@@ -53,6 +54,8 @@ int main(int argc, char * argv[]) {
 
 	// una volta finito di utilizzare l'array, liberiamo la memoria
 	free(ar.data);
+
+	// ma non liberiamo ar, perchè ar è una variabile locale e verrà distrutta automaticamente alla fine della funzione
 
 	// tutte le allocazioni di memoria ancora attive vengono liberate automaticamente alla fine del programma
 	return EXIT_SUCCESS;

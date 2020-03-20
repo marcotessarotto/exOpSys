@@ -57,6 +57,41 @@ double calculate_average2(int * data, int data_len) {
 }
 
 
+///////////////////////////////////////////////////////////
+// vedere prima progetto 004.3return-array
+
+// typedef: Kernighan&Ritchie pag. 146
+// struct: Kernighan&Ritchie pag. 127
+
+typedef struct {
+	int * data;
+	unsigned int length;
+} int_array_type;
+
+double calculate_average3(int_array_type ar) {
+
+	double result;
+
+	result = calculate_average(ar.data, ar.length);
+
+	return result;
+}
+
+
+double calculate_average4(int_array_type * ar) {
+
+	// ar->length: è equivalente a:
+
+//	int_array_type copy;
+//	copy = *ar;
+//	int len = copy.length;
+
+	return calculate_average(ar->data, ar->length);
+}
+
+///////////////////////////////////////////////////////////
+
+
 int main(int argc, char * argv[]) {
 
 	int * array;
