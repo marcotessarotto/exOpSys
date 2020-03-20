@@ -116,6 +116,22 @@ int main(int argc, char * argv[]) {
 
 	printf("la media aritmetica (algoritmo 'incremental average') dell'array è %f\n", average);
 
+	///
+	int_array_type param;
+
+	param.data = array;
+	param.length = dimension;
+
+	average = calculate_average3(param); // viene fatta una copia di param
+
+	printf("la media aritmetica dell'array calcolata da calculate_average3 è %f\n", average);
+
+	average = calculate_average4(&param); // viene passato l'indirizzo di param
+
+	printf("la media aritmetica dell'array calcolata da calculate_average4 è %f\n", average);
+
+	///
+
 
 	return EXIT_SUCCESS;
 }

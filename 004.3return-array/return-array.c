@@ -13,6 +13,14 @@
 // typedef: Kernighan&Ritchie pag. 146
 // struct: Kernighan&Ritchie pag. 127
 
+/*
+ * una struttura (struct) è una collezione di una o più variabili, anche di tipo diverso,
+ * raggruppate assieme sotto un nome unico (il nome della 'struct')
+ *
+ *
+ * nell'esempio sotto, la struttura è anonima ma viene definito un nuovo tipo attraverso il comando typedef
+ */
+
 typedef
 	struct {
 		char * data;
@@ -38,7 +46,6 @@ char_array_type example_function() {
 
 int main(int argc, char * argv[]) {
 
-
 	char_array_type ar = example_function();
 
 	printf("example_function ha restituito un array di lunghezza %u\n\n", ar.length);
@@ -55,7 +62,7 @@ int main(int argc, char * argv[]) {
 	// una volta finito di utilizzare l'array, liberiamo la memoria
 	free(ar.data);
 
-	// ma non liberiamo ar, perchè ar è una variabile locale e verrà distrutta automaticamente alla fine della funzione
+	// ma non possiamo liberare ar, perchè ar è una variabile locale e verrà distrutta automaticamente alla fine della funzione
 
 	// tutte le allocazioni di memoria ancora attive vengono liberate automaticamente alla fine del programma
 	return EXIT_SUCCESS;
