@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-
+int calculate_average_status = 0; // variabile globale
+// è accessibile da tutte le funzioni
+// se vale 0 al ritorno da calculate_average => tutto OK
+// se diverso da 0 => ERRORE
 
 double calculate_average(int * data, int data_len) {
 	/*
@@ -14,15 +17,21 @@ double calculate_average(int * data, int data_len) {
 
 	double d = 0.0;
 
-	if (data == NULL) {
+	if (data == NULL) { // condizione di errore
 		printf("data is NULL!!!\n");
+
+		calculate_average_status = 1;
+
 		// come faccio a comunicare al chiamante lo stato di errore?
 		// in C non ci sono le eccezioni...
 		// 0 potrebbe essere un risultato valido
 		return 0;
 	}
 
-	if (data_len == 0) {
+	if (data_len <= 0) { // condizione di errore
+
+		calculate_average_status = 1;
+
 		// cosa restituisco?? devo comunicare che non posso calcolare la media
 		return 0;
 	}
@@ -36,6 +45,8 @@ double calculate_average(int * data, int data_len) {
 	// https://en.cppreference.com/w/c/language/operator_precedence
 
 	d = d / data_len;
+
+	calculate_average_status = 0;
 
 	return d;
 }
@@ -98,10 +109,16 @@ int main(int argc, char * argv[]) {
 
 	int dimension = 1024;
 
+	int test_array[1] = { -1 }; // media: -1
+
+	printf("media aritmetica di test_array: %f\n",  calculate_average(test_array, 1));
+
 	// NOTA: malloc, calloc e free richiedono:
 	// #include <stdlib.h>
 
 	array = calloc(dimension, sizeof(int));
+
+	// TODO: check calloc return value
 
 	//
 	for (int i = 0; i < dimension; i++) {
