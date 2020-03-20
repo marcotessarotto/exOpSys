@@ -53,6 +53,8 @@ float read_and_process(int n)
 
  */
 
+#define ARRAY_SIZE 10
+
 // dichiarazioni di funzione definite dopo main()
 long * make_copy_of_array(long src_array [], unsigned int array_dimension);
 void * make_copy_of_array_generic(void * src_array, unsigned int array_total_size);
@@ -61,50 +63,12 @@ void swap(char *x, char *y);
 char * reverse(char * array, unsigned int i, unsigned int j);
 char * complete_reverse(char * array, unsigned int array_len);
 
+int * complete_reverse_int(int * array, unsigned int array_len); // ESERCIZIO
+
 char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension);
 
 
-int main(int argc, char *argv[]) {
-
-	int size = 10;
-
-	char * char_array; // char_array è un puntatore a char
-	// Kernighan&Ritchie pag. 93
-	// un puntatore è una variabile che contiene un indirizzo di (un'altra) variabile
-
-
-	char_array = NULL;
-
-	// cosa succede?
-	//*char_array = 'A'; // WRONG! perchè? (in quale indirizzo di memoria va a scrivere?)
-
-	//char_array = 'A'; // WRONG! perchè?
-
-	// allocare (creare) un array
-	// ogni cella ha dimensione sizeof(char)
-	// l'array ha 'size' celle
-	char_array = calloc(size, sizeof(char)); // inizializza a zero la memoria allocata
-	// oppure
-	//char_array = malloc(size * sizeof(char)); // NON inizializza a zero la memoria allocata
-
-	// NOTA: malloc, calloc e free richiedono:
-	// #include <stdlib.h>
-
-	// è necessario controllare se calloc ha funzionato:
-	if (char_array == NULL) {
-		perror("calloc error!");
-		exit(EXIT_FAILURE);
-	}
-
-	printf("indirizzo contenuto in char_array: %p\n", char_array);
-
-	// liberare (distruggere) un array
-	free(char_array);
-	//char_array = NULL;
-	// attenzione! char_array contiene lo stesso valore di prima ma
-	// non punta più ad una zona di memoria allocata! non bisogna utilizzarla più!
-
-
+void alloc_test() {
 
 	// esempio: allochiamo 1, 10, 100 GB di memoria:
 
@@ -142,15 +106,76 @@ int main(int argc, char *argv[]) {
 		ptr++;
 	}
 
+}
+
+
+int main(int argc, char *argv[]) {
+
+	int size = 10;
+
+	char * char_array; // char_array è un puntatore a char
+	// Kernighan&Ritchie pag. 93
+	// un puntatore è una variabile che contiene un indirizzo di (un'altra) variabile
+
+
+	char_array = NULL;
+
+	// ESEMPIO: allocare array con calloc (o malloc),
+	// controllare il risultati di calloc/malloc
+	// utilizzare l'array,
+	// liberare/distruggere l'array
+
+	// cosa succede?
+	//*char_array = 'A'; // WRONG! perchè? (in quale indirizzo di memoria va a scrivere?)
+
+	//char_array = 'A'; // WRONG! perchè?
+
+	// allocare (creare) un array
+	// ogni cella ha dimensione sizeof(char)
+	// l'array ha 'size' celle
+	char_array = calloc(size, sizeof(char)); // inizializza a zero la memoria allocata
+	// oppure
+	//char_array = malloc(size * sizeof(char)); // NON inizializza a zero la memoria allocata
+
+	// NOTA: malloc, calloc e free richiedono:
+	// #include <stdlib.h>
+
+	// è necessario controllare se calloc ha funzionato:
+	if (char_array == NULL) {
+		perror("calloc error!");
+		exit(EXIT_FAILURE);
+	}
+
+	// utilizzo di char_array ...
+
+	printf("indirizzo contenuto in char_array: %p\n", char_array);
+
+	// liberare (distruggere) un array
+	free(char_array);
+	//char_array = NULL;
+	// attenzione! char_array contiene lo stesso valore di prima ma
+	// non punta più ad una zona di memoria allocata! non bisogna utilizzarla più!
 
 
 	/////////////////////////////////////////
+
+	alloc_test();
+
+	/////////////////////////////////////////
+
+	// ESEMPIO: allocazione array,
+	// ridimensionamento array,
+	// distruggere array
+
+	size = 10;
 
 	int * int_array;
 	// allocare (creare) un array
 	int_array = malloc(size * sizeof(int)); // dimensione totale in bytes dell'array?
 
-	size = size * 100;
+	int_array[0] = 1024;
+
+	size = size * 100; // la nuova dimensione di int_array sarà 1000
 
 	// ridimensionare un array
 	int_array = realloc(int_array, size * sizeof(int));
@@ -160,9 +185,14 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
+	// quanto vale int_array[0] dopo il ridimensionamento?
+	printf("int_array[0] = %d\n", int_array[0]);
+
 	free(int_array);
 
 	/////////////////////////////////////////
+
+	// ESEMPIO: allocare array, fare una copia dell'array
 
 	long * array_a;
 	long * copia_array;
@@ -170,8 +200,9 @@ int main(int argc, char *argv[]) {
 
 	array_a = malloc(size * sizeof(long)); // array_a non viene inizializzato da malloc
 
-	// che valori ha array_a?
-	memset(array_a, 0, size * sizeof(long)); // inizializziamo array_a (ogni cella avrà il valore 0)
+	// che valori ha array_a dopo memset?
+	// man 3 memset
+	memset(array_a, 0, size * sizeof(long)); // inizializziamo array_a (ogni cella avrà il valore ...)
 
 	copia_array = make_copy_of_array(array_a, size * sizeof(long)); // importante!!!
 
@@ -183,7 +214,80 @@ int main(int argc, char *argv[]) {
 	array_a[0] = 1;
 	array_a[1] = 0xFFFF;
 	// ...
+	free(array_a);
 
+
+	/////////////////////////////////////////
+	// ESEMPIO: reverse array (di array di char)
+
+	// reverse array (inversione dell'array) di un array di lunghezza n (= numero di celle)
+	// la cella 0 viene scambiata con la cella n-1
+	// la cella 1 viene scambiata con la cella n-2
+	// la cella 2 viene scambiata con la cella n-3
+	// ...
+
+
+	int i;
+
+	char_array = calloc(ARRAY_SIZE, sizeof(char));
+
+	if (char_array == NULL) {
+		perror("calloc error");
+		exit(EXIT_FAILURE);
+	}
+
+	for (i = 0; i < ARRAY_SIZE; i++) {
+		char_array[i] = 'A' + i;
+	}
+
+
+	printf("contenuto dell'array char_array:\n");
+	for (i = 0; i < ARRAY_SIZE; i++) {
+		printf("'%c'(%d) ", char_array[i], char_array[i]);
+	}
+	printf("\n");
+
+	complete_reverse(char_array, ARRAY_SIZE);
+
+	printf("contenuto dell'array char_array dopo complete_reverse():\n");
+	for (i = 0; i < ARRAY_SIZE; i++) {
+		printf("'%c'(%d) ", char_array[i], char_array[i]);
+	}
+	printf("\n");
+
+	free(char_array);
+
+	////////
+	// ESERCIZIO: scrivere una funzione 'complete_reverse_int' che inverte le celle di un array di int
+	// la funzione va definita più sotto, dopo complete_reverse
+
+
+	int int_array_2[ARRAY_SIZE] = { 1, 2, 3, 4, 5 };
+
+	printf("contenuto dell'array int_array_2:\n");
+	for (i = 0; i < ARRAY_SIZE; i++) {
+		printf("%d ", int_array_2[i]);
+	}
+	printf("\n");
+
+	// ESERCIZIO: scrivere la funzione (definizione più sotto)
+	// complete_reverse_int(int_array_2, ARRAY_SIZE);
+
+	for (i = 0; i < ARRAY_SIZE; i++) {
+		printf("%x ", int_array_2[i]);
+	}
+	printf("\n");
+
+
+	// ESERCIZIO: completare la funzione concat_arrays
+	// esempio con concat di due array
+
+
+	// esempio con bubble sort
+
+
+
+	// quando il programma termina, tutte le allocazioni di memoria sono automaticamente liberate
 	return EXIT_SUCCESS;
 }
 
@@ -269,7 +373,7 @@ void swap(char *x, char *y) {
 char * reverse(char * array, unsigned int i, unsigned int j)
 {
 	while (i < j)
-		swap(&array[i++], &array[j--]);
+		swap(&array[i++], &array[--j]);
 
 	return array;
 }
@@ -279,9 +383,14 @@ char * complete_reverse(char * array, unsigned int array_len) {
 }
 
 
+int * complete_reverse_int(int * array, unsigned int array_len) {
+	// ESERCIZIO DA FARE
+}
+
+
 char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension) {
 
-	// ESERCIZIO:
+	// ESERCIZIO: seguire le specifiche e completare la funzione
 
 
 	// allocare lo spazio per un new_array, numero di celle = array1_dimension + array2_dimension
@@ -306,7 +415,7 @@ char * concat_arrays(char * array1, int array1_dimension, char * array2, int arr
  */
 void bubble_sort(int * array, int array_dimension) {
 
-	// ESERCIZIO: implementare bubble sort (pseudocodice riportato sotto
+	// ESERCIZIO: implementare bubble sort (pseudocodice riportato sotto)
 
 /*
 
