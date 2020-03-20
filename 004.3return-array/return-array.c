@@ -18,7 +18,8 @@
  * raggruppate assieme sotto un nome unico (il nome della 'struct')
  *
  *
- * nell'esempio sotto, la struttura è anonima ma viene definito un nuovo tipo attraverso il comando typedef
+ * nell'esempio sotto, la struttura è anonima ma
+ * viene definito un nuovo tipo dati ('char_array_type') attraverso il comando typedef
  */
 
 typedef
