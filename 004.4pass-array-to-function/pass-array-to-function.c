@@ -112,6 +112,8 @@ int main(int argc, char * argv[]) {
 	int test_array[1] = { -1 }; // media: -1
 
 	printf("media aritmetica di test_array: %f\n",  calculate_average(test_array, 1));
+	// test_array è equivalente a:
+	// &test_array[0]
 
 	// NOTA: malloc, calloc e free richiedono:
 	// #include <stdlib.h>
