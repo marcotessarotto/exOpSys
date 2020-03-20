@@ -112,8 +112,13 @@ int main(int argc, char * argv[]) {
 	int test_array[1] = { -1 }; // media: -1
 
 	printf("media aritmetica di test_array: %f\n",  calculate_average(test_array, 1));
-	// test_array è equivalente a:
-	// &test_array[0]
+	// scrivere 'calculate_average(test_array, 1)' è equivalente a:
+	// calculate_average(&test_array[0], 1)
+
+
+	double val = calculate_average(NULL, 123); // ci aspettiamo status=errore
+	printf("media aritmetica di NULL: %f, status=%s\n", val , calculate_average_status != 0 ? "ERRORE" : "OK");
+
 
 	// NOTA: malloc, calloc e free richiedono:
 	// #include <stdlib.h>
@@ -129,7 +134,11 @@ int main(int argc, char * argv[]) {
 
 	double average = calculate_average(array, dimension);
 
-	printf("la media aritmetica dell'array è %f\n", average);
+	if (calculate_average_status == 0) {
+		printf("la media aritmetica dell'array è %f\n", average);
+	} else {
+		printf("calculate_average ha restituito errore, status=%d\n", calculate_average_status);
+	}
 
 	average = calculate_average2(array, dimension);
 
