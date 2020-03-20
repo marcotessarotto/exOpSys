@@ -88,7 +88,9 @@ void alloc_test() {
 
 	unsigned long alloc_test [] = { ONE_GIGABYTE, 10 * ONE_GIGABYTE, 100 * ONE_GIGABYTE, -1 };
 
-	unsigned long * ptr = alloc_test;
+	unsigned long * ptr = alloc_test; // &alloc_test[0]
+
+	printf("alloc_test[3] = %lu\n", alloc_test[3]);
 
 	while (*ptr != -1) {
 		printf("provo ad allocare %lu GB...", *ptr / ONE_GIGABYTE);
