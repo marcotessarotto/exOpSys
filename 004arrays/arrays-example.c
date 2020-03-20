@@ -128,7 +128,7 @@ int main() {
 	first_array[0] = -1;
 
 	// non viene fatto un controllo sugli indici quando accedo all'array,
-	// dipende dal programmatore
+	// la correttezza del programma dipende da chi lo scrive
 
 	// provare!!! se messaggio di errore riporta un signal,
 	// andare a vedere: man 7 signal
