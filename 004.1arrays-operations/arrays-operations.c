@@ -279,7 +279,7 @@ int main(int argc, char *argv[]) {
 	printf("\n");
 
 	// ESERCIZIO: scrivere la funzione (definizione più sotto)
-	// complete_reverse_int(int_array_2, ARRAY_SIZE);
+	complete_reverse_int(int_array_2, ARRAY_SIZE);
 
 	for (i = 0; i < ARRAY_SIZE; i++) {
 		printf("%x ", int_array_2[i]);
@@ -401,12 +401,33 @@ char * complete_reverse(char * array, unsigned int array_len) {
 	return reverse(array, 0, array_len);
 }
 
-
-int * complete_reverse_int(int * array, unsigned int array_len) {
-	// ESERCIZIO DA FARE
+void swap_int(int *x, int *y) {
+	int t = *x;
+	*x = *y;
+	*y = t;
 }
 
+int * reverse_int(int * array, unsigned int i, unsigned int j)
+{
+	while (i < j)
+		swap_int(&array[i++], &array[--j]);
 
+	return array;
+}
+
+int * complete_reverse_int(int * array, unsigned int array_len) {
+	return reverse_int(array, 0, array_len);
+}
+
+/*
+ * concat_arrays prende in ingresso due array (array1 e array2)
+ * produce un nuovo array che è il risultato della concatenazione tra i due array passati
+ *
+ * concatenare array
+ * { 0, 1, 2} e { 10, 11, 12, 13}
+ * concat di array è { 0, 1, 2, 10, 11, 12, 13}
+ *
+ */
 char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension) {
 
 	// ESERCIZIO: seguire le specifiche e completare la funzione
