@@ -67,6 +67,7 @@ int * complete_reverse_int(int * array, unsigned int array_len); // ESERCIZIO
 
 char * concat_arrays(char * array1, int array1_dimension, char * array2, int array2_dimension);
 
+void bubble_sort(int * array, int array_dimension);
 
 void alloc_test() {
 
@@ -406,6 +407,11 @@ void * make_copy_of_array_generic(void * src_array, unsigned int array_total_siz
 	result = malloc(array_total_size);
 
 	memcpy(result, src_array, array_total_size);
+	// nota bene: le aree di memoria sorgente e destinazione
+	// NON si devono sovrapporre.
+
+	// in caso di sovrapposizione di memoria sorgente e destinazione,
+	// usare memmove
 
 	// chi riceve il risultato, dovrà occuparsi di liberare la memoria allocata per la copia dell'array
 	return result;
