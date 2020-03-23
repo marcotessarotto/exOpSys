@@ -141,7 +141,7 @@ int main(int argc, char * argv[]) {
 
     result = memcmp(array_a, array_b, 4 * sizeof(int));
     print_arrays(array_a, array_b, 4);
-    printf("memcmp(array_a, array_b, 4* sizeof(int)) = %d\n", result);
+    printf("memcmp(array_a, array_b, 4* sizeof(int)) = %d ***ARRAY UGUALI***\n", result);
     printf("\n");
 
     result = memcmp(array_a, array_c, 4 * sizeof(int));
@@ -170,16 +170,21 @@ int main(int argc, char * argv[]) {
     printf("\n\n");
     //////////////////////////////
 
-    printf("ricordiamo: array_c : ");
+    printf("ricordiamo:\n");
+    printf("array_c : ");
     print_array(array_c, ARRAY_LEN * 2);
+    printf("\n");
+    printf("array_b : ");
+    print_array(array_b, ARRAY_LEN);
     printf("\n\n");
 
     for (int i = 0; i < 6; i++) {
 
     	result = memcmp(array_b, &array_c[i], 4 * sizeof(int));
 
-    	printf("'sotto-array' di array_c, "
-    			"a partire dalla posizione %d, lunghezza %d bytes\n", i, 4 * sizeof(int));
+    	printf("confronto array_b con il 'sotto-array' di array_c, "
+    			"a partire dalla posizione %d, lunghezza %lu bytes (%d celle)\n",
+				i, 4 * sizeof(int), 4);
     	//
     	printf("confronto " );
     	print_array(array_b, 4);
@@ -198,7 +203,8 @@ int main(int argc, char * argv[]) {
 
 		printf(":\n");
 
-    	printf("memcmp(array_b, &array_c[%d], 16) = %d\n\n", i, result);
+    	printf("memcmp(array_b, &array_c[%d], 16) = %d%s\n\n", i, result,
+    			result == 0 ? " ***ARRAY UGUALI***" : "");
 
     }
 
