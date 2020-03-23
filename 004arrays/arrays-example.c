@@ -91,13 +91,13 @@ int main() {
 
 	   ESERCIZIO: completare la rappresentazione in memoria di first_array
 
-                        Big endian (Intel, AMD)
+                        Big endian (network order)
        +----+----+----+----+----+----+----+----+----+----+----+----+
        |0x00|0x00|0x01|0x23|0x00|0x00|0x12|0x34|0x00|0x01|0x23|0x45|
        +----+----+----+----+----+----+----+----+----+----+----+----+
  byte     0    1    2    3   4     5    6    7    8    9   10   11
  address
-						Little endian (ARM)
+						Little endian (Intel, AMD)
        +----+----+----+----+----+----+----+----+----+----+----+----+
        |0x23|0x01|0x00|0x00|0x34|0x12|0x00|0x00|0x45|0x23|0x01|0x00|
        +----+----+----+----+----+----+----+----+----+----+----+----+

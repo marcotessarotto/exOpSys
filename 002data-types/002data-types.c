@@ -10,8 +10,10 @@ int main(int argc, char **argv) {
 	// per le definizioni dei tipi dati del linguaggio C
 
 	// endianess: ordine dei byte per immagazzinare in memoria dati di dimensione superiore al byte
-	// Intel, AMD -> big endian
-	// ARM -> little endian
+	// Intel, AMD -> little endian
+	// network order -> big endian
+
+	// le architetture ARM sono bi-endian (possono cambiare endianess)
 
 	/*
 
