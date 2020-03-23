@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
 
 	int * int_array;
 	// allocare (creare) un array
-	int_array = malloc(size * sizeof(int)); // dimensione totale in bytes dell'array?
+	int_array = calloc(size, sizeof(int)); // dimensione totale in bytes dell'array?
 
 	int_array[0] = 1024;
 
@@ -162,7 +162,7 @@ int main(int argc, char *argv[]) {
 	array_a = malloc(size * sizeof(long)); // array_a non viene inizializzato da malloc
 	// dovrei verificare che sia non NULL ...
 
-	long l = array_a[0]; // cosa trovo? c'è sicuramente un valore, ma è random
+	long l = array_a[0]; // cosa trovo? c'è sicuramente un valore, ma è casuale
 
 	// che valori ha array_a dopo memset?
 	// man 3 memset
