@@ -50,5 +50,14 @@ int main(int argc, char *argv[]) {
 
 	printf("\nho letto %lu caratteri\n", counter);
 
+	/*
+	 * seconda parte dell'esercizio:
+	 *
+	 * reindirizzare stdin:
+	 *
+	 * 005.1getchar < prova.txt
+	 *
+	 */
+
 	return 0;
 }

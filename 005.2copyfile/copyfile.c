@@ -31,4 +31,13 @@ int main(int argc, char *argv[]) {
 
 	}
 
+	/*
+	 * seconda parte dell'esercizio:
+	 *
+	 * reindirizzare stdin:
+	 *
+	 * 005.2copyfile < prova.txt
+	 *
+	 */
+
 }
