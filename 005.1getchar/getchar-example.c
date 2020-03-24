@@ -16,6 +16,8 @@ int main(int argc, char *argv[]) {
 	// tipicamente sono "attaccati" al terminale da cui viene avviato il processo
 	// quindi: input da tastiera, output (1 e 2) su schermo
 
+	// DA EMULATORE TERMINALE:
+	// ctrl+d per inviare EOF
 
 	if (1) {
 

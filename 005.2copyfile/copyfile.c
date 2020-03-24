@@ -5,6 +5,8 @@ int main(int argc, char *argv[]) {
 
 	int c;
 
+	// Kernighan&Ritchie pag. 16
+
 	// DA EMULATORE TERMINALE:
 	// ctrl+d per inviare EOF
 
