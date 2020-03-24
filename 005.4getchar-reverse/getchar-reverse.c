@@ -8,11 +8,11 @@ int main(int argc, char *argv[]) {
 
 	// scrivere il seguente programma:
 
-	// legge e salva tutti i dati provenienti da stdin fino a EOF
+	// legge e salva (in memoria) tutti i dati provenienti da stdin fino a EOF
 
 	// poi scrive su stdout i dati accumulati ma all'incontrario (dall'ultimo al primo)
 
-	// suggerimenti: .....
+	// suggerimenti: utilizzare getchar(), calloc(), realloc()
 
 	return 0;
 }
