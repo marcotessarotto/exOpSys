@@ -33,10 +33,17 @@ char_array_type example_function() {
 
 	char_array_type result;
 
-	result.data = calloc(10, sizeof(int));
+	result.data = calloc(10, sizeof(char));
 
 	for (int i = 0; i < 10; i++)
-		result.data[i] = i;
+		result.data[i] = i; // conversione implicita da int a char
+
+//	for (char i = 0; i < 10; i++)
+//			result.data[i] = i; // nessuna conversione: char è assegnato a char
+
+	// result.data[9] = 9;
+	// rappresentazione in memoria di (int) 9 è:
+	// 0x09 00 00 00
 
 	result.length = 10;
 
