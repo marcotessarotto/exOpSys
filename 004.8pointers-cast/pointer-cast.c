@@ -6,14 +6,6 @@
 #include <sys/types.h>
 #include <stddef.h> /* size_t */
 
-
-void show_array(const void * array, unsigned int size) {
-
-
-
-}
-
-
 int main(int argc, char * argv[]) {
 
 	int counter, counter2;
