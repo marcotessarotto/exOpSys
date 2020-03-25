@@ -5,7 +5,49 @@
 #include <sys/wait.h>
 
 
+/*
+ * meccanismo fork-wait per avviare un nuovo processo ed aspettare la sua conclusione
+ */
+
 int main(int argc, char *argv[]) {
+
+	if (1) {
+
+		// esempio di uso della sola system call fork()
+
+		// quando il processo figlio è terminato ed il processo padre non lo "aspetta" (wait)
+		// allora il processo figlio diventa "zombie"
+
+		// definizione processo "zombie":
+		// processo terminato su cui il processo padre non ha invocato la system call wait
+
+		switch (fork()) {
+			case 0:
+				printf("sono il processo figlio\n");
+
+				exit(0);
+				break;
+			case -1:
+				printf("fork() ha fallito! niente processo figlio!\n");
+
+				exit(1);
+				break;
+			default:
+
+				printf("sono il processo padre\n");
+
+				// per vedere il processo "zombie", decommentare:
+				// getchar();
+				// ed eseguire in una shell il comando:
+				// ps -aux | grep fork-wait
+
+				exit(0);
+		}
+
+
+	}
+
+	// esempio di uso delle system call fork() e wait()
 
 	pid_t child_pid;
 
@@ -16,15 +58,19 @@ int main(int argc, char *argv[]) {
 
 		printf("[child]hello world! sono il processo figlio. ora dormirò per qualche secondo...\n");
 
-		sleep(5);
+		for (int i = 0; i < 5; i++) {
+			printf("%d...\n", i+1);
+			sleep(1); // dorme 1 secondo
+		}
 
-		printf("[child]sto per terminare! bye!\n");
+		printf("[child]sto per terminare! bye!\n\n");
 
 		exit(EXIT_SUCCESS); // processo figlio termina
 
 	} else if (child_pid > 0) {
 		// sono il processo padre
 
+		printf("[parent]ora aspetterò la conclusione del processo figlio.\n\n");
 		// aspetto la conclusione del processo figlio (c'è ne uno solo)
 		if (wait(NULL) == -1) {
 			perror("wait error");
