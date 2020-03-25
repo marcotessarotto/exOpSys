@@ -7,6 +7,10 @@
 
 /*
  * meccanismo fork-wait per avviare un nuovo processo ed aspettare la sua conclusione
+ *
+ * nel primo caso, viene usato fork() e basta
+ *
+ * nel secondo caso, vengoni usati fork() e wait()
  */
 
 int main(int argc, char *argv[]) {
