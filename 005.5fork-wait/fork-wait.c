@@ -15,11 +15,16 @@ int main(int argc, char *argv[]) {
 
 		// esempio di uso della sola system call fork()
 
-		// quando il processo figlio è terminato ed il processo padre non lo "aspetta" (wait)
+		// quando il processo figlio è terminato
+		// ed il processo padre non lo "aspetta" (wait)
 		// allora il processo figlio diventa "zombie"
 
 		// definizione processo "zombie":
-		// processo terminato su cui il processo padre non ha invocato la system call wait
+		// processo terminato su cui il processo padre
+		// non ha invocato la system call wait
+
+		// tutto questo serve a restituire il risultato
+		// del processo figlio al processo padre
 
 		switch (fork()) {
 			case 0:
@@ -42,6 +47,9 @@ int main(int argc, char *argv[]) {
 				// ps -aux | grep fork-wait
 
 				exit(0);
+				// quando il processo padre termina, il processo figlio diventa
+				// "orfano" e viene "adottato" dal processo init,
+				// che automaticamente invoca wait() per rimuovere gli zombie.
 		}
 
 
@@ -71,7 +79,11 @@ int main(int argc, char *argv[]) {
 		// sono il processo padre
 
 		printf("[parent]ora aspetterò la conclusione del processo figlio.\n\n");
-		// aspetto la conclusione del processo figlio (c'è ne uno solo)
+
+		// il processo padre aspetta la conclusione del processo figlio (c'è ne uno solo)
+		// per vedere come ricevere il risultato del processo figlio,
+		// vedere il progetto successivo
+
 		if (wait(NULL) == -1) {
 			perror("wait error");
 		} else {
