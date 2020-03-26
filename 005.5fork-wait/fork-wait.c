@@ -15,6 +15,29 @@
 
 int main(int argc, char *argv[]) {
 
+/*
+ * man fork
+ *
+ * fork() creates a new process by duplicating the calling process.
+ * The new process is referred to as the child process.
+ * The calling process is referred to as the parent process.
+ *
+ * The child process and the parent process run in separate memory spaces.
+ * At the time of fork() both memory spaces have the same content.
+ * ...
+ *
+ * The child process is an exact duplicate of the parent process except for the following points:
+ *  The child has its own unique process ID ...
+ *  The child's parent process ID is the same as the parent's process ID.
+ *  [ child.PPID = parent.PID ]
+ *  ...
+ * The child inherits copies of the parent's set of open file descriptors.
+ * [file descriptors 0, 1, 2 ....]
+ *
+ * The child inherits the parent's signal handler settings ...
+ *
+ */
+
 	if (1) {
 
 		// ***CASO 1***
