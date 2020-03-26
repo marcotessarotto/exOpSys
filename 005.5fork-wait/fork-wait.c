@@ -17,6 +17,8 @@ int main(int argc, char *argv[]) {
 
 	if (1) {
 
+		// ***CASO 1***
+
 		// esempio di uso della sola system call fork()
 
 		// quando il processo figlio è terminato
@@ -59,39 +61,60 @@ int main(int argc, char *argv[]) {
 
 	}
 
+	// ***CASO 2***
+
 	// esempio di uso delle system call fork() e wait()
 
 	pid_t child_pid;
 
 	child_pid = fork();
 
+	// printf("post-fork...\n"); // quante volte viene scritto a video?
+
 	if (child_pid == 0) {
-		// sono il processo figlio (child process)
 
-		printf("[child]hello world! sono il processo figlio. ora dormirò per qualche secondo...\n");
+		pid_t my_pid = getpid();
 
-		for (int i = 0; i < 5; i++) {
-			printf("%d...\n", i+1);
-			sleep(1); // dorme 1 secondo
+		printf("[child] sono il processo figlio. il mio pid è %u\n", my_pid);
+
+		if (1) {
+
+			printf("[child] ora dormirò per qualche secondo...\n");
+
+			for (int i = 0; i < 5; i++) {
+				printf("[child] %d...\n", i+1);
+				sleep(1); // dorme 1 secondo
+			}
+		} else {
+			printf("[child] sto per invocare la system call pause()\n");
+			printf("[child] usa il comando 'kill %u' per terminarmi.\n\n", my_pid);
+
+			// man pause
+			// pause() causes the calling process (or thread) to sleep until
+			// a signal is delivered that either terminates the process
+			// or causes the invocation of a signal-catching function.
+			pause();
 		}
 
-		printf("[child]sto per terminare! bye!\n\n");
+		printf("[child] sto per terminare! bye!\n\n");
 
 		exit(EXIT_SUCCESS); // processo figlio termina
 
 	} else if (child_pid > 0) {
 		// sono il processo padre
 
-		printf("[parent]ora aspetterò la conclusione del processo figlio.\n\n");
+		printf("[parent] ora aspetterò la conclusione del processo figlio.\n\n");
 
 		// il processo padre aspetta la conclusione del processo figlio (c'è ne uno solo)
 		// per vedere come ricevere il risultato del processo figlio,
 		// vedere il progetto successivo
 
+		// la system call wait sospende l'esecuzione del processo chiamante
+		// fino a quando uno dei suoi processi figli termina
 		if (wait(NULL) == -1) {
 			perror("wait error");
 		} else {
-			printf("[parent]il processo figlio ha terminato! ora termino anche io.\n");
+			printf("[parent] il processo figlio ha terminato! ora termina il process padre.\n");
 		}
 
 		exit(EXIT_SUCCESS);
