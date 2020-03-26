@@ -6,10 +6,14 @@
 #include <sys/types.h>
 
 
-// esempio:
-// una funzione restituisce un array (e la sua dimensione)
+/*
+ * SPIEGAZIONE DELL'ESEMPIO:
+ * l'esempio fornisce un "template" per risolvere un certo tipo di problema:
+ * una funzione che crea un array di cui non è noto a priori la dimensione,
+ * quindi deve restituire simultaneamente un puntatore (all'array) ed un int (la dimensione dell'array).
+ */
 
-
+// vedere anche:
 // typedef: Kernighan&Ritchie pag. 146
 // struct: Kernighan&Ritchie pag. 127
 
