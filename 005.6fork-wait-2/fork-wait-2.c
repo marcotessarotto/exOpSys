@@ -22,7 +22,7 @@ void signal_handler(int signum) {
  * il processo padre crea un processo figlio con la system call fork()
  *
  * questo esempio mostra come le chiamate di sistema (system call)
- * possano essere interrotte e cosa si comportano i processi
+ * possano essere interrotte e come si comportano i processi
  *
  * nanosleep() è una system call di lunga durata
  * (perchè chiediamo di "dormire" per 10 secondi)
@@ -30,9 +30,9 @@ void signal_handler(int signum) {
  * nel processo figlio:
  * mentre la system call nanosleep è in esecuzione (dentro il kernel),
  * arriva il segnale SIGUSR1 che interrompe il processo.
- * allora la system call nanosleep interrompe quello che stava fancendo ("dormire")
+ * allora la system call nanosleep interrompe quello che stava facendo ("dormire")
  * facendo continuare l'esecuzione al processo in user space.
- * nanosleep ritoran e restituisce quanto "lavoro" è stato fatto; sta al processo
+ * nanosleep ritorna e restituisce quanto "lavoro" è stato fatto; sta al processo
  * decidere se chiamare ancora la system call (nanosleep)
  * [questo è l'approccio Unix alla interruzione delle system call]
  *
@@ -125,7 +125,7 @@ int main(int argc, char *argv[]) {
 		// mando dei segnali al processo figlio
 
 		for (int i = 0; i < 3; i++) {
-			sleep(3); // dormi un secondo
+			sleep(3); // dormi tre secondi
 
 			printf("[parent] sto per mandare segnale SIGUSR1 a processo %u\n\n", child_pid);
 

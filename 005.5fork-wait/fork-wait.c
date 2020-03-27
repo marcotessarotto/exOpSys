@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
  *
  */
 
-	if (1) {
+	if (0) {
 
 		// ***CASO 1***
 
@@ -105,6 +105,8 @@ int main(int argc, char *argv[]) {
 
 	// esempio di uso delle system call fork() e wait()
 
+	printf("[parent] prima di fork()\n");
+
 	pid_t child_pid;
 
 	child_pid = fork();
@@ -117,7 +119,7 @@ int main(int argc, char *argv[]) {
 
 		printf("[child] sono il processo figlio. il mio pid è %u\n", my_pid);
 
-		if (1) {
+		if (0) {
 
 			printf("[child] ora dormirò per qualche secondo...\n");
 
