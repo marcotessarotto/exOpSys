@@ -55,6 +55,22 @@ int main(int argc, char *argv[]) {
 		// tutto questo serve a restituire il risultato
 		// del processo figlio al processo padre
 
+		printf("sono il processo padre  (prima del fork)\n");
+
+		/*
+		int result = fork();
+
+		if (result == 0) {
+			// proecesso figlio
+		} else if (result > 0) {
+			// processo padre
+			// ....
+		} else if (result == -1) {
+			// errore!
+		}
+		 */
+
+		// lo switch si svolge in due modi diversi su due processi diversi
 		switch (fork()) {
 			case 0:
 				printf("sono il processo figlio\n");
@@ -66,12 +82,12 @@ int main(int argc, char *argv[]) {
 
 				exit(1);
 				break;
-			default:
+			default: // valore > 0, ovvero il pid del processo figlio
 
 				printf("sono il processo padre\n");
 
 				// per vedere il processo "zombie", decommentare:
-				// getchar();
+				//getchar();
 				// ed eseguire in una shell il comando:
 				// ps -aux | grep fork-wait
 
@@ -81,6 +97,7 @@ int main(int argc, char *argv[]) {
 				// che automaticamente invoca wait() per rimuovere gli zombie.
 		}
 
+		return 0;
 
 	}
 
