@@ -67,6 +67,21 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
+/*
+
+a t=0:
+child process invoca nanosleep(10 s)
+parent process invoca sleep(3 s)
+
+a t=3s:
+parent: sleep(3) termina, e quindi
+invia SIGUSR1 a child
+=>
+child: nanosleep(10 s) viene interrotto
+(e comunica che mancano 7s da "dormire")
+
+...
+ */
 
 	child_pid = fork();
 
@@ -235,7 +250,7 @@ int main(int argc, char *argv[]) {
 			// kill(0 , SIGUSR1); // il segnale viene inviato ad ogni processo del "process group"
 		}
 
-
+		// TODO: check: child process killed by signal 10
 		do {
         	pid_t ws = waitpid(child_pid, &wstatus, WUNTRACED | WCONTINUED);
             if (ws == -1) {
