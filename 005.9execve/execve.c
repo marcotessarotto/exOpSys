@@ -5,6 +5,14 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+/*
+ * questo esempio esegue il programma 000hello-world
+ *
+ * il programma eseguito dal processo corrente verrà rimpiazzato
+ * dal programma contenuto nel file specificato
+ *
+ * ricordare: processo = istanza del programma
+ */
 
 int main(int argc, char * argv[]) {
 
@@ -20,7 +28,7 @@ int main(int argc, char * argv[]) {
 	printf("cartella corrente: %s\n", current_working_directory);
 
 
-	printf("ora proviamo ad eseguire 000hello-world (fate il build del progetto)\n\n\n");
+	printf("ora proviamo ad eseguire il programma 000hello-world nel processo corrente (fate il build del progetto)\n\n\n");
 
 
 	/*
