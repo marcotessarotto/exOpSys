@@ -203,6 +203,14 @@ int main(int argc, char *argv[]) {
 	if (child_pid == 0) {
 		// sono il processo figlio (child process)
 
+		// "disposizione" di default di SIGUSR1:
+		// quando un processo riceve SIGUSR1 => terminazione del processo
+		// allora imposto la disposizione del processo figlio ad ignorare il segnale (SIG_IGN)
+		if (signal(SIGUSR1, SIG_IGN) == SIG_ERR) {
+			perror("signal()");
+			exit(EXIT_FAILURE);
+		}
+
 		my_pid = getpid();
 
 		printf("[child] sono il processo figlio, il mio PID è %u\n", my_pid);
@@ -247,10 +255,8 @@ int main(int argc, char *argv[]) {
 			printf("[parent] sto per mandare segnale SIGUSR1 a processo %u\n\n", child_pid);
 
 			kill(child_pid, SIGUSR1);
-			// kill(0 , SIGUSR1); // il segnale viene inviato ad ogni processo del "process group"
 		}
 
-		// TODO: check: child process killed by signal 10
 		do {
         	pid_t ws = waitpid(child_pid, &wstatus, WUNTRACED | WCONTINUED);
             if (ws == -1) {
