@@ -15,11 +15,11 @@ char buffer[BUFFER_SIZE];
 
 int main(int argc, char *argv[]) {
 
-	char * file_name = "/home/marco/prova.txt";
-//	char * fileName = "/proc/cpuinfo";
+	//char * file_name = "/home/utente/prova.txt";
+	char * file_name = "/proc/cpuinfo";
 
 	int bytes_read;
-	int total_bytes_read = 0;
+	unsigned int total_bytes_read = 0;
 
 	int fd = open(file_name, O_RDONLY);
 
@@ -30,11 +30,11 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	printf("fd = %d\n", fd);
+	printf("'file descriptor' restituito da open():  fd = %d\n", fd);
 
 	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0) {
 
-		printf("ho letto %d bytes\n", bytes_read);
+		printf("read() ha restituito %d bytes\n", bytes_read);
 
 		// facciamo qualcosa con i dati letti...
 		// ...
@@ -47,6 +47,7 @@ int main(int argc, char *argv[]) {
 	} else if (bytes_read == 0) {
 		printf("OK, usciti da while per EOF (End Of File)\n");
 	}
+	printf("total_bytes_read = %u\n", total_bytes_read);
 
 	if (close(fd) == -1) {
 		perror("close()");
