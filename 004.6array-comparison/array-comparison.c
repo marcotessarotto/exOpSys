@@ -196,10 +196,10 @@ int main(int argc, char * argv[]) {
 
     	// array rappresentato in base 16, char *
     	printf("confronto " );
-    	print_char_array(array_b, 4 * sizeof(int), 0);
+    	print_char_array((char *)array_b, 4 * sizeof(int), 0);
 
 		printf(" con ");
-		print_char_array(&array_c[i], 4 * sizeof(int), 0);
+		print_char_array((char *)&array_c[i], 4 * sizeof(int), 0);
 
 		printf(":\n");
 
