@@ -6,6 +6,16 @@
 #include <sys/types.h>
 #include <stddef.h> /* size_t */
 
+/*
+ * scopo dell'esempio:
+ *
+ * mostrare come un array di int può essere letto come fosse un array di char
+ *
+ * - si utilizza la conversione da "puntatore a int" a "puntatore a char" *
+ * - incremento di puntatore
+ *
+ */
+
 int main(int argc, char * argv[]) {
 
 	int counter, counter2;
@@ -22,7 +32,7 @@ int main(int argc, char * argv[]) {
 	printf("'array' è un array di unsigned int, numero di celle=%u, dimensione totale in bytes=%u\n\n",
 			array_len, array_size);
 
-	cptr = (unsigned char *)array;
+	cptr = (unsigned char *)array; // conversione di tipo puntatore
 	iptr = array;
 
 	//////////////////////////////////////////////////////
