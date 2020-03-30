@@ -12,6 +12,8 @@
  * dal programma contenuto nel file specificato
  *
  * ricordare: processo = istanza del programma
+ *
+ * il processo rimane lo stesso, ma diventa istanza di un altro programma
  */
 
 int main(int argc, char * argv[]) {
@@ -32,7 +34,7 @@ int main(int argc, char * argv[]) {
 
 
 	/*
-	 * execve()  executes  the  program referred to by pathname.
+	 * execve() executes the  program referred to by pathname.
 	 *
 	 * This causes the program that is currently being run by
 	 * the calling process to be replaced with a new program ...
