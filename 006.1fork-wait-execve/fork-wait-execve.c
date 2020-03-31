@@ -23,10 +23,13 @@ void replace_program_in_process(char * program) {
 	exit(EXIT_FAILURE);
 }
 
+//#define SHOW_RETURN_VALUE
 
 int main(int argc, char *argv[]) {
 
 	pid_t child_pid;
+	int wstatus;
+	int modal_result = -1;
 
 	switch(fork()) {
 	case 0:
@@ -44,6 +47,31 @@ int main(int argc, char *argv[]) {
 		break;
 	default:
 
+#ifdef SHOW_RETURN_VALUE
+		do {
+        	pid_t ws = waitpid(child_pid, &wstatus, WUNTRACED | WCONTINUED);
+            if (ws == -1) {
+                perror("[parent] waitpid");
+                exit(EXIT_FAILURE);
+            }
+
+            if (WIFEXITED(wstatus)) {
+
+            	modal_result = WEXITSTATUS(wstatus);
+
+                printf("[parent] child process è terminato, ha restituito: %d\n", modal_result);
+            } else if (WIFSIGNALED(wstatus)) {
+                printf("[parent] child process killed by signal %d\n", WTERMSIG(wstatus));
+            } else if (WIFSTOPPED(wstatus)) {
+                printf("[parent] child process stopped by signal %d\n", WSTOPSIG(wstatus));
+            } else if (WIFCONTINUED(wstatus)) {
+                printf("[parent] child process continued\n");
+            }
+        } while (!WIFEXITED(wstatus) && !WIFSIGNALED(wstatus));
+
+#else
+
+		// parent process
 		child_pid = wait(NULL);
 
 		if (child_pid == -1) {
@@ -53,6 +81,8 @@ int main(int argc, char *argv[]) {
 		} else {
 			printf("\nil processo figlio %u è terminato.\n", child_pid);
 		}
+
+#endif
 
 	}
 
