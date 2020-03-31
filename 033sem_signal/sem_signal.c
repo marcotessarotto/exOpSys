@@ -16,7 +16,9 @@ sem_t sem;
 static void
 handler(int sig)
 {
-	// NOTA BENE: in un signal handler, non si dovrebbe usare stdout. Il signal handler deve concludere il suo lavoro il prima possibile.
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
 
     if (sig == SIGINT) {
     	printf("[child]ricevuto SIGINT, il processo %d rimane attivo.\n", getpid());

@@ -14,6 +14,9 @@ void signal_handler(int signum) {
 
 	counter++;
 
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
 	printf("signal handler processo [%u] - segnale SIGUSR1 ricevuto!  counter=%d\n\n", my_pid, counter);
 
 }

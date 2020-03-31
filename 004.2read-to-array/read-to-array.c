@@ -6,7 +6,16 @@
 #include <sys/types.h>
 
 
+/*
+ * NOTE: The following function employs printf(), which is not
+   async-signal-safe (see Section 21.1.2). As such, this function is
+   also not async-signal-safe (i.e., beware of calling it from a
+   SIGCHLD handler). */
 static void sig_handler(int sig) {
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
+
 	printf("ho ricevuto il segnale %d\n", sig);
 }
 

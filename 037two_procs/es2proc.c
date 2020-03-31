@@ -71,6 +71,9 @@ void run_ls_zip() {
 
 static void signal_handler(int sig) { // per parent process
 
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
 	printf("[main signal_handler]ricevuto segnale %d, PID: %d\n", sig, getpid());
 
 	if (sig == SIGINT) {

@@ -14,7 +14,9 @@
 
 
 static void sigHandler(int sig) {
-
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
 	printf("ricevuto segnale %d\n", sig);
 
 //	printf("ricevuto segnale %d, ora termino. bye!\n", sig);

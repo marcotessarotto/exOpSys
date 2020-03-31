@@ -39,6 +39,10 @@ int get_cookie_machine_status() {
 }
 
 void child_process_signal_handler(int signum) {
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
+
 	if (signum == SIGUSR1) {
 		if (cookie_machine_status == ON) {
 			printf("[child] cookie_machine è già ON!!!\n");
@@ -103,6 +107,9 @@ void parent_process_signal_handler(int signum) {
 
 	pid_t child_pid;
 
+	// NON è sicuro chiamare printf da un signal handler!
+	// printf non è async-signal-safe (vedere Kerrisk sezione 21.1.2)
+	// printf è usato qui solo a scopo diagnostico/didattico
 	printf("[parent] parent_process_signal_handler\n");
 
 	child_pid = wait(NULL);
