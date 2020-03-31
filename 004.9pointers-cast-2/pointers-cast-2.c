@@ -77,7 +77,7 @@ int main(int argc, char * argv[]) {
 
     printf("1: %x\n", *cptr);
 
-    cptr++;
+    cptr++; // incrementa di 1
     printf("2: %x\n", *cptr);
 
     cptr++;
@@ -95,7 +95,7 @@ int main(int argc, char * argv[]) {
 
 	unsigned char add1_cafe[] = {0xA, 0xD, 0xD, 0x1, 0xC, 0xA, 0xF, 0xE};
 
-	unsigned int add1_cafe_final = 0;
+	unsigned int add1_cafe_final = 0; // 0xADD1CAFE;
 
 	/* ESERCIZIO:
 	 *
@@ -145,15 +145,21 @@ int main(int argc, char * argv[]) {
 
 	printf("\n");
 
+	// {0xA, 0xD, 0xD, 0x1, 0xC, 0xA, 0xF, 0xE};
+    //     0      1       2      3     4      5      6      7
+
+	// 0x AD D1 CA FE
+
+	// F << 4 | E = FE
 
 	// ESERCIZIO: COMPLETARE gli indici
-	bytes[0] = add1_cafe[6] << 4 | add1_cafe[7];
+	bytes[0] = add1_cafe[6] << 4 | add1_cafe[7]; // FE
 
-	bytes[1] = 0; //add1_cafe[ ] << 4 | add1_cafe[ ]; // completare
+	bytes[1] = add1_cafe[4] << 4 | add1_cafe[5]; // CA
 
-	bytes[2] = 0; //add1_cafe[ ] << 4 | add1_cafe[ ]; // completare
+	bytes[2] = add1_cafe[2] << 4 | add1_cafe[3]; // D1
 
-	bytes[3] = 0; //add1_cafe[ ] << 4 | add1_cafe[ ]; // completare
+	bytes[3] = add1_cafe[0] << 4 | add1_cafe[1]; // AD
 
 	add1_cafe_final = *((unsigned *)bytes);
 
