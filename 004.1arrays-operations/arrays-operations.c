@@ -482,8 +482,21 @@ void bubble_sort(int * array, int array_dimension) {
 
 	// ESERCIZIO: implementare bubble sort (pseudocodice riportato sotto)
 
+	int n = array_dimension;
+	int newn;
+	do {
+		newn = 0;
+		for (int i = 1; i < n; i++) {
+			if (array[i-1] > array[i]) {
+				swap(&array[i-1], &array[i]);
+				newn = i;
+			}
 
+		}
 
+		n = newn;
+
+	} while (n > 1);
 
 /*
 
