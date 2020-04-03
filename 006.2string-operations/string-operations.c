@@ -17,17 +17,16 @@
  *
  * funzioni sscanf, sprintf
  *
- * lunghezza di una stringa di caratteri
+ * lunghezza di una stringa di caratteri: OK
  *
- * confronto tra stringhe di caratteri
+ * confronto tra stringhe di caratteri: OK
  *
- * duplicare una stringa
+ * duplicare una stringa: OK
  *
- * copiare una stringa
+ * copiare una stringa: OK
  *
- * concatenare due stringhe
+ * concatenare due stringhe  => vedere progetto 013strings, string_concat()
  *
- * ***IN PROGRESS***
  *
  */
 
@@ -68,21 +67,52 @@ int main(int argc, char *argv[]) {
 	char * abc = "abc";
 	char * ABC = "ABC";
 
-	res = strcmp(abc, ABC);
+	res = strcmp(abc, ABC); // confronto di stringhe di caratteri
 	/* man strcmp
 	 *
 	 * It returns an integer less than, equal to, or greater than zero if s1 is found,
        respectively, to be less than, to match, or be greater than s2.
 	 */
 
-	printf("risultato strcmp(): %d\n", res);
+	printf("risultato strcmp(\"abc\",\"ABC\"): %d\n", res);
+	// 32: è dato da 'a' - 'A'
+
+	res = strcmp("a","b");
+	printf("risultato strcmp(\"a\",\"b\"): %d\n", res);
+
+	res = strcmp("b","a");
+	printf("risultato strcmp(\"b\",\"a\"): %d\n", res);
+
+	res = strcmp("aaa","aaa");
+	printf("risultato strcmp(\"aaa\",\"aaa\"): %d\n", res);
 
 	printf("\n");
 
-	// duplica stringa
-	// strdup()
+	// duplicare una stringa
 
+	char orig_str[] = "stringa da duplicare";
+
+	char * dup_str;
+
+	dup_str = strdup(orig_str); // duplica la stringa passata come parametro
+
+	printf("risultato di strdup: %s\n", dup_str);
+
+	printf("\n");
 	// copia stringa
+
+	char src_str[] = "stringa da copiare";
+	char dest_str[100];
+
+	// la stringa di destinazione deve essere già allocata
+	// e sufficientemente grande
+	strcpy(dest_str, src_str);
+	// esiste anche strncpy:
+	// char *strncpy(char *dest, const char *src, size_t n);
+
+	printf("risultato di strcpy: %s\n", dest_str);
+
+	printf("\n");
 
 
 	return 0;
