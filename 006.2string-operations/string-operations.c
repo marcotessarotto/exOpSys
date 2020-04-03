@@ -33,6 +33,33 @@
 
 int main(int argc, char *argv[]) {
 
+	char * zero_str = "0";
+	// rappresentazione in memoria:
+	// 2 byte: 48  0
+
+	//char * zero_str;
+
+	printf("zero_str = \"%s\"\n", zero_str);
+	printf("zero_str[0]=%u\n", zero_str[0]);
+
+	zero_str = "\0";
+	// rappresentazione in memoria:
+	// 2 byte: 0  0
+
+	printf("zero_str = \"%s\"\n", zero_str);
+	printf("zero_str[0]=%u\n", zero_str[0]);
+
+	zero_str = "";
+	// rappresentazione in memoria:
+	// 1 byte: 0
+
+	printf("zero_str = \"%s\"\n", zero_str);
+
+
+	printf("\n");
+	printf("\n");
+
+
 	// leggere una stringa di caratteri da stdin
 	int res;
 	char line[80+1];
