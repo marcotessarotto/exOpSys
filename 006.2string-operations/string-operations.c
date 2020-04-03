@@ -101,11 +101,26 @@ int main(int argc, char *argv[]) {
        respectively, to be less than, to match, or be greater than s2.
 	 */
 
+	/*
+	if (abc == ABC) { // confronto indirizzi
+			....
+		}
+
+	if (*abc == ABC) {
+			....
+		}
+
+	if (abc[0] == ABC[0]) {
+		....
+	}
+    */
+
 	printf("risultato strcmp(\"abc\",\"ABC\"): %d\n", res);
 	// 32: è dato da 'a' - 'A'
 
 	res = strcmp("a","b");
 	printf("risultato strcmp(\"a\",\"b\"): %d\n", res);
+	// il risultato è 'a' - 'b'
 
 	res = strcmp("b","a");
 	printf("risultato strcmp(\"b\",\"a\"): %d\n", res);
@@ -122,10 +137,12 @@ int main(int argc, char *argv[]) {
 	char * dup_str;
 
 	dup_str = strdup(orig_str); // duplica la stringa passata come parametro
+	// ricordarsi di invocare free(dup_str) quando non ci serve più
 
 	printf("risultato di strdup: %s\n", dup_str);
 
 	printf("\n");
+
 	// copia stringa
 
 	char src_str[] = "stringa da copiare";
