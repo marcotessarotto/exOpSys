@@ -10,10 +10,10 @@
 #include <errno.h>
 
 /*
- * operazioni tra stringhe di caratteri
+ * operazioni tra stringhe di caratteri:
  *
- * leggere una stringa da stdin
- * scrivere una stringa su stdout
+ * leggere una stringa da stdin: OK
+ * scrivere una stringa su stdout: OK
  *
  * funzioni sscanf, sprintf
  *
