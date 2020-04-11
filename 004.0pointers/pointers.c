@@ -1,4 +1,6 @@
 
+// vedere anche:
+// https://repl.it/@MarcoTessarotto/esempio-calloc-realloc-free
 
 void swap_wrong(int a, int b) {
 	int temp;
