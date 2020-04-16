@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <time.h>
 
 /*
  * questo esempio mostra come passare uno o più parametri ad un processo figlio
@@ -83,6 +84,22 @@ int main(int argc, char *argv[]) {
 			default:
 				;
 		}
+
+//#define SLEEP_AFTER_FORK
+
+#ifdef SLEEP_AFTER_FORK
+		struct timespec t;
+		struct timespec remaining;
+
+		t.tv_sec = 0;  // seconds
+		t.tv_nsec = 100; // nanoseconds
+
+		if (nanosleep(&t, &remaining) == -1) {
+			perror("nanosleep");
+		}
+#endif
+
+
 	}
 
 	//
