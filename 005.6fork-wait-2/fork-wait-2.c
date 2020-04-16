@@ -153,8 +153,29 @@ child: nanosleep(10 s) viene interrotto
 
 		//kill(child_pid, SIGINT);
 
+//		do {
+//        	pid_t ws = waitpid(child_pid, &wstatus, WUNTRACED | WCONTINUED);
+//            if (ws == -1) {
+//                perror("[parent] waitpid");
+//                exit(EXIT_FAILURE);
+//            }
+//
+//            if (WIFEXITED(wstatus)) {
+//
+//            	modal_result = WEXITSTATUS(wstatus);
+//
+//                printf("[parent] child process è terminato, ha restituito: %d\n", modal_result);
+//            } else if (WIFSIGNALED(wstatus)) {
+//                printf("[parent] child process killed by signal %d\n", WTERMSIG(wstatus));
+//            } else if (WIFSTOPPED(wstatus)) {
+//                printf("[parent] child process stopped by signal %d\n", WSTOPSIG(wstatus));
+//            } else if (WIFCONTINUED(wstatus)) {
+//                printf("[parent] child process continued\n");
+//            }
+//        } while (!WIFEXITED(wstatus) && !WIFSIGNALED(wstatus));
+
 		do {
-        	pid_t ws = waitpid(child_pid, &wstatus, WUNTRACED | WCONTINUED);
+        	pid_t ws = waitpid(child_pid, &wstatus, 0);
             if (ws == -1) {
                 perror("[parent] waitpid");
                 exit(EXIT_FAILURE);
@@ -167,12 +188,9 @@ child: nanosleep(10 s) viene interrotto
                 printf("[parent] child process è terminato, ha restituito: %d\n", modal_result);
             } else if (WIFSIGNALED(wstatus)) {
                 printf("[parent] child process killed by signal %d\n", WTERMSIG(wstatus));
-            } else if (WIFSTOPPED(wstatus)) {
-                printf("[parent] child process stopped by signal %d\n", WSTOPSIG(wstatus));
-            } else if (WIFCONTINUED(wstatus)) {
-                printf("[parent] child process continued\n");
             }
         } while (!WIFEXITED(wstatus) && !WIFSIGNALED(wstatus));
+
 
 		if (modal_result != -1) {
 			printf("[parent] il valore restituito dal processo figlio è %d\n", modal_result);
