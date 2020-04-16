@@ -50,16 +50,26 @@ int main(int argc, char *argv[]) {
 			;
 	}
 
+	printf("[parent]ora dormo 3 secondi...\n");
 	sleep(3);
 
 	printf("\n\n\n");
 
 	////////
 
+	int array1[] = { 0,1,2,3,4,5,6,7,8,9};
+
+	int array2[] = { 100,101,102,103,104,105,106,107,108,109};
+
 	for (int i = 0; i < 10; i++) {
 
-		param1 = 100 * i;
-		param2 = 200 * i;
+		//param1 = 100 * i;
+		//param2 = 200 * i;
+
+		// oppure:
+
+		param1 = array1[i];
+		param2 = array2[i];
 
 		switch (fork()) {
 			case 0:
