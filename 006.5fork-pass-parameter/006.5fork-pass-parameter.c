@@ -27,6 +27,12 @@ int main(int argc, char *argv[]) {
 	int param2;
 
 	// avviamo un processo figlio e gli passiamo dei parametri
+	// il processo figlio (clone del processo padre) "vede" le stesse variabili del processo padre
+	// ovvero vede una copia dei valori
+
+	// quindi posso utilizzare delle variabili per passare dei parametri al processo figlio
+	// in questo caso sono param1 e param2
+
 
 	param1 = 100;
 	param2 = 200;
