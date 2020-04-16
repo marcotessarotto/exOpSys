@@ -38,6 +38,10 @@ int main(int argc, char *argv[]) {
 	 *
 	 * 005.2copyfile < prova.txt
 	 *
+	 * reindirizzare stdin e stdout:
+	 *
+	 * 005.2copyfile < prova.txt > copia_di_prova.txt
+	 *
 	 */
 
 }
