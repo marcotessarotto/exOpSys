@@ -4,7 +4,10 @@
 #include <unistd.h>
 
 /*
-  risolve percorsi di file in percorsi assoluti senza . .. link simbolici
+
+risolve percorsi di file in percorsi assoluti senza . .. link simbolici
+
+passare i percorsi da elaborare come argomenti del programma
 
 "." -> "/home/utente/git/exOpSys/006.7realpath"
 ".." -> "/home/utente/git/exOpSys"
