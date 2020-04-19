@@ -35,7 +35,9 @@ static void show_inotify_event(struct inotify_event *i)
     // IN_ACCESS  File was accessed (e.g., read(2), execve(2)).
     if (i->mask & IN_ACCESS)        printf("IN_ACCESS ");
 
+    // IN_ATTRIB Metadata changed—for example, permissions, timestamps, user/group ID
     if (i->mask & IN_ATTRIB)        printf("IN_ATTRIB ");
+
     if (i->mask & IN_CLOSE_NOWRITE) printf("IN_CLOSE_NOWRITE ");
 
     // IN_CLOSE_NOWRITE  File or directory not opened for writing was closed.
