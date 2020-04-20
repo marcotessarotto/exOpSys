@@ -38,6 +38,8 @@ int main(int argc, char *argv[]) {
 		perror("open()");
 
 		exit(EXIT_FAILURE);
+	} else {
+		printf("open() ok\n");
 	}
 
 	// i file descriptor 0,1,2 sono già utilizzati

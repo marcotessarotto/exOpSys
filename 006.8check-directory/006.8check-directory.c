@@ -83,21 +83,76 @@ int main(int argc, char * argv[]) {
 			default:       printf("unknown?\n");                break;
         }
 
-        printf("Mode:                     %lo (octal)\n",
-                (unsigned long) sb.st_mode);
 
-        printf("Link count:               %ld\n", (long) sb.st_nlink);
-
-        printf("Ownership:                UID=%ld   GID=%ld\n",
-                (long) sb.st_uid, (long) sb.st_gid);
-
-        printf("File size:                %lld bytes\n",
+        printf("File size: %lld bytes\n",
                 (long long) sb.st_size);
 
 
-        printf("Last status change:       %s", ctime(&sb.st_ctime));
-        printf("Last file access:         %s", ctime(&sb.st_atime));
-        printf("Last file modification:   %s", ctime(&sb.st_mtime));
+        printf("file owner: user id (UID)=%ld   group id (GID)=%ld\n",
+                (long) sb.st_uid, (long) sb.st_gid);
+
+
+        printf("\nMode: %lo (octal)\n",
+                (unsigned long) sb.st_mode);
+
+        //
+        if (sb.st_mode & S_IRUSR) {
+        	printf(" file owner has READ permission\n");
+        } else {
+        	printf(" file owner has NO READ permission\n");
+        }
+        if (sb.st_mode & S_IWUSR) {
+			printf(" file owner has WRITE permission\n");
+		} else {
+			printf(" file owner has NO WRITE permission\n");
+		}
+        if (sb.st_mode & S_IXUSR) {
+			printf(" file owner has EXECUTE permission\n");
+		} else {
+			printf(" file owner has NO EXECUTE permission\n");
+		}
+
+        if (sb.st_mode & S_IRGRP) {
+        	printf(" file group has READ permission\n");
+        } else {
+        	printf(" file group has NO READ permission\n");
+        }
+        if (sb.st_mode & S_IWGRP) {
+			printf(" file group has WRITE permission\n");
+		} else {
+			printf(" file group has NO WRITE permission\n");
+		}
+        if (sb.st_mode & S_IXGRP) {
+			printf(" file group has EXECUTE permission\n");
+		} else {
+			printf(" file group has NO EXECUTE permission\n");
+		}
+
+        if (sb.st_mode & S_IROTH) {
+        	printf(" others have READ permission\n");
+        } else {
+        	printf(" others have NO READ permission\n");
+        }
+        if (sb.st_mode & S_IWOTH) {
+			printf(" others have WRITE permission\n");
+		} else {
+			printf(" others have NO WRITE permission\n");
+		}
+        if (sb.st_mode & S_IXOTH) {
+			printf(" others have EXECUTE permission\n");
+		} else {
+			printf(" others have NO EXECUTE permission\n");
+		}
+
+        //
+
+
+        //printf("Link count:               %ld\n", (long) sb.st_nlink);
+
+
+        printf("Last status change:       %s", ctime(&sb.st_ctime)); // Time of last status change.
+        printf("Last file access:         %s", ctime(&sb.st_atime)); // Time of last access.
+        printf("Last file modification:   %s", ctime(&sb.st_mtime)); // Time of last modification.
 
 
 	}
