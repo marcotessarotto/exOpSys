@@ -16,12 +16,22 @@ char buffer[BUFFER_SIZE];
 int main(int argc, char *argv[]) {
 
 	//char * file_name = "/home/utente/prova.txt";
-	char * file_name = "/proc/cpuinfo";
+	//char * file_name = "/proc/cpuinfo";
+
+	char * file_name;
+
+	if (argc == 1) {
+		printf("specificare come parametro il nome del file da leggere\n");
+		exit(EXIT_FAILURE);
+	}
+
+	file_name = argv[1];
+	printf("leggo il file %s\n", file_name);
 
 	int bytes_read;
 	unsigned int total_bytes_read = 0;
 
-	int fd = open(file_name, O_RDONLY);
+	int fd = open(file_name, O_RDONLY); // O_RDONLY: apri il file in sola lettura
 
 	if (fd == -1) { // errore!
 
@@ -29,6 +39,8 @@ int main(int argc, char *argv[]) {
 
 		exit(EXIT_FAILURE);
 	}
+
+	// i file descriptor 0,1,2 sono già utilizzati
 
 	printf("'file descriptor' restituito da open():  fd = %d\n", fd);
 
