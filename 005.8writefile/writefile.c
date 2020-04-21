@@ -26,17 +26,20 @@ int main(int argc, char *argv[]) {
 	file_name = argv[1];
 	printf("scrivo nel file %s\n", file_name);
 
-	// apriamo il file in scrittura, se non esiste verrà creato, se esiste già la sua dimensione viene troncata a 0
+	// apriamo il file in scrittura, se non esiste verrà creato,
+	// se esiste già la sua dimensione viene troncata a 0
 
 	// tratto da man 2 open
 	// O_CREAT  If pathname does not exist, create it as a regular file.
 	// O_TRUNC  If the file already exists and is a regular file and the access mode allows writing ... it will be truncated to length 0.
 	// O_RDONLY, O_WRONLY, or O_RDWR  These request opening the file read-only, write-only, or read/write, respectively.
 
+	// file_name è un percorso di file relativo o assoluto
+	// è il kernel a risolverlo
 	int fd = open(file_name,
 				  O_CREAT | O_TRUNC | O_WRONLY,
 				  S_IRUSR | S_IWUSR // l'utente proprietario del file avrà i permessi di lettura e scrittura sul nuovo file
-				 ); // O_RDONLY: apri il file in sola lettura
+				 );
 
 	// l'utente proprietario del file sarà lo stesso utente che ha eseguito questo programma
 
