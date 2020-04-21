@@ -70,6 +70,8 @@ int main(int argc, char *argv[]) {
 	printf("scrivo %d bytes\n", text_to_write_len);
 
 	int res = write(fd, text_to_write, text_to_write_len);
+	// write restituisce il numero di bytes che ha scritto
+	// in caso di errore, restuisce -1
 
 	if (res == -1) {
 		perror("write()");
