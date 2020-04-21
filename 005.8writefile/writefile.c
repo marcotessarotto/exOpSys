@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
 
 	// apriamo il file in scrittura, se non esiste verrà creato,
 	// se esiste già la sua dimensione viene troncata a 0
+	// e poi scriviamo nel file (vedere text_to_write)
 
 	// tratto da man 2 open
 	// O_CREAT  If pathname does not exist, create it as a regular file.

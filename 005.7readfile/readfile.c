@@ -31,6 +31,8 @@ int main(int argc, char *argv[]) {
 	int bytes_read;
 	unsigned int total_bytes_read = 0;
 
+	// aprire un file in sola lettura presuppone che il file esista già
+	// se il file non esiste => errore
 	int fd = open(file_name, O_RDONLY); // O_RDONLY: apri il file in sola lettura
 
 	if (fd == -1) { // errore!
