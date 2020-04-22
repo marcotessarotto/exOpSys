@@ -13,6 +13,12 @@
 char * itoa_printf(int number);
 
 
+// esercizio: completare
+
+// char * ltoa_printf(long number);
+// char * dtoa_printf(double number);
+
+
 int main(int argc, char * argv[]) {
 
 	char * str;
