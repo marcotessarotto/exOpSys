@@ -51,7 +51,7 @@ int main(int argc, char * argv[]) {
 
 	char messaggio[] = "hello!";
 
-	printf("sizeof(char) = %d\n", sizeof(char));
+	printf("sizeof(char) = %lu\n", sizeof(char));
 	printf("sizeof(messaggio) = %ld bytes\n", sizeof(messaggio));
 	printf("numero di elementi dell'array: %ld\n", sizeof(messaggio) / sizeof(char) );
 	printf("strlen(messaggio) = %ld\n", strlen(messaggio));
@@ -59,7 +59,7 @@ int main(int argc, char * argv[]) {
 
 	char messaggio_con_spazio_aggiuntivo[100] = "hello!";
 
-	printf("sizeof(char) = %d\n", sizeof(char));
+	printf("sizeof(char) = %lu\n", sizeof(char));
 	printf("sizeof(messaggio_con_spazio_inutilizzato) = %ld bytes\n", sizeof(messaggio_con_spazio_aggiuntivo));
 	printf("numero di elementi dell'array: %ld\n", sizeof(messaggio_con_spazio_aggiuntivo) / sizeof(char) );
 	printf("strlen(messaggio_con_spazio_inutilizzato) = %ld\n", strlen(messaggio_con_spazio_aggiuntivo));
