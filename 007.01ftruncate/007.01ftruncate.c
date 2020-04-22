@@ -11,7 +11,9 @@
 
 
 /*
- * creare un file e impostare la sua dimensione
+ * creare un file e impostare la sua dimensione con ftruncate
+ *
+ * si può impostare la dimensione di un file anche con lseek() (probabilmente svilupperò un altro esempio)
  */
 
 
