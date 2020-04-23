@@ -1,52 +1,40 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
 
-#define DEBUG 0
+// per semplificare la lettura del codice, introduciamo string_t
+typedef char * string_t;
+// per convenzione, nella C Standard Library i tipi dati dichiarati con typedef hanno il suffisso "_t"
 
-int main(int argc, char *argv[])
-{
-	//printf("***01printargs\n");
+// potrei usare in alternativa:
+typedef char * char_ptr_t;
 
-	printf("argc = %d\n", argc);
+// int main(int argc, char * argv[]) {
+// int main(int argc, char ** argv) {
+int main(int argc, string_t argv[]) {
+
+  // argc è >= 1 ovvero esiste sempre argv[0]
+  // argv[0] è il nome del programma
+  // argv è un array di (stringhe di char)
+  // stringa di caratteri: array di char terminato da '\0'
+
+  for (int i = 0; i < argc; i++) {
+    printf("argv[%d] = %s\n", i, argv[i]);
+  }
+
+  if (argc > 1) {
+     if (!strcmp(argv[1],"ciao")) {
+       printf("ciao!\n");
+     }
+  }
 
 
-    int j;
-    // scriviamo su stdout tutti gli argomenti a riga di comando del programma
-    for (j = 0; j < argc; j++) {
-        printf("argv[%d] = %s\n", j, argv[j]);
-    }
+  // provare da shell:
+  // ./012printargs passo dei parametri
 
-    //
+  // ./012printargs "passo dei parametri"
 
-    printf("\n\n");
+  // ln 012printargs prova
+  // ./prova
 
-	pid_t pid;
-
-	pid = getpid(); // il nostro process id
-
-	printf("***01printargs - il mio pid è: %d\n\n", pid);
-
-	printf("***01printargs - fine del programma\n");
-//
-//	if (DEBUG) {
-//		//
-//		printf("hello world!\n"); // utilizza stdout
-//
-//		fprintf(stdout,"stessa cosa\n");
-//		//
-//
-//		int v = 10;
-//
-//		fprintf(stdout,"v= %d altro valore %d \n", v, 20);
-//
-//		//
-//
-//		char msg[] = "ciao! uso la system call write\n";
-//
-//		write(STDOUT_FILENO,msg,strlen(msg));
-//	}
-
-    exit(EXIT_SUCCESS);
+  return 0;
 }
