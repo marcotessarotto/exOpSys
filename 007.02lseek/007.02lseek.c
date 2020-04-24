@@ -27,7 +27,7 @@ Il primo byte del file è all'offset 0.
 
 L'offset del file viene impostato in modo che punti all'inizio del file
 quando viene aperto il file e viene automaticamente
-aggiustato da ogni chiamata successiva read() o write()
+aggiornato da ogni chiamata successiva read() o write()
 in modo che punti, nel file, al byte successivo
 a quello appena letto o scritto.
 
