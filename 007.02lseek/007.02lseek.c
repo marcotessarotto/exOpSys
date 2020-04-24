@@ -50,6 +50,7 @@ in modo sequenziale (nella direzione che va dall'inizio del file verso la fine d
 
 	// apro un file già esistente in modalità lettura/scrittura
 	// ad esempio, possiamo lavorare su un file prodotto dall'esempio 005.8writefile
+	// oppure sul file sample.txt in questa cartella di progetto
 	int fd = open(file_name, O_RDWR); // O_RDWR: apri il file in modalità lettura e scrittura
 
 	if (fd == -1) { // errore!
