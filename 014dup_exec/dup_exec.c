@@ -23,7 +23,13 @@ int main(int argc, char *argv[]) {
 
     printf("valore di fd: %d\n", fd);
 
+    // close(1);
+    // se facessi questo close, il file descriptor 1 non corrisponde ad alcun file aperto
+    // si dice che fd=1 è inutilizzato
+    // se è inutilizzato, lo posso riutilizzare
 
+    // dup2(3, 1):
+    // dup2 fa close(1) e poi riutilizza 1, come clone di fd=3
 
     // chiudiamo file descriptor 1 (associato a stdout sul terminale)
     // e lo riutilizziamo come clone del descrittore fd che "punta" al file "output.txt"
@@ -33,7 +39,10 @@ int main(int argc, char *argv[]) {
 
     	exit(EXIT_FAILURE);
     }
+    // dopo dup2, i due file descriptor 3 ed 1 "puntano" allo stesso file aperto (output.txt)
 
+    // fd=3 non mi serve più
+    // attenzione che il file output.txt rimane aperto
     close(fd);
 
 	char * newargv[] = { "ls", "-l" /*, "/home/utente"*/, NULL };
