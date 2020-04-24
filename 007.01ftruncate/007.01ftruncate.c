@@ -43,7 +43,7 @@ int main(int argc, char * argv[]) {
 	// O_RDONLY, O_WRONLY, or O_RDWR  These request opening the file read-only, write-only, or read/write, respectively.
 
 	int fd = open(file_name,
-				  O_CREAT | O_TRUNC | O_WRONLY | O_EXCL,
+				  O_CREAT | O_WRONLY | O_EXCL,
 				  S_IRUSR | S_IWUSR // l'utente proprietario del file avrà i permessi di lettura e scrittura sul nuovo file
 				 );
 
@@ -57,7 +57,7 @@ int main(int argc, char * argv[]) {
 
 	// off_t è un intero senza segno a 64 bit
 
-#define ONE_MEGA_BYTE 1000 * 1000UL
+#define ONE_MEGA_BYTE 1024 * 1024UL
 
 	// The truncate() and ftruncate() functions cause the regular file named by path
 	// or referenced by fd to be truncated to a size of precisely length bytes.
