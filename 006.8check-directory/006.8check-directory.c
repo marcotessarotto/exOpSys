@@ -217,7 +217,14 @@ int main(int argc, char * argv[]) {
         printf("Last file access:         %s", ctime(&sb.st_atime)); // Time of last access.
         printf("Last file modification:   %s", ctime(&sb.st_mtime)); // Time of last modification.
 
+        // last access timestamp: This  is  the  file's  last  access  timestamp.
+        // It  is changed by file accesses, for example, by execve(2), mknod(2), pipe(2),
+        // utime(2), and read(2) (of more than zero bytes).
 
+        // Last status change timestamp: It is changed by writing or by setting inode information
+        // (i.e., owner,  group,  link count, mode, etc.).
+
+        // last file modification: write(2)
 	}
 
 
