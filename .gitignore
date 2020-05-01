@@ -61,3 +61,5 @@ Release/
 
 build_dir/
 
+**/output.txt
+
