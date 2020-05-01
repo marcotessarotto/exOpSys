@@ -67,6 +67,8 @@ int main(int argc, char * argv[]) {
 			// 2: stderr
 			// wc lavorerà col fd 0 senza sapere che non è stdin, è completamente trasparente
 			execlp("wc", "wc", (char * ) NULL); // execlp utilizza la system call execve
+			// execlp cerca il programma nelle directory specificate
+			// nella variabile di environment PATH
 
 			// se la chiamata execlp funziona, non si passa più di qua; altrimenti si è verificato un problema
 			perror("problema con execlp(1)");
@@ -116,6 +118,8 @@ int main(int argc, char * argv[]) {
 
 
 			execlp("ls", "ls", "-l", "/home/utente", (char *) NULL);
+			// execlp cerca il programma nelle directory specificate
+			// nella variabile di environment PATH
 
 			// di qua non si passa più, a meno di errori
 
