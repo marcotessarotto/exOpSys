@@ -11,6 +11,16 @@
 
 #define BUF_LEN 1024*4
 
+/*
+ * processo padre crea un file e ne imposta la dimensione
+ *
+ * processo padre e processo figlio condividono il file descriptor e quindi il file offset
+ *
+ * viene mostrato come se uno dei processi modifica il file offset, anche l'altro processo vede la modifica
+ *
+ * (il file non viene scritto)
+ */
+
 
 #define CHECK_ERR(a,msg) {if ((a) == -1) { perror((msg)); exit(EXIT_FAILURE); } }
 
