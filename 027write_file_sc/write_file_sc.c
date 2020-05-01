@@ -21,7 +21,13 @@ SYNOPSIS
 
        ssize_t getrandom(void *buf, size_t buflen, unsigned int flags);
 
-       attenzione che solo la richiesta fino a 256 bytes è garantita (leggere il manuale),
+       attenzione che solo la richiesta fino a 256 bytes è garantita (leggere il manuale)
+
+
+vedere anche:
+
+https://repl.it/@MarcoTessarotto/getrandom-syscall
+
  *
  */
 
