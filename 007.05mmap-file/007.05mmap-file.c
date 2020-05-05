@@ -18,7 +18,7 @@
  *
  * il programma crea un file di dimensione FILE_SIZE,
  * lo mappa in memoria, ci scrive dei dati, crea un processo figlio
- * per calcolare SHA3_512 dei dati.
+ * per calcolare SHA3_512 dei dati (il digest viene restituito al processo padre).
  *
  *
  * https://github.com/marcotessarotto/openssl-sha3/
@@ -187,7 +187,7 @@ int main(int argc, char * argv[]) {
 	// perchè permette ai processi di scambiare dati tra di loro.
 
 	// nel resto dell'esempio, il processo padre scrive dei dati nella memory map
-	// poi crea il processo figlio; questo calcola SHA3 dei dati e li restituisce
+	// poi crea il processo figlio; questo calcola SHA3_512 dei dati e li restituisce
 	// scrivendoli all'inizio della stessa memory map.
 	// il processo padre riceve il risultato quando esce da wait().
 
