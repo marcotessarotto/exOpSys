@@ -18,7 +18,7 @@
  *
  * viene mostrato come se uno dei processi modifica il file offset, anche l'altro processo vede la modifica
  *
- * (il file non viene scritto)
+ * (il file non viene scritto da nessuno dei due processi)
  */
 
 
