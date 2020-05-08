@@ -31,6 +31,14 @@
  * The Secure Hash Algorithms are a family of cryptographic hash functions
  * published by the National Institute of Standards and Technology (NIST)
  * as a U.S. Federal Information Processing Standard (FIPS).
+ *
+ * A cryptographic hash function (CHF) is a hash function that is
+ * suitable for use in cryptography.
+ * It is a mathematical algorithm that maps data of arbitrary size
+ * (often called the "message") to a bit string of a fixed size
+ * (the "hash value", "hash", or "message digest") and is a one-way function,
+ * that is, a function which is practically infeasible to invert.
+ *
  */
 
 #define FILE_SIZE 1024*1024*16
