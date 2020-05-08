@@ -270,6 +270,7 @@ void parent_process() {
 	memcpy(previous_addr, addr, file_size);
 
 	// monitora continuamente la memory map per cambiamenti apportati dall'altro processo
+	// n.b.: non è la soluzione migliore in termini di sincronizzazione tra processi
 	while(1) {
 		for (pos = 0; pos < file_size; pos++) {
 			if (addr[pos] != previous_addr[pos]) {
