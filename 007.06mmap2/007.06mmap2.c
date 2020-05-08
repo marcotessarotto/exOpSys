@@ -13,9 +13,16 @@
 #include <errno.h>
 
 /*
- * processo padre e processo figlio mappano in memoria lo stesso file,
- * ognuno per conto proprio; entrambi i processi lavorano sulla stessa
  *
+ * processo padre e processo figlio non condividono il file descriptor (ne la memory map)
+ * ma li aprono dopo fork()  [i due processi condividono il nome del file]
+ *
+ * il processo figlio apre il file e lo mappa in memoria
+ * e per 10 volte a distanza di un secondo scrive in tutta la memory map un certo valore
+ *
+ * il processo padre apre il file e lo mappa in memoria
+ * monitora continuamente la memory map per cambiamenti apportati dall'altro processo
+ * il processo padre termina quando riceve il segnale SIGCHLD
  */
 
 
@@ -82,6 +89,7 @@ int main(int argc, char * argv[]) {
 		}
 	}
 
+	// crea il file
 	fd = create_file_set_size(file_name, file_size);
 
 	if (fd == -1) {
