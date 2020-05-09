@@ -18,7 +18,7 @@
  * esempio di sincronizzazione tra processi tramite segnalazione con semaforo
  *
  * http://greenteapress.com/semaphores/LittleBookOfSemaphores.pdf
- * 3.1 Signaling pag. 16
+ * 3.1 Signaling pag. 11
  *
  */
 
