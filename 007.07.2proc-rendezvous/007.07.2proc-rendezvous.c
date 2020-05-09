@@ -21,6 +21,10 @@
  * vogliamo garantire che:
  * a1 < b2 e b1 < a2
  *
+ * Thread A				Thread B
+ * statement a1			statement b1
+ * statement a2			statement b2
+ *
  *
  */
 
