@@ -76,6 +76,7 @@ int main(int argc, char * argv[]) {
 	if (pid == 0) {
 		for (int i = 0; i < NUMBER_OF_CYCLES; i++) {
 
+			// 3.4.2 Mutual exclusion solution, pag. 19
 			if (sem_wait(process_semaphore) == -1) {
 				perror("sem_wait");
 				exit(EXIT_FAILURE);
