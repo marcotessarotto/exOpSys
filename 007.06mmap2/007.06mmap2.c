@@ -110,6 +110,7 @@ int main(int argc, char * argv[]) {
 	default:
 
 		parent_process();
+
 		exit(EXIT_SUCCESS);
 	}
 
@@ -146,6 +147,8 @@ __off_t get_fd_size(int fd) {
 	}
 
     // printf("File size: %lld bytes\n", (long long) sb.st_size);
+
+	printf("sizeof(__off_t) = %lu\n", sizeof(__off_t));
 
     return sb.st_size;
 }
@@ -189,7 +192,7 @@ char * common_prepare_memory_map(char * fname, __off_t * file_size) {
 
 // ipotesi: il processo figlio conosca soltanto il nome del file su cui operare
 // il processo figlio mappa in memoria il file,
-// e per 10 volte a distanza di un secondo scrive in tutto la memory map un carattere
+// e per 10 volte a distanza di un secondo scrive in tutta la memory map un carattere
 void child_process() {
 
 	char * addr;
@@ -279,7 +282,7 @@ void parent_process() {
 
 	// monitora continuamente la memory map per cambiamenti apportati dall'altro processo
 	// n.b.: non è la soluzione migliore in termini di sincronizzazione tra processi
-	while(1) {
+	while (1) {
 		for (pos = 0; pos < file_size; pos++) {
 			if (addr[pos] != previous_addr[pos]) {
 				printf("[parent] addr[%ld] has changed, new value: '%c'\n", pos, addr[pos]);

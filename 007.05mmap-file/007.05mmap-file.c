@@ -18,9 +18,9 @@
  *
  * il programma crea un file di dimensione FILE_SIZE,
  * lo mappa in memoria, ci scrive dei dati, crea un processo figlio
- * per calcolare SHA3_512 dei dati (il digest viene restituito al processo padre).
- * il processo figlio riceve i dati su cui calcolare SHA3_512 attraverso
- * una memory map condivisa.
+ * per calcolare SHA3_512 dei dati contenuti nella memory map (il digest viene restituito al processo padre).
+ *
+ * il processo figlio riceve i dati su cui calcolare SHA3_512 attraverso  una memory map condivisa.
  *
  *
  * https://github.com/marcotessarotto/openssl-sha3/
