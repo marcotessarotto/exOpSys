@@ -15,8 +15,7 @@
 
 
 /*
- * esempio di segnalazione tra processi tramite segnalazione con semaforo
- * gestiti attraverso mutex (mutual exclusion)
+ * esempio di sincronizzazione tra processi tramite segnalazione con semaforo
  *
  * http://greenteapress.com/semaphores/LittleBookOfSemaphores.pdf
  * 3.1 Signaling pag. 16
@@ -94,7 +93,7 @@ int main(int argc, char * argv[]) {
 
 	CHECK_ERR(res,"sem_destroy")
 
-	printf("[parent ]bye\n");
+	printf("[parent] bye\n");
 
 	return 0;
 }
