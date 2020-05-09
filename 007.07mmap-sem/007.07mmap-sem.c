@@ -14,7 +14,11 @@
 
 /*
  * esempio di accessi concorrenti ad una variabile condivisa
- * gestiti correttamente attraverso mutex (mutual exclusion)
+ * gestiti attraverso mutex (mutual exclusion)
+ *
+ * http://greenteapress.com/semaphores/LittleBookOfSemaphores.pdf
+ * 1.5.2 Concurrent updates pag. 5
+ * 3.4 Mutex pag. 16
  *
  * due processi operano in modo concorrente sulla stessa variabile condivisa,
  * un processo la incrementa NUMBER_OF_CYCLES volte
