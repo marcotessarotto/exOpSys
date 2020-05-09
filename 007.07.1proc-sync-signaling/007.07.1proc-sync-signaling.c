@@ -39,7 +39,7 @@ int main(int argc, char * argv[]) {
 	pid_t pid;
 
 	process_semaphore = mmap(NULL, // NULL: è il kernel a scegliere l'indirizzo
-			sizeof(sem_t) + sizeof(int), // dimensione della memory map
+			sizeof(sem_t), // dimensione della memory map
 			PROT_READ | PROT_WRITE, // memory map leggibile e scrivibile
 			MAP_SHARED | MAP_ANONYMOUS, // memory map condivisibile con altri processi e senza file di appoggio
 			-1,
