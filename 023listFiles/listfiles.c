@@ -13,24 +13,19 @@ int main(int argc, char *argv[]) {
 
 	char * fileName;
 
-//	printf("sizeof unsigned char %i\n", sizeof(unsigned char));
-//	printf("sizeof char %i\n", sizeof(char));
-//	printf("sizeof short int %i\n", sizeof(short int));
-//
-//	printf("sizeof int %i\n", sizeof(int));
-//	printf("sizeof unsigned long int %i\n", sizeof(unsigned long int));
-//	printf("sizeof unsigned long long int %i\n", sizeof(unsigned long long int));
 
 	fileName = (argc == 1) ? "." : argv[1];
 
 	errno = 0;
 
-	dp = opendir(fileName);  //   ./
+// man 3 opendir
+//    DIR *opendir(const char *name);
+//    DIR *fdopendir(int fd);
+
+
+	dp = opendir(fileName);
 
 	if (dp == NULL) {
-
-//		perror("cannot open directory! bye");
-
 		printf("cannot open directory %s! bye", fileName);
 
 		return EXIT_FAILURE;
@@ -39,7 +34,6 @@ int main(int argc, char *argv[]) {
 
 
 	while ((ep = readdir(dp)) != NULL) {
-		//puts(ep->d_name);
 
 		printf("%-10s ", (ep->d_type == DT_REG) ?  "regular" :
 		                                    (ep->d_type == DT_DIR) ?  "directory" :
@@ -51,7 +45,7 @@ int main(int argc, char *argv[]) {
 
 		printf("%s \n", ep->d_name);
 
-		// file size?? costruire path a file ed usare stat (man 2 stat)
+		// come trovo il file size? posso usare stat (man 2 stat)
 	}
 
 	if (errno) {
