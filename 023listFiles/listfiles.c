@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
 
-	DIR * dp;
+	DIR * dir_stream_ptr;
 	struct dirent *ep;
 
 	char * fileName;
@@ -23,9 +23,9 @@ int main(int argc, char *argv[]) {
 //    DIR *fdopendir(int fd);
 
 
-	dp = opendir(fileName);
+	dir_stream_ptr = opendir(fileName);
 
-	if (dp == NULL) {
+	if (dir_stream_ptr == NULL) {
 		printf("cannot open directory %s! bye", fileName);
 
 		return EXIT_FAILURE;
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
 
 
-	while ((ep = readdir(dp)) != NULL) {
+	while ((ep = readdir(dir_stream_ptr)) != NULL) {
 
 		printf("%-10s ", (ep->d_type == DT_REG) ?  "regular" :
 		                                    (ep->d_type == DT_DIR) ?  "directory" :
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 		perror("readdir() error");
 	}
 
-	closedir(dp);
+	closedir(dir_stream_ptr);
 
 	puts("finished! bye!");
 
