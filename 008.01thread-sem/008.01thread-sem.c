@@ -96,6 +96,8 @@ int main(int argc, char * argv[]) {
 
 	int s;
 
+	printf("initial value of shared_counter=%d\n", shared_counter);
+
 	process_semaphore = malloc(sizeof(sem_t));
 
 	s = sem_init(process_semaphore,
@@ -133,7 +135,7 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	printf("shared_counter=%d\n", shared_counter);
+	printf("final value of shared_counter=%d\n", shared_counter);
 
 	printf("bye\n");
 
