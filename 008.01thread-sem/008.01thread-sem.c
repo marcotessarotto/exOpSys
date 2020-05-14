@@ -32,6 +32,7 @@
  * il mutex garantisce che soltanto un thread alla volta accede alla variabile condivisa.
  *
  *
+ * vedere anche l'esempio 007.07mmap-sem
  */
 
 

@@ -31,6 +31,7 @@
  *
  * il semaforo si trova in una memory map condivisa tra i due processi.
  *
+ * vedere anche l'esempio 008.01thread-sem
  */
 
 
