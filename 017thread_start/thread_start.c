@@ -40,10 +40,18 @@ void * thread_function(void * arg) {
 		break;
 	}
 
+	int * result_value_ptr;
+
+	result_value_ptr = malloc(sizeof(int));
+	if (result_value_ptr == NULL) {
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
+	*result_value_ptr = strlen(str);
 
 
-
-	return (void *) strlen(str);
+	return (void *) result_value_ptr;
 }
 
 
@@ -51,8 +59,14 @@ int main(int argc, char * argv[]) {
 
 	pthread_t t1;
 	void * res;
+	int * ret_value;
 
 	int s;
+
+	//// ATTENZIONE!!! fuori standard!!! funziona su Linux
+	pthread_t tid = pthread_self();
+	printf("thread ID: %lu\n", tid);
+	////
 
 	s = pthread_create(&t1, NULL, thread_function, "ciao\n");
 
@@ -70,7 +84,9 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	printf("valore restituito dal thread: %ld\n", (long) res);
+	ret_value = (int *) res;
+
+	printf("valore restituito dal thread: %d\n",  *ret_value);
 
 	exit(EXIT_SUCCESS);
 
