@@ -88,6 +88,8 @@ int main(int argc, char * argv[]) {
 
 	printf("valore restituito dal thread: %d\n",  *ret_value);
 
+	free(res); // superfluo perchè il programma subito dopo termina
+
 	exit(EXIT_SUCCESS);
 
 }
