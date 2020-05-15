@@ -29,7 +29,7 @@
  * lo schema di mutua esclusione (mutex) per gestire l'accesso concorrente alla variabile condivisa
  * è realizzato con semaforo POSIX senza nome.
  *
- * il mutex garantisce che soltanto un thread alla volta accede alla variabile condivisa.
+ * il mutex garantisce che soltanto un thread alla volta acceda alla variabile condivisa.
  *
  *
  * vedere anche l'esempio 007.07mmap-sem
@@ -38,8 +38,11 @@
 
 sem_t * process_semaphore;
 
-int shared_counter;
+int shared_counter; // variabile condivisa tra i due thread
 
+// esercizio:
+// nei due thread t1 e t2, tenere traccia del valore max e valore minimo assunto da shared_counter
+// e scriverlo prima di terminare
 
 #define NUMBER_OF_CYCLES 1000000
 
