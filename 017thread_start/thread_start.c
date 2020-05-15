@@ -11,6 +11,23 @@
 #include <semaphore.h>
 #include <pthread.h>
 
+int special_return_value = 123;
+
+int * prepare_return_value(int value) {
+
+	int * result_value_ptr;
+
+	result_value_ptr = malloc(sizeof(int));
+
+	if (result_value_ptr == NULL) {
+		perror("malloc");
+		exit(EXIT_FAILURE);
+	}
+
+	*result_value_ptr = value;
+
+	return result_value_ptr;
+}
 
 void * thread_function(void * arg) {
 
@@ -30,28 +47,19 @@ void * thread_function(void * arg) {
 	switch (ch) {
 	case 'x':
 		printf("[thread] prima di exit()\n");
+
 		exit(EXIT_SUCCESS);
 		break;
 	case 't':
 		printf("[thread] prima di pthread_exit\n");
-		pthread_exit((void *) 123);
+
+		pthread_exit((void *) prepare_return_value(123));
 		break;
 	default:
 		break;
 	}
 
-	int * result_value_ptr;
-
-	result_value_ptr = malloc(sizeof(int));
-	if (result_value_ptr == NULL) {
-		perror("malloc");
-		exit(EXIT_FAILURE);
-	}
-
-	*result_value_ptr = strlen(str);
-
-
-	return (void *) result_value_ptr;
+	return (void *) prepare_return_value(strlen(str));
 }
 
 
