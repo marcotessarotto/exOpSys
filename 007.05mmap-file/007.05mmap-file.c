@@ -204,6 +204,7 @@ int main(int argc, char * argv[]) {
 	// esercizio: modificare il programma aggiungendo una seconda memory map dove
 	// il processo figlio scrive il risultato (senza "rovinare" i dati nella prima memory map)
 
+	// riempiamo di valori a caso la memory map
 	memset(addr, 0xFF, file_size);
 
 	unsigned char * digest;
