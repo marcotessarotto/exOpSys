@@ -107,7 +107,7 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
-	printf("before INCREMENT val=%d, gen=%d, process %d\n", fork_counter->val, generation, getpid());
+	printf("before INCREMENT val=%d, process %d, gen=%d\n", fork_counter->val, getpid(), generation);
 	// sezione critica
 	fork_counter->val++;
 	//
@@ -143,7 +143,7 @@ int main(int argc, char * argv[]) {
 		CHECK_ERR(res,"sem_destroy")
 	}
 
-	printf("bye pid=%d, gen=%d\n", getpid(), generation);
+	printf("!bye pid=%d, gen=%d\n", getpid(), generation);
 
 
 	return 0;
