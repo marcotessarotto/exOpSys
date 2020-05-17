@@ -94,10 +94,11 @@ int main(int argc, char * argv[]) {
 		pid = fork();
 		CHECK_ERR(pid,"fork")
 
-		if (pid != 0)
-			printf("*new process %d, gen=%d cloned from %d\n", pid, generation + 1, getpid());
-		else
+		if (pid == 0) {
 			generation = i+1;
+			printf("*new process %d, gen=%d cloned from %d\n", getpid(), generation , getppid());
+		}
+
 	}
 
 	// 3.4.2 Mutual exclusion solution, pag. 19
