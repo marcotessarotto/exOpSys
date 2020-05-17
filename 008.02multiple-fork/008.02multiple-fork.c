@@ -28,8 +28,6 @@ shared_int * fork_counter;
 
 #define CHECK_ERR_MMAP(a,msg) {if ((a) == MAP_FAILED) { perror((msg)); exit(EXIT_FAILURE); } }
 
-#define NUMBER_OF_CYCLES 1000000
-
 #define NUMBER_OF_GENERATIONS 4
 
 int main(int argc, char * argv[]) {
@@ -46,7 +44,7 @@ int main(int argc, char * argv[]) {
 			sizeof(shared_int), // dimensione della memory map
 			PROT_READ | PROT_WRITE, // memory map leggibile e scrivibile
 			MAP_SHARED | MAP_ANONYMOUS, // memory map condivisibile con altri processi e senza file di appoggio
-			-1,
+			-1, // nessun file di appoggio alla memory map
 			0); // offset nel file
 
 	CHECK_ERR_MMAP(fork_counter,"mmap")
@@ -109,7 +107,9 @@ int main(int argc, char * argv[]) {
 	}
 
 	printf("before INCREMENT val=%d, gen=%d, process %d\n", fork_counter->val, generation, getpid());
+	// sezione critica
 	fork_counter->val++;
+	//
 
 	if (sem_post(&fork_counter->sem) == -1) {
 		perror("sem_post");
