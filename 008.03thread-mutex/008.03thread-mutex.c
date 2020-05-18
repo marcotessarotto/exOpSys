@@ -10,7 +10,6 @@
 #include <sys/mman.h>
 
 #include <errno.h>
-#include <semaphore.h>
 #include <pthread.h>
 
 
@@ -27,16 +26,15 @@
  * e l'altro thread la decrementa NUMBER_OF_CYCLES volte.
  *
  * lo schema di mutua esclusione (mutex) per gestire l'accesso concorrente alla variabile condivisa
- * è realizzato con semaforo POSIX senza nome.
+ * è realizzato con pthread_mutex_t.
  *
  * il mutex garantisce che soltanto un thread alla volta acceda alla variabile condivisa.
  *
  *
- * vedere anche l'esempio 007.07mmap-sem
+ * vedere anche l'esempio 007.07mmap-sem e 008.01thread-sem
  */
 
-
-sem_t * process_semaphore;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
 int shared_counter; // variabile condivisa tra i due thread
 
@@ -44,24 +42,25 @@ int shared_counter; // variabile condivisa tra i due thread
 // nei due thread t1 e t2, tenere traccia del valore max e valore minimo assunto da shared_counter
 // e scriverlo prima di terminare
 
-#define CHECK_ERR(a,msg) {if ((a) == -1) { perror((msg)); exit(EXIT_FAILURE); } }
-
 #define NUMBER_OF_CYCLES 10000000
 
 void * thread_function_1(void * arg) {
+	int s;
 
 	for (int i = 0; i < NUMBER_OF_CYCLES; i++) {
 
 		// 3.4.2 Mutual exclusion solution, pag. 19
-		if (sem_wait(process_semaphore) == -1) {
-			perror("sem_wait");
+		s = pthread_mutex_lock(&mutex);
+		if (s != 0) {
+			perror("pthread_mutex_lock");
 			exit(EXIT_FAILURE);
 		}
 
 		shared_counter++;
 
-		if (sem_post(process_semaphore) == -1) {
-			perror("sem_post");
+		s = pthread_mutex_unlock(&mutex);
+		if (s != 0) {
+			perror("pthread_mutex_lock");
 			exit(EXIT_FAILURE);
 		}
 
@@ -72,19 +71,22 @@ void * thread_function_1(void * arg) {
 
 
 void * thread_function_2(void * arg) {
+	int s;
 
 	for (int i = 0; i < NUMBER_OF_CYCLES; i++) {
 
 		// 3.4.2 Mutual exclusion solution, pag. 19
-		if (sem_wait(process_semaphore) == -1) {
-			perror("sem_wait");
+		s = pthread_mutex_lock(&mutex);
+		if (s != 0) {
+			perror("pthread_mutex_lock");
 			exit(EXIT_FAILURE);
 		}
 
 		shared_counter--;
 
-		if (sem_post(process_semaphore) == -1) {
-			perror("sem_post");
+		s = pthread_mutex_unlock(&mutex);
+		if (s != 0) {
+			perror("pthread_mutex_lock");
 			exit(EXIT_FAILURE);
 		}
 
@@ -103,16 +105,6 @@ int main(int argc, char * argv[]) {
 	int s;
 
 	printf("initial value of shared_counter=%d, NUMBER_OF_CYCLES=%d\n", shared_counter, NUMBER_OF_CYCLES);
-
-	process_semaphore = malloc(sizeof(sem_t));
-
-	s = sem_init(process_semaphore,
-					0, // 1 => il semaforo è condiviso tra processi,
-					   // 0 => il semaforo è condiviso tra threads del processo
-					1 // valore iniziale del semaforo (se mettiamo 0 che succede?)
-				  );
-
-	CHECK_ERR(s,"sem_init")
 
 	s = pthread_create(&t1, NULL, thread_function_1, NULL);
 
@@ -144,10 +136,6 @@ int main(int argc, char * argv[]) {
 	}
 
 	printf("final value of shared_counter=%d\n", shared_counter);
-
-	// il semaforo senza nome va distrutto solo quando non ci sono processi bloccati su di esso
-	s = sem_destroy(process_semaphore);
-	CHECK_ERR(s,"sem_destroy")
 
 	printf("bye\n");
 

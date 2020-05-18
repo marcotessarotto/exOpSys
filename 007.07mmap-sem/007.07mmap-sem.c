@@ -44,7 +44,7 @@ int * shared_counter;
 
 #define CHECK_ERR_MMAP(a,msg) {if ((a) == MAP_FAILED) { perror((msg)); exit(EXIT_FAILURE); } }
 
-#define NUMBER_OF_CYCLES 1000000
+#define NUMBER_OF_CYCLES 10000000
 
 int main(int argc, char * argv[]) {
 
@@ -62,7 +62,8 @@ int main(int argc, char * argv[]) {
 
 	shared_counter = (int *) (process_semaphore + 1);
 
-	printf("shared_counter initial value: %d\n", *shared_counter);
+	//printf("shared_counter initial value: %d\n", *shared_counter);
+	printf("initial value of shared_counter=%d, NUMBER_OF_CYCLES=%d\n", *shared_counter, NUMBER_OF_CYCLES);
 
 	res = sem_init(process_semaphore,
 					1, // 1 => il semaforo è condiviso tra processi, 0 => il semaforo è condiviso tra threads del processo
@@ -113,7 +114,7 @@ int main(int argc, char * argv[]) {
 
 	wait(NULL);
 
-	printf("shared_counter final value: %d\n", *shared_counter);
+	printf("final value of shared_counter=%d\n", *shared_counter);
 
 	// il semaforo senza nome va distrutto solo quando non ci sono processi bloccati su di esso
 	res = sem_destroy(process_semaphore);
