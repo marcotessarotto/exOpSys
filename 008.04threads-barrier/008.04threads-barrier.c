@@ -13,6 +13,8 @@
 #include <pthread.h>
 
 // barriera per N threads realizzata con pthread_barrier_t
+// vedere anche:
+// https://github.com/marcotessarotto/esercizio-C-2020-05-20-barrier
 
 // https://linux.die.net/man/3/pthread_barrier_init
 // https://linux.die.net/man/3/pthread_barrier_wait
