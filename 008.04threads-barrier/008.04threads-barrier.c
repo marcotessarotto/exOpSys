@@ -49,6 +49,7 @@ void * thread_function(void * arg) {
 
 
 #define CHECK_ERR(a,msg) {if ((a) == -1) { perror((msg)); exit(EXIT_FAILURE); } }
+#define CHECK_ERR2(a,msg) {if ((a) != 0) { perror((msg)); exit(EXIT_FAILURE); } }
 
 int main() {
 
@@ -61,21 +62,12 @@ int main() {
 
 	for (int i=0; i < number_of_threads; i++) {
 		s = pthread_create(&threads[i], NULL, thread_function, NULL);
-
-		if (s != 0) {
-			perror("pthread_create");
-			exit(EXIT_FAILURE);
-		}
+		CHECK_ERR2(s,"pthread_create")
 	}
 
 	for (int i=0; i < number_of_threads; i++) {
 		s = pthread_join(threads[i], NULL);
-
-		if (s != 0) {
-			perror("pthread_join");
-			exit(EXIT_FAILURE);
-		}
-
+		CHECK_ERR2(s,"pthread_join")
 	}
 
 	// https://linux.die.net/man/3/pthread_barrier_init
