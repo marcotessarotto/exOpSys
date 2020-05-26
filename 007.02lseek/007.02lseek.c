@@ -124,6 +124,11 @@ in modo sequenziale (nella direzione che va dall'inizio del file verso la fine d
 	return 0;
 }
 
+/*
+ * questa funzione prende come parametro un descrittore di file aperto
+ * e restituisce il file offset di quel descrittore di file
+ *
+ */
 off_t show_current_file_offset(int fd) {
 
 	off_t file_offset;
