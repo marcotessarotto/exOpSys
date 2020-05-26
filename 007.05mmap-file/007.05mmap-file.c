@@ -14,7 +14,10 @@
 #include <openssl/evp.h>
 
 /*
- * richiede: sudo apt install libssl-dev
+ * richiede:
+ *
+ * sudo apt update
+ * sudo apt install libssl-dev
  *
  * il programma crea un file di dimensione FILE_SIZE,
  * lo mappa in memoria, ci scrive dei dati, crea un processo figlio
