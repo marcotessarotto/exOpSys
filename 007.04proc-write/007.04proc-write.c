@@ -42,6 +42,37 @@ void fill_with_random_material(char * buffer, size_t buf_len) {
 
 }
 
+void fill_with_random_material_min_max(char * buffer, size_t buf_len, unsigned char min_val, unsigned char max_val) {
+	ssize_t pos = 0;
+	ssize_t res;
+
+	while (pos < buf_len) {
+		res = getrandom(&buffer[pos],
+			  buf_len - pos,
+			  //GRND_RANDOM |
+			  //GRND_NONBLOCK |
+			  0);
+
+		if (res == -1) {
+			perror("getrandom()");
+			if (errno == EINTR || errno == EAGAIN) {
+				continue;
+			} else {
+				exit(EXIT_FAILURE);
+			}
+		}
+
+		pos += res;
+
+	}
+
+	for (size_t i = 0; i < buf_len; i++)
+		buffer[i] = buffer[i] % max_val + min_val;
+
+	// random_number = rand() % B + A;
+
+}
+
 #define CHECK_ERR(a,msg) {if ((a) == -1) { perror((msg)); exit(EXIT_FAILURE); } }
 
 int main(int argc, char * argv[]) {
