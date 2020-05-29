@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
+/*
+ * misura il tempo di esecuzione della system call gettimeofday()
+ */
 
 #define NUMBER_OF_TESTS 10000000L
 
