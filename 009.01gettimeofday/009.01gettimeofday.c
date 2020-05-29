@@ -10,22 +10,6 @@
  */
 
 
-
-// https://gist.github.com/diabloneo/9619917
-void timespec_diff(struct timespec *start, struct timespec *stop,
-                   struct timespec *result)
-{
-    if ((stop->tv_nsec - start->tv_nsec) < 0) {
-        result->tv_sec = stop->tv_sec - start->tv_sec - 1;
-        result->tv_nsec = stop->tv_nsec - start->tv_nsec + 1000000000;
-    } else {
-        result->tv_sec = stop->tv_sec - start->tv_sec;
-        result->tv_nsec = stop->tv_nsec - start->tv_nsec;
-    }
-
-    return;
-}
-
 #define NUMBER_OF_TESTS 10000000L
 
 int main(int argc, char * argv[]) {
@@ -54,7 +38,8 @@ int main(int argc, char * argv[]) {
 	printf("\n\n");
 
 	//
-
+	// int clock_getres(clockid_t clockid, struct timespec *res);
+	// The  function clock_getres() finds the resolution (precision) of the specified clock clockid
 	struct timespec ts1;
 
 	gettimeofday(&tv1, NULL);
@@ -139,3 +124,5 @@ int main(int argc, char * argv[]) {
 	return 0;
 
 }
+
+
