@@ -48,6 +48,7 @@ int shared_counter; // variabile condivisa tra i due thread
 
 #define NUMBER_OF_CYCLES 10000000
 
+
 void * thread_function_1(void * arg) {
 
 	for (int i = 0; i < NUMBER_OF_CYCLES; i++) {
@@ -102,6 +103,8 @@ int main(int argc, char * argv[]) {
 
 	int s;
 
+	struct timespec ts1, ts2;
+
 	printf("initial value of shared_counter=%d, NUMBER_OF_CYCLES=%d\n", shared_counter, NUMBER_OF_CYCLES);
 
 	process_semaphore = malloc(sizeof(sem_t));
@@ -113,6 +116,8 @@ int main(int argc, char * argv[]) {
 				  );
 
 	CHECK_ERR(s,"sem_init")
+
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
 
 	s = pthread_create(&t1, NULL, thread_function_1, NULL);
 
@@ -143,7 +148,17 @@ int main(int argc, char * argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts2);
+
 	printf("final value of shared_counter=%d\n", shared_counter);
+
+	//printf("%ld %ld\n", ts1.tv_sec, ts1.tv_nsec);
+	//printf("%ld %ld\n", ts2.tv_sec, ts2.tv_nsec);
+
+	long dt = ((ts2.tv_sec - ts1.tv_sec) * 1000000000L + ts2.tv_nsec) - ts1.tv_nsec;
+
+	printf("clock_gettime(CLOCK_PROCESS_CPUTIME_ID): dt = %ld ns\n", dt);
+	printf("dt/NUMBER_OF_CYCLES/2 = %ld ns\n", dt/NUMBER_OF_CYCLES/2);
 
 	// il semaforo senza nome va distrutto solo quando non ci sono processi bloccati su di esso
 	s = sem_destroy(process_semaphore);

@@ -14,6 +14,7 @@
 
 // soluzione con mutex di:
 // https://repl.it/@MarcoTessarotto/fork-counter
+// crea 2^N processi, ciascun processo incrementa un contatore condiviso
 
 typedef struct {
 	sem_t sem; // semaforo per implementare il meccanismo di mutual exclusion (mutex)
