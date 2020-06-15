@@ -67,7 +67,6 @@ int main(int argc, char *argv[]) {
 	}
 
 
-
 	if (fork() == 0) {
 		int res;
 		char ch = 'A';
