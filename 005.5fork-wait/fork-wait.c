@@ -10,7 +10,7 @@
  *
  * nel primo caso, viene usato fork() e basta
  *
- * nel secondo caso, vengoni usati fork() e wait()
+ * nel secondo caso, vengono usati fork() e wait()
  */
 
 int main(int argc, char *argv[]) {
