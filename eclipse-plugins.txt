@@ -1,0 +1,4 @@
+install eclipse plugin from here:
+https://marketplace.eclipse.org/content/darkest-dark-theme
+
+https://www.eclipse.org/community/eclipse_newsletter/2017/february/article5.php

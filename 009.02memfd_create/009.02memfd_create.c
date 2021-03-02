@@ -44,7 +44,7 @@
  *
  */
 
-#define FILE_SIZE (100*1024*1024)
+#define THREAD_VM_SIZE (100*1024*1024)
 
 #define BUF_SIZE 256
 
@@ -85,7 +85,7 @@ int main(int argc, char * argv[]) {
 	}
 
 	// imposta la dimensione del file
-	if (ftruncate(fd, FILE_SIZE) == -1) {
+	if (ftruncate(fd, THREAD_VM_SIZE) == -1) {
 		perror("ftruncate");
 		exit(EXIT_FAILURE);
 	}
