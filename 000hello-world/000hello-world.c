@@ -1,6 +1,8 @@
 #include <stdio.h>    // <== direttive del preprocessore
 // i simboli < > dicono al preprocessore di cercare i file AL DI FUORI della cartella di progetto
 
+#include <unistd.h>
+
 #include "my_header.h"
 
 int main(int argc, char **argv) {
@@ -41,5 +43,7 @@ int main(int argc, char **argv) {
 	// hello_world_multi_printf();
 
 
-	return 0;
+	//return 0;
+	_exit(0); // se il programma ha funzionato correttamente,
+	// restituire zero!
 }
