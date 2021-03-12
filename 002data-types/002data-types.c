@@ -108,7 +108,15 @@ int main(int argc, char **argv) {
 	printf("valore massimo di long: %ld\n", LONG_MAX);
 	printf("sizeof(long) = %ld byte\n", sizeof(long));
 
+	// unsigned long (o unsigned long int)
+	printf("\n***unsigned long***\n");
+	printf("valore minimo di unsigned long: %lu\n", 0);
+	printf("valore massimo di unsigned long: %lu (base 10)   0x%lx (base 16)\n", ULONG_MAX, ULONG_MAX);
+	printf("sizeof(unsigned long) = %ld byte\n", sizeof(unsigned long));
+
+
 	long int var_signed_long_int = 1234567890L; // suffisso L
+	unsigned long int var_unsigned_long_int = 1234567890UL; // suffissi U ed L
 
 	// esercizio: mostrare le stesse informazioni per unsigned long
 
