@@ -70,6 +70,8 @@ int main(int argc, char * argv[]) {
 			continue;
 		}
 
+		// https://stackoverflow.com/questions/1401526/how-to-use-printf-to-display-off-t-nlink-t-size-t-and-other-special-types
+
         printf("file name: %s\nfile type: ", argv[i]);
 
         switch (sb.st_mode & S_IFMT) {

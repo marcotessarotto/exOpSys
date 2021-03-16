@@ -13,6 +13,8 @@ main(int argc, char *argv[])
 {
    struct stat sb;
 
+   // https://stackoverflow.com/questions/1401526/how-to-use-printf-to-display-off-t-nlink-t-size-t-and-other-special-types
+
    if (argc != 2) {
 	   fprintf(stderr, "Usage: %s <pathname>\n", argv[0]);
 	   exit(EXIT_FAILURE);
