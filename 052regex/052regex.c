@@ -45,7 +45,7 @@ int main(void)
 	   len = pmatch[0].rm_eo - pmatch[0].rm_so;
 
 	   delta = s - str;
-	   printf("match #%d, from position %d to position %d in string:\n", i, pmatch[0].rm_so + delta, pmatch[0].rm_eo + delta); // corrispondenza #i
+	   printf("match #%d, from position %d to position %d in search string:\n", i, pmatch[0].rm_so + delta, pmatch[0].rm_eo + delta); // corrispondenza #i
 
 	   printf("offset = %jd; length = %jd\n", (intmax_t) off,
 			   (intmax_t) len);
@@ -57,6 +57,7 @@ int main(void)
    }
 
    regfree(&regex); // free the memory allocated to the pattern buffer by the compiling process
+   // here it is not necessary since program is terminating
 
    exit(EXIT_SUCCESS);
 }
