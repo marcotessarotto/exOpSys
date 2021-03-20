@@ -78,6 +78,8 @@ int main() {
     	perror("problema con read()");
     }
 
+    printf("buf_len finale: %d\n", buf_len);
+
     // facciamo qualcosa con i dati ora nella memoria del processo
     // ....
     // scriviamo su stdout il contenuto del file letto, byte per byte
