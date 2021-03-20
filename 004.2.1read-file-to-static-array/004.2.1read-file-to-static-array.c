@@ -38,7 +38,7 @@ int main() {
 
     // IPOTESI: il file che leggeremo ha dimensione <= 1024 bytes
 
-    while ( (bytes_read = read(fd, &buffer[position], 1024-position) ) > 0) {
+    while ( (bytes_read = read(fd, &buffer[position], BUF_SIZE-position) ) > 0) {
     	printf("read() ha restituito %d bytes\n", bytes_read);
 
     	position += bytes_read;
