@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 
 	printf("'file descriptor' restituito da open():  fd = %d\n", fd);
 
-	while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0) {
+	while ((bytes_read = read(fd, &buffer[total_bytes_read], BUFFER_SIZE-total_bytes_read)) > 0) {
 
 		printf("read() ha restituito %d bytes\n", bytes_read);
 
