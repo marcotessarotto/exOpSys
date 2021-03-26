@@ -41,6 +41,7 @@ int main(int argc, char * argv[]) {
 	 *
 	 */
 
+	// l'esecuzione ripartirà dal main() del nuovo programma
 	execve("../000hello-world/build/default/000hello-world", new_arguments, new_environment_variables);
 
 	// On success, execve() does not return, on error -1 is returned, and errno is set appropriately.
