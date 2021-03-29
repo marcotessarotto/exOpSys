@@ -1,0 +1,151 @@
+[tutti questi esercizi hanno già n soluzioni, pertanto cercate di risolverli per conto vostro prima di googlare]
+
+***esercizio 1
+
+scrivere un programma che fa la copia di un file
+il programma prende come parametro a riga di comando:
+- il nome del file "sorgente"
+- il nome del file "destinazione"
+
+se il file destinazione esiste, "tronca" a zero la sua dimensione (prima di scriverlo).
+
+il programma controlla i risultati di tutte le system call.
+esempio: se il file sorgente non esiste, fornisce un messaggio opportuno.
+
+potreste usare le seguenti system call: open, read, write, close
+
+
+***esercizio 2
+
+scrivere un programma che legge da stdin tutto fino a EOF e conta (separamente) i seguenti caratteri:
+\n
+' ' (spazio)
+ed  i caratteri alfabetici minuscoli ('a'-'z')
+
+dopo EOF, scrive su stdout il conteggio dei caratteri.
+
+
+provare il programma utilizzando il file di testo che potete scaricare qui:
+https://github.com/marcotessarotto/exOpSys/blob/master/res/text01.txt
+
+"nome_programma" < text01.txt
+
+
+
+***esercizio 3
+
+scrivere la seguente funzione:
+
+int * gen_random_array(unsigned int seed, int use_seed, unsigned int number_elements);
+
+se use_seed è true, utilizza il parametro seed con la funzione srand() per impostare il "seed" della sequenza di interi pseudo-casuali.
+
+number_elements è il numero di celle dell'array che la funzione restituirà
+
+il valore di ogni elemento dell'array è ottenuto invocando rand()
+
+esempio:
+gen_random_array(-100, 1, 10) cioè con seed pari a -100 restituisce un array di 10 elementi pari a:
+(TODO!!!)
+
+
+
+***esercizio 4
+
+scrivere la seguente funzione:
+find_max_even_positions() che prende come parametri un array di int e la sua dimensione (numero di celle);
+cerca tra le celle in posizione pari quella avente valore massimo e ne resituisce la POSIZIONE (restituisce la prima posizione, in caso di più celle con valore massimo)
+es:
+per l'array { 0, 100, 7, 50, -45, 10 } restituisce 2 (cioè la posizione della cella che ha valore 7)
+
+
+
+***esercizio 5
+
+sono dati due vettori di int, aventi lo stesso numero di elementi array_len
+
+int array1[], int array2[], int array_len
+
+scrivere una funzione join_arrays_same_length che prende i tre parametri sopra e crea e restituisce l'vettore "fusione", costituito da array_len elementi, costruito in questo modo:
+l'elemento i-mo di array_fusion è dato dal maggiore tra i due elementi i-mi dei due array.
+
+la funzione restituisce il puntatore all'array fusione.
+
+esempio:
+i due array { 10, 100, 1000 } e { 200, -1, 90 } fusi assieme daranno come risultato:
+{ 200, 100, 1000 }
+
+
+
+****esercizio 6
+
+per svolgere questo esercizio, occorre avere risolto esercizio 3 ed esercizio 5
+
+provare le due funzioni scritte sopra in questo modo:
+
+usare gen_random_array() con seed = 10 (e use_seed impostato a vero) per generare un vettore di 100 elementi
+usare di nuovo gen_random_array() con seed = 20 (e use_seed impostato a vero) per generare un vettore di 100 elementi
+
+usare join_arrays_same_length per generare il vettore "fusione".
+
+scrivere in un file di testo denominato "prova.txt" i valori del vettore fusione, in formato testo:
+
+esempio del contenuto del file prova.txt (i numeri non c'entrano con il valore atteso, servono soltanto ad illustrare il formato del file):
+2131
+-344
+321
+0
+44541
+....
+
+una volta generato il file prova.txt, da shell eseguire il comando:
+md5sum prova.txt
+
+questo restituirà il valore:
+(TODO!!!)
+
+
+****esercizio 7
+
+leggere dal file numeri.txt tutti i numeri in un array; non fare ipotesi sul numero di numeri contenuti nel file
+fare il sort per valori crescenti (con algoritmo di sorting... quello che volete oppure bubble sort, anche se non è "efficiente": https://github.com/marcotessarotto/exOpSys/blob/master/004.5bubble-sort/bubble-sort.c )
+scrivere l'array ordinato nel file numeri_ordinati.txt
+
+il contenuto del file numeri.txt è il seguente:
+5
+4
+3
+2
+1
+0
+-1
+-2
+-3
+-4
+-5
+<fine file numeri.txt>
+
+
+risultato atteso nel file numeri_ordinati.txt:
+-5
+-4
+....
+
+
+****esercizio 8
+
+scrivere un programma che legge da stdin tutto fino a EOF
+il programma prende come parametro di riga di comando una stringa di caratteri;
+il programma cerca la stringa di caratteri fornita in tutto il contenuto letto da stdin e scrive su stdout il numero 
+di occorrenze della stringa.
+
+provare il programma utilizzando il file di testo che potete scaricare qui:
+https://github.com/marcotessarotto/exOpSys/blob/master/res/text01.txt
+
+"nome_programma" ipsum < text01.txt
+
+il risultato è 4.
+
+
+
+
