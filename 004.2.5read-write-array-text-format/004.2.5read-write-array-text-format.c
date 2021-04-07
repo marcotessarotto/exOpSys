@@ -34,6 +34,7 @@ int main(int argc, char * argv[]) {
 	char buffer[32];
 
 	// sprintf restituisce il numero di caratteri che ha prodotto
+	// ipotesi: ogni numero scritto in formato testo occupa un numero costante di caratteri (11 + 1 per \n)
 	strlen = sprintf(buffer, "%11d\n", dimensione_array);
 
 	res = write(fd_target, buffer, strlen);
