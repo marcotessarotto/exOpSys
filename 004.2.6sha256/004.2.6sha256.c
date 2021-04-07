@@ -136,6 +136,9 @@ int main(int argc,  char * argv[]) {
 		exit(1);
 	}
 
+	// for sha256, digest has len of 32 bytes
+	// printf("%d\n", result.digest_len);
+
 	for (int i = 0; i < result.digest_len; i++) {
 		printf("%02x", result.digest[i]);
 	}
