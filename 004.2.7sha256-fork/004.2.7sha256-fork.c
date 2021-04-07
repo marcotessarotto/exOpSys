@@ -173,7 +173,7 @@ int main(int argc,  char * argv[]) {
 
         	modal_result = WEXITSTATUS(wstatus);
 
-            printf("[parent] child process %d è terminato, ha restituito: %d\n", pid, modal_result);
+            printf("[parent] child process %d ha terminato, ha restituito: %d\n", pid, modal_result);
         }
 		//
 	}
