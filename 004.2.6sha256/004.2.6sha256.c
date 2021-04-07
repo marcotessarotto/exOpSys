@@ -35,21 +35,24 @@ struct digest_result {
 	unsigned char * digest;
 };
 
-#define HANDLE_ERROR(msg) { fprintf(stderr, "%s\n", msg); exit(EXIT_FAILURE); }
-#define HANDLE_ERROR2(msg, mdctx) { fprintf(stderr, "%s\n", msg); EVP_MD_CTX_destroy(mdctx); exit(EXIT_FAILURE); }
-
-#define BUF_SIZE 1024
+#define BUF_SIZE 1024*16
 
 struct digest_result calculate_sha256(int fd) {
 
-	char buffer[BUF_SIZE];
+	char * buffer;
 	int bytes_read;
-	struct digest_result result = { 0, NULL};
+	struct digest_result result = { 0, NULL}; // if returned, means this functions was not successful
 
 	EVP_MD_CTX * mdctx;
 	unsigned char * digest;
 	unsigned int digest_len;
 	EVP_MD * algo;
+
+	buffer = malloc(BUF_SIZE);
+	if (buffer == NULL) {
+		perror("malloc()");
+		return result;
+	}
 
 	algo = EVP_sha256();
 
@@ -99,6 +102,8 @@ struct digest_result calculate_sha256(int fd) {
 	//OPENSSL_free(digest);
 	EVP_MD_CTX_destroy(mdctx);
 
+	free(buffer);
+
 	result.digest = digest;
 	result.digest_len = digest_len;
 
@@ -125,6 +130,11 @@ int main(int argc,  char * argv[]) {
 	struct digest_result result;
 
 	result = calculate_sha256(fd);
+
+	if (result.digest_len == 0) {
+		printf("ERROR!\n");
+		exit(1);
+	}
 
 	for (int i = 0; i < result.digest_len; i++) {
 		printf("%02x", result.digest[i]);
