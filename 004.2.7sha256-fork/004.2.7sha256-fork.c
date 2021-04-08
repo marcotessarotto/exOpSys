@@ -168,6 +168,7 @@ int main(int argc,  char * argv[]) {
 
 	}
 
+	// we wait for all child process to terminate
 	while ((pid = wait(&wstatus)) != -1) {
         if (WIFEXITED(wstatus)) {
 
