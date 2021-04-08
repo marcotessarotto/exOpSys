@@ -24,13 +24,15 @@ int main(int argc, char * argv[]) {
 
 	// dato un array di int, salvarlo su file in questo modo:
 	// scrivere tutti i numeri in formato "binario"
-	// e come prima cosa scrivere il numero di celle
+	// e come prima cosa scrivere il numero di celle dell'array
 	// poi a seguire i dati dell'array
 
 	int dimensione_array = 10;
 	int esempio_array[10] = {1,2,3,4};
 
 	// scrivo il numero di celle del vettore:
+	// invochiamo la system call write, passando l'indirizzo di dimensione_array e specificando di scrivere 4 bytes (perchè sizeof(int) == 4)
+	// così facendo scriviamo nel file il contenuto di dimensione_array (così come si trova nella memoria del calcolatore)
 	res = write(fd_target, &dimensione_array, sizeof(dimensione_array));
 	if (res == -1) {
 		perror("write");

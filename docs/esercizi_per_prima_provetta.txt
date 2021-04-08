@@ -147,5 +147,23 @@ https://github.com/marcotessarotto/exOpSys/blob/master/res/text01.txt
 il risultato è 4.
 
 
+****20210409****
+
+****esercizio 9****
+
+usare l'esempio: 
+https://replit.com/@MarcoTessarotto/find-substring
+
+
+struct risultato_ricerca {
+    int numero_occorrenze; // dimensione del vettore posizione_occorrenza
+    char * posizione_occorrenza[]; // vettore delle occorrenze; ogni occorrenza è riportata nel vettore
+
+};
+
+scrivere la funzione che restituisce tutte le occorrenze di substr in str:
+
+struct risultato_ricerca trova_occorrenze(char * str, char * substr);
+
 
 
