@@ -165,5 +165,23 @@ scrivere la funzione che restituisce tutte le occorrenze di substr in str:
 
 struct risultato_ricerca trova_occorrenze(char * str, char * substr);
 
+****esercizio 10****
+
+usare l'esempio:
+https://replit.com/@MarcoTessarotto/get-load-average
+
+scrivere un programma in C che faccia quanto segue:
+
+il programma prevede come parametri a linea di comando due valori (int):
+numero di cicli (default: 10)
+intervallo (secondi) (default: 5)
+
+se i parametri non sono forniti, usare i valori di default indicati sopra.
+
+per 'numero di cicli' volte, a distanza di 'intervallo' secondi, rileva il 'load average over 1 minute' (vedi getloadavg() ed esempio fornito);
+ad ogni interazione scrive il valore in formato testo all'interno di un file 'log.txt'.
+il file log.txt viene sovrascritto, se esiste già.
+
+alla fine del ciclo, calcola e scrive su stdout il valor medio dei valori di 'load average over 1 minute' ottenuti sopra.
 
 
