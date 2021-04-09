@@ -154,10 +154,12 @@ il risultato è 4.
 usare l'esempio: 
 https://replit.com/@MarcoTessarotto/find-substring
 
+typedef char * char_p;
 
 struct risultato_ricerca {
     int numero_occorrenze; // dimensione del vettore posizione_occorrenza
-    char * posizione_occorrenza[]; // vettore delle occorrenze; ogni occorrenza è riportata nel vettore
+    char_p * posizione_occorrenza; // vettore delle occorrenze; ogni occorrenza è riportata nel vettore
+    // posizione_occorrenza è un vettore di char_p (o char *)
 
 };
 
