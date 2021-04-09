@@ -167,6 +167,34 @@ struct risultato_ricerca trova_occorrenze(char * str, char * substr);
 
 ****esercizio 10****
 
+è dato un array di int chiamato int_array di dimensione int_array_len.
+
+scrivere la funzione che inserisce il valore val alla posizione insert_position (cioè le celle dalla posizione insert_position in poi vengono spostate verso destra di una posizione per fare spazio al nuovo valore)
+int * insert_into_array(int * array, int array_len, int val, int insert_position)
+
+se insert_position < 0 || insert_position > int_array_len la funzione restituisce NULL
+se insert_position == int_array_len, il valore da aggiungere viene messo in coda all'array
+la funzione restituisce l'indirizzo dell'array modificato
+
+es:
+int int_array[] = {0,1,2,3,4,5};
+int int_array_len = 6;
+
+int * result = insert_into_array(int_array, int_array_len, -1, 3);
+// insert_into_array restituisce un array di dimensione 6+1 fatto così:
+// {0,1,2, -1, 3,4,5}
+
+// insert_into_array(int_array, int_array_len, -1, 0);
+// {-1, 0,1,2,3,4,5}
+
+// insert_into_array(int_array, int_array_len, -1, 6);
+// {0,1,2,3,4,5,-1}
+
+// insert_into_array(int_array, int_array_len, -1, 6);
+// NULL
+
+****esercizio 11****
+
 usare l'esempio:
 https://replit.com/@MarcoTessarotto/get-load-average
 
@@ -178,10 +206,20 @@ intervallo (secondi) (default: 5)
 
 se i parametri non sono forniti, usare i valori di default indicati sopra.
 
+crea il file log.txt per scriverci di dati ottenuti sotto; il file viene sovrascritto, se esiste già.
+
 per 'numero di cicli' volte, a distanza di 'intervallo' secondi, rileva il 'load average over 1 minute' (vedi getloadavg() ed esempio fornito);
 ad ogni interazione scrive il valore in formato testo all'interno di un file 'log.txt'.
-il file log.txt viene sovrascritto, se esiste già.
 
-alla fine del ciclo, calcola e scrive su stdout il valor medio dei valori di 'load average over 1 minute' ottenuti sopra.
+
+alla fine del ciclo:
+- il processo padre crea un processo figlio che calcola e scrive su stdout il valor medio dei valori di 'load average over 1 minute' ottenuti nel ciclo sopra
+- il processo figlio scrive il valor medio calcolato in un file 'result.txt' ; il numero è scritto in formato testo
+- il processo padre aspetta la terminazione del processo figlio; poi legge il valore calcolato dal processo figlio dal file 'result.txt'
+
+seconda parte dell'esercizio:
+
+il processo padre fa il sort crescente dei valori rilevati nel ciclo principale; 
+poi inserisce il valore medio calcolato dal processo figlio nella posizione opportuna dell'array ordinato, per mantenere l'ordinamento del nuovo array.
 
 
