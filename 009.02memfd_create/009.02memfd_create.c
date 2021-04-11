@@ -15,6 +15,7 @@
 #include <errno.h>
 
 /*
+ * ***DA FINIRE***
  *
  * il processo padre crea un file temporaneo con la system call memfd_create.
  * prova di utilizzo di F_SEAL_SHRINK.
