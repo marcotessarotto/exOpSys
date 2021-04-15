@@ -110,6 +110,7 @@ void read_lines_from_file(char * filename) {
 
 		// se ci sono dati non processati in buffer, li "restituiamo"
 		// spostando all'indietro l'offset del file
+		// così i dati non processati saranno "ri-restituiti" nella prossima invocazione di read()
 		__off_t new_offset =  pos + 1 - bytes_read; // calcoliamo lo spostamento relativo
 
 #if DEBUG_MSG
