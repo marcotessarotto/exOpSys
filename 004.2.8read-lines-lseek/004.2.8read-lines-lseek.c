@@ -40,7 +40,7 @@ void read_lines_from_file(char * filename) {
 
 	// naturalmente possiamo partire con una dimensione maggiore di 1,
 	// ma ci interessava verificare il comportamento del codice
-	buffer = malloc(buffer_size * sizeof(1));
+	buffer = malloc(buffer_size * sizeof(char));
 	if (buffer == NULL) {
 		perror("malloc");
 		exit(1);
