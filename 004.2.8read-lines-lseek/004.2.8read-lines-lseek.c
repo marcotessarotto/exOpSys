@@ -116,11 +116,11 @@ int main() {
 		// spostando all'indietro l'offset del file
 		__off_t new_offset =  (pos+1)-bytes_read;
 
-		// invochiamo la system call se e solo se new_offset != 0
 #if DEBUG_MSG
 		// spostiamo l'offseet rispetto alla posizione corrente
 		printf("+++ lseek: SEEK_CUR %ld\n", new_offset);
 #endif
+		// invochiamo la system call se e solo se new_offset != 0
 		if (new_offset != 0 && lseek(fd,new_offset , SEEK_CUR) == -1) {
 			perror("lseek");
 			exit(1);
