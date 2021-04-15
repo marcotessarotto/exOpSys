@@ -72,7 +72,7 @@ void read_lines_from_file(char * filename) {
 		if (pos == bytes_read && buffer_size == bytes_read) {
 
 			// aumentiamo la dimensione del buffer
-			buffer_size = buffer_size * 2;
+			buffer_size = buffer_size * 2; // raddoppiamo la dimensione
 			buffer = realloc(buffer, buffer_size);
 			if (buffer == NULL) {
 				perror("realloc");
@@ -97,20 +97,20 @@ void read_lines_from_file(char * filename) {
 
 		count_lines++;
 
-		buffer[pos] = 0; // 'terminiamo' la stringa
-		buffer_len = pos; // strlen(buffer);
+		buffer[pos] = 0; // 'terminiamo' la stringa (sostituiamo \n con \0)
+		buffer_len = pos; // strlen(buffer); la lunghezza della stringa è nota (è pos)
 #if DEBUG_MSG
 		printf("buffer_size=%6d   buffer_len = %6d    buffer=%s\n", buffer_size, buffer_len, buffer);
 #endif
 
-		// la linea (stringa di caratteri) letta si trova in buffer ed è terminata da \0
+		// la linea (stringa di caratteri) corrente si trova in buffer ed è terminata da \0
 		// process_line fa "qualcosa" con il contenuto letto
 		// per comodità di process_line, passiamo anche buffer_len
 		process_line(buffer, buffer_len);
 
 		// se ci sono dati non processati in buffer, li "restituiamo"
 		// spostando all'indietro l'offset del file
-		__off_t new_offset =  pos + 1 - bytes_read;
+		__off_t new_offset =  pos + 1 - bytes_read; // calcoliamo lo spostamento relativo
 
 #if DEBUG_MSG
 		// spostiamo l'offseet rispetto alla posizione corrente
