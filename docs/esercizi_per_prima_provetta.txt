@@ -111,6 +111,8 @@ leggere dal file numeri.txt tutti i numeri in un array; non fare ipotesi sul num
 fare il sort per valori crescenti (con algoritmo di sorting... quello che volete oppure bubble sort, anche se non è "efficiente": https://github.com/marcotessarotto/exOpSys/blob/master/004.5bubble-sort/bubble-sort.c )
 scrivere l'array ordinato nel file numeri_ordinati.txt
 
+per leggere il file linea per linea, potete usare l'esempio https://github.com/marcotessarotto/exOpSys/tree/master/004.2.8read-lines-lseek
+
 il contenuto del file numeri.txt è il seguente:
 5
 4
