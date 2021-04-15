@@ -65,8 +65,9 @@ void read_lines_from_file(char * filename) {
 		int pos = 0;
 		while (buffer[pos] != '\n' && pos < bytes_read )
 			pos++;
+		// se \n non si trova, la condizione è pos == bytes_read
 
-		// se buffer_size == res E non abbiamo trovato 'n',
+		// se non abbiamo trovato 'n' nei dati letti E buffer_size == bytes_read,
 		// aumentiamo la dimensione del buffer
 		if (pos == bytes_read && buffer_size == bytes_read) {
 
@@ -84,13 +85,13 @@ void read_lines_from_file(char * filename) {
 
 			realloc_counter++;
 
-			// spostiamo indietro il file offset
+			// spostiamo indietro il file offset (cioè restituiamo tutti i dati letti)
 			if (lseek(fd, -bytes_read, SEEK_CUR) == -1) {
 				perror("lseek");
 				exit(1);
 			}
 
-			// e rileggiamo i dati
+			// e rileggiamo i dati (della linea corrente)
 			continue;
 		}
 
