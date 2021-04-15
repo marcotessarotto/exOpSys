@@ -30,12 +30,7 @@ void process_line(char * line, int line_len) {
 	printf("process_line: %s\n", line);
 }
 
-int main() {
-
-	char * filename;
-	//filename = "/usr/share/dict/words";
-	filename = "sample.txt";
-	//filename = "/proc/cpuinfo";
+void read_lines_from_file(char * filename) {
 
 	int fd;
 	int bytes_read; // bytes letti da system call read()
@@ -139,6 +134,17 @@ int main() {
 			"count_lines=%d\n"
 			"realloc_counter=%d\n",
 			buffer_size, count_lines, realloc_counter);
+
+}
+
+
+int main() {
+	char * filename;
+	//filename = "/usr/share/dict/words";
+	filename = "sample.txt";
+	//filename = "/proc/cpuinfo";
+
+	read_lines_from_file(filename);
 
 	return 0;
 }
