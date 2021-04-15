@@ -114,7 +114,7 @@ int main() {
 
 		// se ci sono dati non processati in buffer, li "restituiamo"
 		// spostando all'indietro l'offset del file
-		__off_t new_offset =  (pos+1)-bytes_read;
+		__off_t new_offset =  pos + 1 - bytes_read;
 
 #if DEBUG_MSG
 		// spostiamo l'offseet rispetto alla posizione corrente
