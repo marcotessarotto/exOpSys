@@ -28,6 +28,10 @@
 void process_line(char * line, int line_len) {
 	// do something...
 	printf("process_line: %s\n", line);
+
+	// ATTENZIONE!
+	// la stringa di caratteri line va COPIATA, se si vuole conservare
+	// per successive elaborazioni
 }
 
 void read_lines_from_file(char * filename) {
