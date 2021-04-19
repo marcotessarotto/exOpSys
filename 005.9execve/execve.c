@@ -6,7 +6,7 @@
 #include <sys/wait.h>
 
 /*
- * questo esempio esegue il programma 000hello-world
+ * questo esempio esegue un altro programma all'interno del processo corrente
  *
  * il programma eseguito dal processo corrente verrà rimpiazzato
  * dal programma contenuto nel file specificato
@@ -16,21 +16,35 @@
  * il processo rimane lo stesso, ma diventa istanza di un altro programma
  */
 
+#define USE_MY_CUSTOM_ENV 1
+
+// see example 016printenvvars
+// array di stringhe di caratteri
+// la conclusione dell'array è segnalata da NULL
+extern char **environ;  /* Or define _GNU_SOURCE to get it from <unistd.h> */
+
+
 int main(int argc, char * argv[]) {
+
+	char * program_filename = "../016printenvvars/Debug/016printenvvars";
 
 
 	// parametri per il programma che invocheremo con execve
-	char * new_arguments[] = { "000hello-world", NULL };
+	char * new_arguments[] = { program_filename , NULL };
 
 	// variabili di environment per il programma che invocheremo con execve
-	char * new_environment_variables[] = { NULL };
+	char * new_environment_variables[] = {
+			"PROVA=ok",
+			//"CIAO=",
+			NULL };
 
 	char * current_working_directory = getcwd(NULL,0);
 
 	printf("cartella corrente: %s\n", current_working_directory);
 
 
-	printf("ora proviamo ad eseguire il programma 000hello-world nel processo corrente (fate il build del progetto)\n\n\n");
+	printf("ora proviamo ad eseguire il programma %s\n"
+			"nel processo corrente (fate prima il build del progetto)\n\n\n", program_filename);
 
 
 	/*
@@ -42,7 +56,20 @@ int main(int argc, char * argv[]) {
 	 */
 
 	// l'esecuzione ripartirà dal main() del nuovo programma
-	execve("../000hello-world/build/default/000hello-world", new_arguments, new_environment_variables);
+	// utilizziamo le stesse variabili di environment del programma corrente
+
+	char ** envv = USE_MY_CUSTOM_ENV ? new_environment_variables : environ;
+
+//	if (USE_MY_CUSTOM_ENV)
+//		envv = new_environment_variables;
+//	else
+//		envv = environ;
+
+	// sudo apt install cdecl
+	// cdecl explain "char *const __argv[]"
+
+	execve(program_filename, new_arguments,
+			envv);
 
 	// On success, execve() does not return, on error -1 is returned, and errno is set appropriately.
 
