@@ -1,0 +1,30 @@
+***esercizio B1***
+
+il programma riceve via parametri a riga di comando il nome del file da processare
+
+
+modificare il file in questo modo: 
+ogni volta che compare la stringa di caratteri "*CONTATORE*" questa va sostituita con numero intero fornito da un contatore 
+che si incrementa ad ogni sostituzione (il contatore parte da zero).
+
+esempio:
+
+Lorem ipsum at *CONTATORE* donec urna aenean ornare hac condimentum nulla, amet aliquet dapibus orci cursus semper nostra dictum, lorem imperdiet interdum ad sit dui ut  litora.
+Tortor lacus ut velit ad enim *CONTATORE*scelerisque viverra pellentesque, curae  ut leo bibendum turpis convallis risus urna ad, aenean mattis dapibus  
+pretium luctus vestibulum *CONTATORE*dictum ut tempus conubia sit donec lobortis 
+conubia pellentesque venenatis enim. Posuere primis sagittis molestie*CONTATORE* ut dapibus, molestie mauris quis  rutrum ma*CONTATORE*ecenas, 
+arcu phasellus nullam nisl metus dapibus elementum  tempus tristique leo risus sollicitudin. 
+
+(in questo esempio, la stringa di caratteri *CONTATORE* compare 5 volte)
+
+
+il file viene sovrascritto e diventerà:
+
+Lorem ipsum at 0 donec urna aenean ornare hac condimentum nulla, amet aliquet dapibus orci cursus semper nostra dictum, lorem imperdiet interdum ad sit dui ut  litora.
+Tortor lacus ut velit ad enim 1scelerisque viverra pellentesque, curae  ut leo bibendum turpis convallis risus urna ad, aenean mattis dapibus 
+pretium luctus vestibulum 2dictum ut tempus conubia sit donec lobortis 
+conubia pellentesque venenatis enim.
+Posuere primis sagittis molestie3 ut dapibus, molestie mauris quis  rutrum ma4ecenas, arcu phasellus nullam nisl metus dapibus elementum tempus tristique leo risus sollicitudin. 
+
+
+***
