@@ -1,0 +1,112 @@
+***esercizio B1  'rimpiazza contatore con valore in file' ***
+il programma riceve via parametri a riga di comando il nome del file da processare
+
+modificare il file in questo modo: 
+ogni volta che compare la stringa di caratteri "*CONTATORE*" questa va sostituita con numero intero fornito da un contatore 
+che si incrementa ad ogni sostituzione (il contatore parte da zero).
+
+esempio:
+
+Lorem ipsum at *CONTATORE* donec urna aenean ornare hac condimentum nulla, amet aliquet dapibus orci cursus semper nostra dictum, lorem imperdiet interdum ad sit dui ut  litora.
+Tortor lacus ut velit ad enim *CONTATORE*scelerisque viverra pellentesque, curae  ut leo bibendum turpis convallis risus urna ad, aenean mattis dapibus  
+pretium luctus vestibulum *CONTATORE*dictum ut tempus conubia sit donec lobortis 
+conubia pellentesque venenatis enim. Posuere primis sagittis molestie*CONTATORE* ut dapibus, molestie mauris quis  rutrum ma*CONTATORE*ecenas, 
+arcu phasellus nullam nisl metus dapibus elementum  tempus tristique leo risus sollicitudin. 
+
+(in questo esempio, la stringa di caratteri *CONTATORE* compare 5 volte)
+
+
+il file viene sovrascritto e diventerà:
+
+Lorem ipsum at 0 donec urna aenean ornare hac condimentum nulla, amet aliquet dapibus orci cursus semper nostra dictum, lorem imperdiet interdum ad sit dui ut  litora.
+Tortor lacus ut velit ad enim 1scelerisque viverra pellentesque, curae  ut leo bibendum turpis convallis risus urna ad, aenean mattis dapibus 
+pretium luctus vestibulum 2dictum ut tempus conubia sit donec lobortis 
+conubia pellentesque venenatis enim.
+Posuere primis sagittis molestie3 ut dapibus, molestie mauris quis  rutrum ma4ecenas, arcu phasellus nullam nisl metus dapibus elementum tempus tristique leo risus sollicitudin. 
+
+
+***esercizio B2  'zip 1'  ***
+Scrivere un programma che prende come parametro un nome di file da creare (nome_file)
+Legge i dati da stdin e li fa comprimere dall’utility zip nell’archivio compresso nome_file
+Esempio di comando bash che comprime la stringa ‘foo bar’ immagazzinandola in un un archivio compresso chiamato nome_file.zip (l’estensione .zip viene aggiunta automaticamente)
+echo 'foo bar' | zip -q nome_file –
+
+
+***esercizio B3  'zip 2'  ***
+Scrivere un programma che prende come parametro un nome di file da creare (nome_file)
+Legge i dati da stdin e li fa comprimere dall’utility zip nell’archivio compresso nome_file
+Quando l’utente digita Ctrl-C, il programma termina il processo zip, e mostra la dimensione dell’archivio compresso (ovvero lancia il comando ls -l nome_file.zip), poi termina.
+ Esempio di comando bash che comprime la stringa ‘foo bar’ immagazzinandola in un un archivio compresso chiamato nome_file.zip (l’estensione .zip viene aggiunta automaticamente)
+echo 'foo bar' | zip -q nome_file -
+
+
+***esercizio B4  'due processi'  *** 
+Due processi: A (parent) e B (child), condividono un file aperto in modalità scrittura (e quindi anche l'offset del file).
+il processo A fa l'append di una riga di testo al file; dorme un secondo; comunica al processo B di continuare. Il processo A aspetta.
+il processo B, a sua volta, fa l'append di una riga di testo allo stesso file; dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
+Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B, aspetta che B termini e poi termina anche A.
+
+
+***esercizio B5  'fork di 20 processi'  ***
+Ogni processo può fare il fork di al più altri 2 processi 
+Avviare un totale di 20 processi, usando un contatore condiviso tra i processi
+Usare un semaforo per regolare l'accesso concorrente al contatore da parte dei processi
+
+(il contatore ha valore iniziale 0)
+processo iniziale incrementa crea due processi P1 e P2; 
+P1 crea due processi P3 e P4;
+P2 crea due processi P5 e P6;
+P3 crea due process....
+(prima di ogni singolo fork(), viene controllato il valore del contatore (deve essere < 20) ed incrementato il contatore condiviso)
+
+
+***esercizio B6  'scrittura su file da parte di più processi'  ***
+Scrivere un programma che: 
+crea un file di dimensione N bytes nella cartella dei file temporanei /tmp/
+#define N (256*16)
+#define M 16
+
+il programma crea M processi: il processo i-mo scrive il carattere ‘A’+i  in una parte del file di dimensione N / M bytes, con offset pari a i * N/M.
+
+
+***esercizio B7  'ricerca in file con più processi'  ***
+Il programma prende tre parametri: un nome di file, un numero intero > 0 (M), una stringa di caratteri S da cercare nel file
+All’interno di un file passato come argomento al programma, questo crea M processi
+Ciascun processo cerca nel pezzo di file assegnato la stringa S (se la trova, scrive a video l’offset della stringa nel file)
+Ciascun processo opera su un pezzo del file di dimensione pari a file_size/M + K (con K >=0 tale che se la stringa S è a cavallo di due pezzi contigui, S venga trovata)
+
+
+***esercizio B8***
+Il processo principale origina due processi figli A e B
+Il processo A «produce» un risultato: RA
+Il processo B «produce» un risultato: RB
+Il processo principale aspetta la conclusione dei due processi A e B; quando entrambi hanno concluso l’esecuzione, concatena RA e RB e scrive il risultato sull’output. 
+
+RA e RB sono stringhe di caratteri
+
+
+***esercizio B9***
+partire dall'esempio: https://github.com/marcotessarotto/pafft
+(è un programma che registra audio dal microfono del computer, calcola la fft e mostra quella che dovrebbe essere la frequenza con ampiezza maggiore;
+bisognerebbe aggiungere un filtro per migliorare il risultato)
+
+nota: per estrarre tramite git il codice sorgente dell'esempio sopra, usare il comando:
+
+git clone --recurse-submodules https://github.com/marcotessarotto/pafft
+
+
+Scrivere dei programmi in modo tale che un comando di questo tipo sia analogo a pafft:
+recordaudio | do_fft | lookup_max_freq
+recordaudio: legge da «audio in» e scrive lo stream su stdout
+do_fft: legge da stdin i dati nel dominio del tempo, calcola la fft e la scrive su stdout
+lookup_max_freq : legge lo spettro e cerca la frequenza per cui si ha il massimo assoluto; scrive il risultato su stdout
+
+
+***esercizio B10***
+Scrivere un programma che genera ed invia su audio out un segnale audio fatta da un'onda sinusoidale, freq. 440 Hz.
+Utilizzare:
+https://freedesktop.org/software/pulseaudio/doxygen/pacat-simple_8c-example.html
+
+usare da https://github.com/marcotessarotto/pafft/blob/master/src/pafft.c : 
+void populate_audio_buf(uint16_t * buf, int size, int freq, int sampling_frequency);
+
