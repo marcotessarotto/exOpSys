@@ -83,3 +83,30 @@ Il processo B «produce» un risultato: RB
 Il processo principale aspetta la conclusione dei due processi A e B; quando entrambi hanno concluso l’esecuzione, concatena RA e RB e scrive il risultato sull’output. 
 
 RA e RB sono stringhe di caratteri
+
+
+***esercizio B9***
+partire dall'esempio: https://github.com/marcotessarotto/pafft
+(è un programma che registra audio dal microfono del computer, calcola la fft e mostra quella che dovrebbe essere la frequenza con ampiezza maggiore;
+bisognerebbe aggiungere un filtro per migliorare il risultato)
+
+nota: per estrarre tramite git il codice sorgente dell'esempio sopra, usare il comando:
+
+git clone --recurse-submodules https://github.com/marcotessarotto/pafft
+
+
+Scrivere dei programmi in modo tale che un comando di questo tipo sia analogo a pafft:
+recordaudio | do_fft | lookup_max_freq
+recordaudio: legge da «audio in» e scrive lo stream su stdout
+do_fft: legge da stdin i dati nel dominio del tempo, calcola la fft e la scrive su stdout
+lookup_max_freq : legge lo spettro e cerca la frequenza per cui si ha il massimo assoluto; scrive il risultato su stdout
+
+
+***esercizio B10***
+Scrivere un programma che genera ed invia su audio out un segnale audio fatta da un'onda sinusoidale, freq. 440 Hz.
+Utilizzare:
+https://freedesktop.org/software/pulseaudio/doxygen/pacat-simple_8c-example.html
+
+usare da https://github.com/marcotessarotto/pafft/blob/master/src/pafft.c : 
+void populate_audio_buf(uint16_t * buf, int size, int freq, int sampling_frequency);
+
