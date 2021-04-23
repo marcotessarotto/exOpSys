@@ -1,7 +1,5 @@
-***esercizio B1***
-
+***esercizio B1  'rimpiazza contatore con valore in file' ***
 il programma riceve via parametri a riga di comando il nome del file da processare
-
 
 modificare il file in questo modo: 
 ogni volta che compare la stringa di caratteri "*CONTATORE*" questa va sostituita con numero intero fornito da un contatore 
@@ -27,14 +25,14 @@ conubia pellentesque venenatis enim.
 Posuere primis sagittis molestie3 ut dapibus, molestie mauris quis  rutrum ma4ecenas, arcu phasellus nullam nisl metus dapibus elementum tempus tristique leo risus sollicitudin. 
 
 
-***esercizio B2***
+***esercizio B2  'zip 1'  ***
 Scrivere un programma che prende come parametro un nome di file da creare (nome_file)
 Legge i dati da stdin e li fa comprimere dall’utility zip nell’archivio compresso nome_file
 Esempio di comando bash che comprime la stringa ‘foo bar’ immagazzinandola in un un archivio compresso chiamato nome_file.zip (l’estensione .zip viene aggiunta automaticamente)
 echo 'foo bar' | zip -q nome_file –
 
 
-***esercizio B3***
+***esercizio B3  'zip 2'  ***
 Scrivere un programma che prende come parametro un nome di file da creare (nome_file)
 Legge i dati da stdin e li fa comprimere dall’utility zip nell’archivio compresso nome_file
 Quando l’utente digita Ctrl-C, il programma termina il processo zip, e mostra la dimensione dell’archivio compresso (ovvero lancia il comando ls -l nome_file.zip), poi termina.
@@ -42,14 +40,14 @@ Quando l’utente digita Ctrl-C, il programma termina il processo zip, e mostra 
 echo 'foo bar' | zip -q nome_file -
 
 
-***esercizio B4***
+***esercizio B4  'due processi'  *** 
 Due processi: A (parent) e B (child), condividono un file aperto in modalità scrittura (e quindi anche l'offset del file).
 il processo A fa l'append di una riga di testo al file; dorme un secondo; comunica al processo B di continuare. Il processo A aspetta.
 il processo B, a sua volta, fa l'append di una riga di testo allo stesso file; dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
 Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B, aspetta che B termini e poi termina anche A.
 
 
-***esercizio B5***
+***esercizio B5  'fork di 20 processi'  ***
 Ogni processo può fare il fork di al più altri 2 processi 
 Avviare un totale di 20 processi, usando un contatore condiviso tra i processi
 Usare un semaforo per regolare l'accesso concorrente al contatore da parte dei processi
@@ -62,9 +60,7 @@ P3 crea due process....
 (prima di ogni singolo fork(), viene controllato il valore del contatore (deve essere < 20) ed incrementato il contatore condiviso)
 
 
-***esercizio B6***
-'scrittura su file da parte di più processi'
-
+***esercizio B6  'scrittura su file da parte di più processi'  ***
 Scrivere un programma che: 
 crea un file di dimensione N bytes nella cartella dei file temporanei /tmp/
 #define N (256*16)
@@ -73,9 +69,7 @@ crea un file di dimensione N bytes nella cartella dei file temporanei /tmp/
 il programma crea M processi: il processo i-mo scrive il carattere ‘A’+i  in una parte del file di dimensione N / M bytes, con offset pari a i * N/M.
 
 
-***esercizio B7***
-'ricerca in file con più processi'
-
+***esercizio B7  'ricerca in file con più processi'  ***
 Il programma prende tre parametri: un nome di file, un numero intero > 0 (M), una stringa di caratteri S da cercare nel file
 All’interno di un file passato come argomento al programma, questo crea M processi
 Ciascun processo cerca nel pezzo di file assegnato la stringa S (se la trova, scrive a video l’offset della stringa nel file)
