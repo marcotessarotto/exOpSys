@@ -46,5 +46,18 @@ il processo A fa l'append di una riga di testo al file; dorme un secondo; comuni
 il processo B, a sua volta, fa l'append di una riga di testo allo stesso file; dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
 Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B, aspetta che B termini e poi termina anche A.
 
+***esercizio B5***
+Ogni processo può fare il fork di al più altri 2 processi 
+Avviare un totale di 20 processi, usando un contatore condiviso tra i processi
+Usare un semaforo per regolare l'accesso concorrente al contatore da parte dei processi
+
+(il contatore ha valore iniziale 0)
+processo iniziale incrementa crea due processi P1 e P2; 
+P1 crea due processi P3 e P4;
+P2 crea due processi P5 e P6;
+P3 crea due process....
+(prima di ogni singolo fork(), viene controllato il valore del contatore (deve essere < 20) ed incrementato il contatore condiviso)
+
+
 
 
