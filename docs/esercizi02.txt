@@ -27,4 +27,24 @@ conubia pellentesque venenatis enim.
 Posuere primis sagittis molestie3 ut dapibus, molestie mauris quis  rutrum ma4ecenas, arcu phasellus nullam nisl metus dapibus elementum tempus tristique leo risus sollicitudin. 
 
 
-***
+***esercizio B2***
+Scrivere un programma che prende come parametro un nome di file da creare (nome_file)
+Legge i dati da stdin e li fa comprimere dall’utility zip nell’archivio compresso nome_file
+Esempio di comando bash che comprime la stringa ‘foo bar’ immagazzinandola in un un archivio compresso chiamato nome_file.zip (l’estensione .zip viene aggiunta automaticamente)
+echo 'foo bar' | zip -q nome_file –
+
+***esercizio B3***
+Scrivere un programma che prende come parametro un nome di file da creare (nome_file)
+Legge i dati da stdin e li fa comprimere dall’utility zip nell’archivio compresso nome_file
+Quando l’utente digita Ctrl-C, il programma termina il processo zip, e mostra la dimensione dell’archivio compresso (ovvero lancia il comando ls -l nome_file.zip), poi termina.
+ Esempio di comando bash che comprime la stringa ‘foo bar’ immagazzinandola in un un archivio compresso chiamato nome_file.zip (l’estensione .zip viene aggiunta automaticamente)
+echo 'foo bar' | zip -q nome_file -
+
+***esercizio B4***
+Due processi: A (parent) e B (child), condividono un file aperto in modalità scrittura (e quindi anche l'offset del file).
+il processo A fa l'append di una riga di testo al file; dorme un secondo; comunica al processo B di continuare. Il processo A aspetta.
+il processo B, a sua volta, fa l'append di una riga di testo allo stesso file; dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
+Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B, aspetta che B termini e poi termina anche A.
+
+
+
