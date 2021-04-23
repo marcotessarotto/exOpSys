@@ -75,3 +75,11 @@ All’interno di un file passato come argomento al programma, questo crea M proc
 Ciascun processo cerca nel pezzo di file assegnato la stringa S (se la trova, scrive a video l’offset della stringa nel file)
 Ciascun processo opera su un pezzo del file di dimensione pari a file_size/M + K (con K >=0 tale che se la stringa S è a cavallo di due pezzi contigui, S venga trovata)
 
+
+***esercizio B8***
+Il processo principale origina due processi figli A e B
+Il processo A «produce» un risultato: RA
+Il processo B «produce» un risultato: RB
+Il processo principale aspetta la conclusione dei due processi A e B; quando entrambi hanno concluso l’esecuzione, concatena RA e RB e scrive il risultato sull’output. 
+
+RA e RB sono stringhe di caratteri
