@@ -120,4 +120,11 @@ vedere esempio:
 https://github.com/marcotessarotto/exOpSys/blob/master/041qsortstr/qsortstr.c
 
 
+***esercizio B12***
+il programma riceve come parametro a riga di comando il percorso di una directory 
+su cui farà la seguente verifica:
+
+sulla directory fornita, va a scorrere tutti i file della directory e sui soli file che appartengono 
+allo stesso effective user del processo corrente, fa la seguente verifica sui permessi per il "resto del mondo":
+se "il resto del mondo" ha permessi di scrittura, scrive su stdout il percorso completo del file (usare realpath).
 
