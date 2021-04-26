@@ -15,22 +15,27 @@ int main(void) {
 	char input_buffer[256];
 	char * name;
 
+	// fileno(stdin)) == STDIN_FILENO
 
-	if (isatty(fileno(stdin))) {
-	    printf( "stdin is a terminal\n" );
+	if (isatty(STDIN_FILENO)) {
+	    printf( "STDIN_FILENO is a terminal\n" );
 
-	    name = ttyname(fileno(stdin));
+	    name = ttyname(STDIN_FILENO);
 
 	    if (name != NULL) {
 	    	printf("%s\n", name);
 	    }
 
-		while (-1) {
+		while (1) {
+			int res;
 
 			// operazione sincrona
-			fscanf(stdin,"%s",input_buffer);
+			res = scanf("%s",input_buffer);
 
-			fprintf(stdout,"incoming data from stdin: %s\n", input_buffer);
+			if (res < 1)
+				break;
+
+			printf("incoming data from STDIN_FILENO: %s\n", input_buffer);
 
 			// architettura ad eventi? chiedo di leggere dalla stdin, quando dati pronti
 
@@ -38,39 +43,42 @@ int main(void) {
 
 
 	} else {
-	    printf( "stdin is a file or a pipe\n");
+
+		printf( "STDIN_FILENO is a file or a pipe\n");
+
+		// leggiamo i dati nei modi che conosciamo già
 
 
-		int i = 0;
-		char pipe[65536];
-
-		char ch;
-
-		while ((ch = getc(stdin)) != -1) {
-			pipe[i++] = ch;
-
-//			putc(ch, stdout);
-
-			if (ch == 10) {
-				pipe[i] = '\0';
-				fprintf(stdout,"piped content: >>%s<<\n", pipe);
-				i = 0;
-				fflush(stdout);
-			}
-		}
-
-
-
-		// let's count carriage returns
-
-		int countLines = 0;
-
-		for (int h = 0; pipe[h] != 0; h++) {
-			if (pipe[h] == 10)
-				countLines++;
-		}
-
-		fprintf(stdout,"newlines: %i\n", countLines);
+//		int i = 0;
+//		char pipe[65536];
+//
+//		char ch;
+//
+//		while ((ch = getc(stdin)) != -1) {
+//			pipe[i++] = ch;
+//
+////			putc(ch, stdout);
+//
+//			if (ch == 10) {
+//				pipe[i] = '\0';
+//				fprintf(stdout,"piped content: >>%s<<\n", pipe);
+//				i = 0;
+//				fflush(stdout);
+//			}
+//		}
+//
+//
+//
+//		// let's count carriage returns
+//
+//		int countLines = 0;
+//
+//		for (int h = 0; pipe[h] != 0; h++) {
+//			if (pipe[h] == 10)
+//				countLines++;
+//		}
+//
+//		fprintf(stdout,"newlines: %i\n", countLines);
 
 
 	}
@@ -94,7 +102,7 @@ piped content: >>prova<<
 
  */
 
-
+	printf("bye!\n");
 
 	return EXIT_SUCCESS;
 }
