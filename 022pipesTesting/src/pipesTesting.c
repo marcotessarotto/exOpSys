@@ -46,39 +46,8 @@ int main(void) {
 
 		printf( "STDIN_FILENO is a file or a pipe\n");
 
-		// leggiamo i dati nei modi che conosciamo già
+		// leggiamo i dati dal file/pipe nei modi che conosciamo già
 
-
-//		int i = 0;
-//		char pipe[65536];
-//
-//		char ch;
-//
-//		while ((ch = getc(stdin)) != -1) {
-//			pipe[i++] = ch;
-//
-////			putc(ch, stdout);
-//
-//			if (ch == 10) {
-//				pipe[i] = '\0';
-//				fprintf(stdout,"piped content: >>%s<<\n", pipe);
-//				i = 0;
-//				fflush(stdout);
-//			}
-//		}
-//
-//
-//
-//		// let's count carriage returns
-//
-//		int countLines = 0;
-//
-//		for (int h = 0; pipe[h] != 0; h++) {
-//			if (pipe[h] == 10)
-//				countLines++;
-//		}
-//
-//		fprintf(stdout,"newlines: %i\n", countLines);
 
 
 	}
