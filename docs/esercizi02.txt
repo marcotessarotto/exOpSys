@@ -110,3 +110,11 @@ https://freedesktop.org/software/pulseaudio/doxygen/pacat-simple_8c-example.html
 usare da https://github.com/marcotessarotto/pafft/blob/master/src/pafft.c : 
 void populate_audio_buf(uint16_t * buf, int size, int freq, int sampling_frequency);
 
+
+***esercizio B11***
+il programma legge da stdin una riga alla volta fino a EOF 
+una volta lette tutte le righe, fa il sort in ordine crescente delle righe;
+scrive le righe ordinate su stdout
+
+
+
