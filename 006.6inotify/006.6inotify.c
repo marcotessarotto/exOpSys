@@ -66,9 +66,15 @@ static void show_inotify_event(struct inotify_event *i)
 }
 
 
-#define BUF_LEN 4096
+//#define BUF_LEN 4096
+
+#define BUF_LEN (10 * (sizeof(struct inotify_event) + NAME_MAX + 1))
 
 char buf[BUF_LEN] __attribute__ ((aligned(__alignof__(struct inotify_event))));
+// https://gcc.gnu.org/onlinedocs/gcc/Alignment.html
+//
+
+
 
 
 int main(int argc, char * argv[]) {
@@ -77,6 +83,14 @@ int main(int argc, char * argv[]) {
 	int inotifyFd;
 	int num_bytes_read;
 
+
+	printf("NAME_MAX = %d\n", NAME_MAX);
+	printf("sizeof(struct inotify_event) = %ld\n", sizeof(struct inotify_event));
+	printf("__alignof__(struct inotify_event) = %ld bytes\n", __alignof__(struct inotify_event));
+	printf("\n");
+
+
+
 	char * cwd;
 
 	cwd = getcwd(NULL, 0);
@@ -84,6 +98,11 @@ int main(int argc, char * argv[]) {
 	printf("process current working directory: %s\n", cwd);
 
 	free(cwd);
+
+	if (argc == 1) {
+		printf("provide at least a file or directory to watch!\n");
+		exit(0);
+	}
 
 	// inotify_init() initializes a new inotify instance and
 	// returns a file descriptor associated with a new inotify event queue.
