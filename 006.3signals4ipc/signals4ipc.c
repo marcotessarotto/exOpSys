@@ -23,7 +23,6 @@ comando 'q' fa terminare tutto
 
 comando 'q':
 parent invia SIGUSR2 a child
-parent invia SIGUSR2 a child
 parent va in pause()
 parent viene svegliato da SIGCHLD che arriva quando child è terminato
 
