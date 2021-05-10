@@ -26,6 +26,10 @@ parent invia SIGUSR2 a child
 parent va in pause()
 parent viene svegliato da SIGCHLD che arriva quando child è terminato
 
+
+idee:
+implementazione alternativa usando pipes e threads
+
  */
 
 #define OFF 0
