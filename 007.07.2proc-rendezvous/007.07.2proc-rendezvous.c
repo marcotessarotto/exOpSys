@@ -126,7 +126,7 @@ int main(int argc, char * argv[]) {
 	// il semaforo senza nome va distrutto solo quando non ci sono processi bloccati su di esso
 	res = sem_destroy(a_arrived);
 
-		CHECK_ERR(res,"sem_destroy")
+	CHECK_ERR(res,"sem_destroy")
 
 	res = sem_destroy(b_arrived);
 
