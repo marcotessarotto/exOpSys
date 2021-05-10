@@ -11,7 +11,7 @@
 
 /*
  * il processo padre:
- * - crea un named semaphore (per usarlo come mutex) e lo condivide con tutti i processi figli
+ * - crea un unnamed semaphore (per usarlo come mutex) e lo condivide con tutti i processi figli
  * - crea una memory map condivisa per usarlo come contatore condiviso
  * - ogni processo figlio incrementa N volte il contatore condiviso
  * - il processo padre crea 10 processi figli
@@ -21,7 +21,6 @@
  */
 
 
-char * semaphore_name = "/il_mio_semaforo_031.1";
 
 sem_t * semaphore;
 
@@ -29,7 +28,7 @@ char * shared_memory_map;
 
 unsigned long * shared_counter;
 
-#define MMAP_SIZE sizeof(unsigned long)
+#define MMAP_SIZE (sizeof(unsigned long) + sizeof(sem_t))
 
 #define N 1000000
 
@@ -58,21 +57,8 @@ void do_operation() {
 
 int main() {
 
-	if (sem_unlink(semaphore_name) == -1) {
-		perror("sem_unlink");
-	}
 
-	// semaforo usato come mutex
-	semaphore = sem_open(semaphore_name, O_CREAT, 0600, 1);
-
-	if (semaphore == SEM_FAILED) {
-		perror("sem_open");
-		exit(1);
-	}
-
-	printf("[parent] ho creato il named semaphore : %s\n", semaphore_name);
-
-	// chiedo una memoria condivisa per il contatore condiviso tra i processi
+	// chiedo una memoria condivisa per il contatore condiviso tra i processi e per il semaforo
 	shared_memory_map = mmap(NULL, MMAP_SIZE, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1,0 );
 	if (shared_memory_map == MAP_FAILED) {
 		perror("mmap");
@@ -80,6 +66,16 @@ int main() {
 	}
 
 	shared_counter = (unsigned long *) shared_memory_map;
+
+	semaphore = (sem_t *) (shared_memory_map + sizeof(unsigned long));
+	// equivalente a:
+	//semaphore = (sem_t *) &shared_memory_map[sizeof(unsigned long)];
+
+	// semaforo usato come mutex, valore iniziale = 1
+	if (sem_init(semaphore, 1, 1) == -1) {
+		perror("sem_init");
+		exit(1);
+	}
 
 	for (int i = 0; i < PROCESSES; i++) {
 		switch (fork()) {
