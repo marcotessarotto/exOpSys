@@ -11,15 +11,14 @@
 
 /*
  * il processo padre:
- * - crea un unnamed semaphore (per usarlo come mutex) e lo condivide con tutti i processi figli
- * - crea una memory map condivisa per usarlo come contatore condiviso
+ * - crea una memory map condivisa per il contatore condiviso e per il semaforo (punto sottostante)
+ * - crea un 'unnamed semaphore' (per usarlo come mutex) e lo condivide con tutti i processi figli
  * - ogni processo figlio incrementa N volte il contatore condiviso
- * - il processo padre crea 10 processi figli
+ * - il processo padre crea PROCESSES (=10) processi figli
  * - il risultato finale atteso è (N * PROCESSES)
  *
  *
  */
-
 
 
 sem_t * semaphore;
