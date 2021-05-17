@@ -27,6 +27,7 @@ il processo padre riceve il segnale SIGCHLD, ottiene il valore di stato del proc
 
 
 ***D04***
+(versione rivista dell'esercizio C07)
 scrivere il seguente programma:
 
 processo padre crea un file, sovrascrivendo il contenuto (lo apre per leggere e scrivere)
