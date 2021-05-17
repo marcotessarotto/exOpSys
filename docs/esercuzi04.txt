@@ -19,3 +19,38 @@ ogni thread scrive un messaggio del tipo: "thread numero %d, contatore = %d\n" d
 gli N thread arrivano ad un "tornello"; quando tutti gli N thread sono arrivati li, allora possono proseguire. 
 Ciascun thread prosegue scrivendo il messaggio "thread numero %d - fine\n".
 
+
+***D03***
+processo padre registra un signal handler per SIGCHLD e poi va in pausa.
+processo padre crea un processo figlio; il processo figlio scrive un messaggio qualsiasi su stdout e termina.
+il processo padre riceve il segnale SIGCHLD, ottiene il valore di stato del processo figlio e poi termina.
+
+
+***D04***
+scrivere il seguente programma:
+
+processo padre crea un file, sovrascrivendo il contenuto (lo apre per leggere e scrivere)
+crea un processo figlio; processo padre e processo figlio condividono:
+- un mutex "mtx" (realizzato con un semaforo, con o senza nome, scegliete voi);
+- un semaforo "sem"
+- una variabile condivisa "var_cond": int var_cond;
+
+il processo figlio cicla N volte (N = 1000):    numeri interi (uno per riga) ed ottiene i numeri interi da rand(), usando seed=1000:
+- "chiude" il mutex "mtx"
+- scrive un numero casuale ottenuto con rand() in var_cond
+- "libera" il mutex "mtx"
+- incrementa il semaforo "sem"
+// - dorme 10 millisecondi
+
+poi il processo figlio termina.
+
+
+il processo padre itera all'infinito:
+- decrementa il "sem"
+- "chiude" il mutex "mtx"
+- legge il valore di var_cond e lo scrive su stdout
+- "libera" il mutex "mtx"
+
+il processo padre registra un signal handler per SIGCHLD;
+quando il processo figlio termina, il kernel invia un segnale SIGCHLD al processo padre, che a sua volta termina.
+
