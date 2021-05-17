@@ -1,0 +1,148 @@
+*** esercizio C01 *** produttore di cookies a velocità variabile
+[difficoltà: medio]
+
+il programma ha un contatore che parte da zero.
+è definita una variabile globale che si chiama machine_state; machine_state ha due stati possibili: 0 ed 1.
+se machine_state == 0, il programma non produce cookies; se machine_state == 1, il produce cookies.
+
+(quando machine_state == 1) il programma scrive su stdout il valore corrente del contatore, incrementa il contatore e poi dorme per "dt" millisecondi. 
+all'avvio del programm, dt = 1000. 
+deve valere sempre la condizione: dt > 0
+deve valere sempre la condizione: dt <= 10000
+
+ogni volta che il programma riceve SIGUSR1, "dt" viene decrementato di 100.
+ogni volta che il programma riceve SIGUSR2, "dt" viene incrementato di 100.
+ogni volta che il programma riceve SIGTERM, machine_state cambia stato (se machine_state == 0 allora machine_state = 1 etc)
+
+
+
+*** esercizio C02 *** random cookies
+[difficoltà: medio]
+
+un "cookie" è una stringa di caratteri di lunghezza 32, composto da caratteri casuali.
+usare la system call getrandom (man 2 getrandom) per ottenere i caratteri casuali.
+
+sono definite le variabili globali:
+char buffer[32];
+int cookie_counter;
+
+#define N 1024
+
+il programma ha un thread t1 che fa quanto segue:
+(i seguenti passaggi sono iterati per N volte; poi fa terminare il programma)
+- produce un cookie
+- lo scrive in buffer
+- "segnala" al thread t2 di "consumare" il cookie
+- quanto t2 "ha consumato" il cookie, continua
+
+il thread t2 fa quanto segue:
+(i seguenti passaggi sono iterati)
+- ogni volta che t1 lo avvisa che è pronto un cookie, incrementa cookie_counter
+- (opzionale) accoda cookie al file "log.dat"
+- "segnala" al thread t1 di procedere
+
+
+
+*** esercizio C03 *** copia di file con mmap ***
+[difficoltà: facile]
+copiare un file usando la system call mmap (in entrambe le fasi: leggere il file sorgente, scrivere il file destinazione)
+[cosa fare se il file sorgente coincide con il file destinazione?]
+
+
+
+*** esercizio C04 *** doppia pipe
+[difficoltà: medio]
+
+il programma calcola il digest di sha256 di un file regolare, utilizzando un processo figlio che fà tutto il calcolo; la comunicazione tra i due processi avviene tramite due pipe, una per inviare i dati al processo figlio (il contenuto del file) e l'altra pipe per inviare il digest al processo padre.
+
+processo padre crea due pipe:
+pipe_tx per trasmettere dati al processo figlio
+pipe_rx per ricevere dati dal processo figlio
+
+il processo padre un file (ad esempio: scaricate ed usate https://github.com/marcotessarotto/exOpSys/blob/master/res/text01.txt)
+
+il processo padre manda, usando pipe_tx,  un "pacchetto" dati (vedere sotto packet_t) così organizzato:
+4 byte iniziali (unsigned int) che specifica la lunghezza dei dati (array di char) che 
+vengono inviati subito dopo.
+
+typedef struct {
+   char * data;
+   unsigned int len;
+   } packet_t;
+   
+alla ricezione di un pacchetto dati, il processo figlio calcola sha256 e trasmette, usando pipe_rx, il digest al processo padre (usando lo stessa organizzazione dei dati della trasmissione vista sopra)
+
+il processo padre riceve il digest e scrive su stdout una cosa del genere:
+"file xyz
+sha256 digest: <digest>"
+
+
+
+*** esercizio C05 *** fileappend_multithread***
+[difficoltà: facile]
+scrivere un programma che crea un file (sovrascrive i contenuti);
+vengono creati 10 thread, ciascun thread scrive 100 righe di testo aggiungendo aggiungendo ogni riga alla fine del file.
+
+il file che risulta è del tipo:
+[thread] 0 row=0
+[thread] 3 row=0
+[thread] 4 row=0
+[thread] 0 row=1
+...
+
+[il "trucco" è considerare che la scrittura alla fine di un file aperto con O_APPEND è atomica [NON occorre usare semafori etc]
+altrimenti dovrei fare: lseek e poi write ovvero due operazioni che nell'insieme non sono una operazione atomica]
+
+parte 2 dell'esercizio:
+
+scrivere lo stesso programma SENZA usare O_APPEND (quindi usare mutex)
+
+
+
+*** esercizio C06 ***  ordina contenuti di un file (contentente numeri interi)
+[difficoltà: medio]
+il programma prende un file, contenente numeri interi (un numero per riga); 
+il file è già fornito.
+esempio contenuti del file:
+100
+-5678
+3
+1298
+-345
+-66767
+...
+
+il programma produce una copia del file, dove i numeri sono ordinati in ordine crescente.
+il numero di righe del file di ingresso è arbitrario.
+
+versione 2:
+il file originale viene sovrascritto con il risultato dell'ordinamento del punto precedente.
+
+
+
+*** esercizio C07 *** 
+[difficoltà: difficile]
+scrivere il seguente programma:
+
+processo padre crea un file, sovrascrivendo il contenuto (lo apre per leggere e scrivere)
+crea un processo figlio; processo padre e processo figlio condividono un mutex (realizzato con un semaforo, con o senza nome, scegliete voi);
+
+il processo figlio scrive N (è una costante) numeri interi (uno per riga); ottiene i numeri interi da rand(), usando seed=1000; ogni volta che scrive una riga, il processo figlio acquisisce il mutex e lo rilascia quando la ha scritta; e così via.
+
+il processo padre monitora il file; ogni volta che rileva una scrittura nel file, il processo padre acquisisce il mutex, fa il sort crescente dei numeri scritti nel file fino al quel momento, rilascia il mutex, riprende a monitorare il file; quando il processo figlio termina, anche il processo padre termina.
+
+
+
+*** esercizio C08 *** 
+[difficoltà: medio]
+è dato un array di int, chiamato global_array, di dimensione N (es. N=1024)
+
+il thread t1 inizializza l'array: global_array[i] = N-i-1 
+
+ogni volta che t1 modifica global_array (quindi ogni volta che modifica un elemento dell'array), t1 si ferma, t1 "avvisa" t2 che effettua il sort crescente di tutto global_array. quando t2 ha finito il sort, t1 può continuare e t2 si mette in "attesa".
+quindi: t1 modificherà N volte l'array e farà effettuare N volte il sort a t2.
+[non vale che sia t1 a creare ogni volta un nuovo thread t2]
+quanto t1 termina, anche t2 termina. 
+
+
+
