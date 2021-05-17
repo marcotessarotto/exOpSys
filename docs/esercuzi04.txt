@@ -1,0 +1,23 @@
+***D01***
+
+è dato un file che contiene un array di int, in formato binario.
+
+scrivere un programma che effettua il sort crescente dell'array di int contenuto nel file e che poi prosegue così:
+
+versione A: il file originale viene modificato con l'array di int ordinato
+
+versione B: il file originale non viene modificato e l'array di int ordinato viene scritto in un nuovo file
+
+
+***D02***
+N = 10
+
+il programma crea N threads; esiste un contatore condiviso tra thread.
+
+ogni thread scrive un messaggio del tipo: "thread numero %d, contatore = %d\n" dove il primo numero è un id passato come parametro al thread (id compreso tra 0 a N-1)
+
+gli N thread arrivano ad un "tornello"; quando tutti gli N thread sono arrivati li, allora possono proseguire. 
+Ciascun thread prosegue scrivendo il messaggio "thread numero %d - fine\n".
+
+
+***D03***
