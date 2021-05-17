@@ -1,5 +1,5 @@
 ***D01***
-
+(simile a esercizio C06, che però usa un file in formato testo)
 è dato un file che contiene un array di int, in formato binario.
 
 scrivere un programma che effettua il sort crescente dell'array di int contenuto nel file e che poi prosegue così:
@@ -19,5 +19,3 @@ ogni thread scrive un messaggio del tipo: "thread numero %d, contatore = %d\n" d
 gli N thread arrivano ad un "tornello"; quando tutti gli N thread sono arrivati li, allora possono proseguire. 
 Ciascun thread prosegue scrivendo il messaggio "thread numero %d - fine\n".
 
-
-***D03***
