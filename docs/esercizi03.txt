@@ -122,6 +122,10 @@ il file originale viene sovrascritto con il risultato dell'ordinamento del punto
 
 *** esercizio C07 *** 
 [difficoltà: difficile]
+
+[invece di svolgere questo esercizio, svolgere piuttosto la sua versione "semplificata":
+vedere esercizio D04 nel file esercizi04.txt]
+
 scrivere il seguente programma:
 
 processo padre crea un file, sovrascrivendo il contenuto (lo apre per leggere e scrivere)
