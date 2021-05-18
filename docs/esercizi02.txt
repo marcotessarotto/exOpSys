@@ -118,9 +118,9 @@ il programma legge da stdin una riga alla volta fino a EOF
 una volta lette tutte le righe, fa il sort in ordine crescente delle righe;
 scrive le righe ordinate su stdout
 
-vedere esempio:
+vedere esempi:
 https://github.com/marcotessarotto/exOpSys/blob/master/041qsortstr/qsortstr.c
-
+https://github.com/marcotessarotto/exOpSys/blob/master/046getline/getline.c
 
 ***esercizio B12***
 il programma riceve come parametro a riga di comando il percorso di una directory 
