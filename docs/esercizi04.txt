@@ -14,7 +14,8 @@ N = 10
 
 il programma crea N threads; esiste un contatore condiviso tra thread.
 
-ogni thread scrive un messaggio del tipo: "thread numero %d, contatore = %d\n" dove il primo numero è un id passato come parametro al thread (id compreso tra 0 a N-1); ogni thread incrementa il contatore.
+ogni thread scrive un messaggio del tipo: "thread numero %d, contatore = %d\n" dove il primo numero è un id passato come parametro al thread (id compreso tra 0 a N-1); 
+ogni thread incrementa il contatore.
 
 gli N thread arrivano ad un "tornello"; quando tutti gli N thread sono arrivati li, allora possono proseguire. 
 Ciascun thread prosegue scrivendo il messaggio "thread numero %d - fine\n".
