@@ -7,7 +7,7 @@
 
 #define CHUNK_SIZE 32
 
-// legge da fd una linea intera (fino a che incontra carattere newline oppure EOF oppure errore in letura da fd)
+// legge da fd una linea intera (fino a che incontra carattere newline oppure EOF oppure errore in lettura da fd)
 // newline è incluso nella stringa di caratteri restituita; la stringa è terminata da \0
 // scrive in *buffer l'indirizzo del buffer allocato
 // scrive in *n la dimensione del buffer; restituisce n

@@ -10,7 +10,7 @@
  */
 
 
-#define NUMBER_OF_TESTS 10000000L
+#define NUMBER_OF_REPETITIONS 10000000L
 
 int main(int argc, char * argv[]) {
 
@@ -18,7 +18,7 @@ int main(int argc, char * argv[]) {
 
 	gettimeofday(&tv1, NULL);
 
-	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
+	for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
 		gettimeofday(&tv, NULL);
 	}
 
@@ -33,8 +33,8 @@ int main(int argc, char * argv[]) {
 
 	printf("***gettimeofday()***\n");
 	printf("total dt = %ld microseconds\n", dt);
-	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_TESTS);
-	printf("dt/NUMBER_OF_TESTS = %ld nanoseconds\n", dt * 1000 / NUMBER_OF_TESTS);
+	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_REPETITIONS);
+	printf("dt/NUMBER_OF_TESTS = %ld nanoseconds\n", dt * 1000 / NUMBER_OF_REPETITIONS);
 	printf("\n\n");
 
 	//
@@ -43,7 +43,7 @@ int main(int argc, char * argv[]) {
 	struct timespec ts1;
 
 	gettimeofday(&tv1, NULL);
-	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
+	for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
 		clock_gettime(CLOCK_REALTIME, &ts1);
 	}
 	gettimeofday(&tv2, NULL);
@@ -52,8 +52,8 @@ int main(int argc, char * argv[]) {
 
 	printf("***clock_gettime(CLOCK_REALTIME)***\n");
 	printf("total dt : %ld microseconds\n", dt);
-	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_TESTS);
-	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_TESTS);
+	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_REPETITIONS);
+	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_REPETITIONS);
 	printf("\n\n");
 
 /*
@@ -75,7 +75,7 @@ int main(int argc, char * argv[]) {
  */
 
 	gettimeofday(&tv1, NULL);
-	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
+	for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
 		clock_gettime(CLOCK_REALTIME_COARSE, &ts1);
 	}
 	gettimeofday(&tv2, NULL);
@@ -84,14 +84,14 @@ int main(int argc, char * argv[]) {
 
 	printf("***clock_gettime(CLOCK_REALTIME_COARSE)***\n");
 	printf("total dt : %ld microseconds\n", dt);
-	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_TESTS);
-	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_TESTS);
+	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_REPETITIONS);
+	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_REPETITIONS);
 	printf("\n\n");
 
 
 
 	gettimeofday(&tv1, NULL);
-	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
+	for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
 		clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
 	}
 	gettimeofday(&tv2, NULL);
@@ -100,14 +100,14 @@ int main(int argc, char * argv[]) {
 
 	printf("***clock_gettime(CLOCK_PROCESS_CPUTIME_ID)***\n");
 	printf("total dt : %ld microseconds\n", dt);
-	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_TESTS);
-	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_TESTS);
+	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_REPETITIONS);
+	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_REPETITIONS);
 	printf("\n\n");
 
 
 
 	gettimeofday(&tv1, NULL);
-	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
+	for (int i = 0; i < NUMBER_OF_REPETITIONS; i++) {
 		clock_gettime(CLOCK_THREAD_CPUTIME_ID, &ts1);
 	}
 	gettimeofday(&tv2, NULL);
@@ -116,8 +116,8 @@ int main(int argc, char * argv[]) {
 
 	printf("***clock_gettime(CLOCK_THREAD_CPUTIME_ID)***\n");
 	printf("total dt : %ld microseconds\n", dt);
-	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_TESTS);
-	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_TESTS);
+	printf("NUMBER_OF_TESTS: %ld\n", NUMBER_OF_REPETITIONS);
+	printf("dt/NUMBER_OF_TESTS : %ld nanoseconds\n", dt * 1000 / NUMBER_OF_REPETITIONS);
 	printf("\n\n");
 
 
