@@ -69,3 +69,14 @@ quando il processo figlio termina, il kernel invia un segnale SIGCHLD al process
 AGGIUNTA:
 - i risultati trovati da ciascun processo figlio vengono "raccolti" dal processo padre
 
+
+***D06***
+il programma crea un thread "lavoratore" che effettua il seguente:
+
+ciclo:
+- il thread si mette in attesa;
+- il thread principale "fornisce" il "materiale" su cui il thread lavorerà una volta svegliato;
+- il thread viene svegliato ed inizia a lavorare sul "materiale";
+- il thread produce il risultato e lo "restituisce";
+- il thread torna a "dormire";
+
