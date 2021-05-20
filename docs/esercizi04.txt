@@ -56,3 +56,16 @@ il processo padre itera all'infinito:
 il processo padre registra un signal handler per SIGCHLD;
 quando il processo figlio termina, il kernel invia un segnale SIGCHLD al processo padre, che a sua volta termina.
 
+
+***D05***
+è uno sviluppo dell'esercizio B7 che riporto di seguito:
+
+  ***esercizio B7  'ricerca in file con più processi'  ***
+  Il programma prende tre parametri: un nome di file, un numero intero > 0 (M), una stringa di caratteri S da cercare nel file
+  All’interno di un file passato come argomento al programma, questo crea M processi
+  Ciascun processo cerca nel pezzo di file assegnato la stringa S (se la trova, scrive a video l’offset della stringa nel file)
+  Ciascun processo opera su un pezzo del file di dimensione pari a file_size/M + K (con K >=0 tale che se la stringa S è a cavallo di due pezzi contigui, S venga trovata)
+
+AGGIUNTA:
+- i risultati trovati da ciascun processo figlio vengono "raccolti" dal processo padre
+
