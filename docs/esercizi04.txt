@@ -103,6 +103,17 @@ ogni processo figlio fa questo per N (= 100000):
 l'accesso ai due contatore deve essere regolato da un mutex (implementato con semaforo).
 
 
+***D09***
+il processo padre crea 10 processi figli; il processo figlio i-mo calcola fibonacci(i).
+viene usata una unica memoria condivisa tra tutti i processi, per consentire ai processi figli di restituire i 10 valori.
+
+il processo padre scrive su stdout i valori di fibonacci restituiti dai processi figli:
+fibonacci(0)
+fibonacci(1)
+...
+fibonacci(9)
+
+
 
 
 
