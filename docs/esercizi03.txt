@@ -42,7 +42,7 @@ il thread t2 fa quanto segue:
 - "segnala" al thread t1 di procedere
 
 [la soluzione è un "produttore-consumatore" con buffer finito, Little Boof of Semaphores, pag. 55-65]
-
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=227319]
 
 *** esercizio C03 *** copia di file con mmap ***
 [difficoltà: facile]
