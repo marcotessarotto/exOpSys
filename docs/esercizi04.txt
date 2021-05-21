@@ -83,3 +83,16 @@ ciclo:
 [soluzione: https://moodle2.units.it/mod/resource/view.php?id=227179]
 
 
+***D07***
+processo padre, processo figlio
+il processo figlio conta il numero di righe nel file /usr/share/dict/american-english
+il processo figlio scrive il risultato in una memory map condivisa con il processo padre.
+il processo figlio termina.
+il processo padre legge il risultato dalla memory map condivisa, lo scrive su stdout e poi termina.
+
+
+
+
+
+
+
