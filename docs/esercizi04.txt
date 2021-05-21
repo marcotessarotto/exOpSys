@@ -156,6 +156,7 @@ processo figlio A fa questo, per N(=100000) volte:
 - incrementa cont1
 - se cont1 è divisibile per 7, invia al processo padre un segnale SIGUSR1
 - dorme per 1 millisecondo
+(poi processo figlio A termina)
 
 processo figlio B fa questo, in un ciclo senza fine:
 - incrementa o decrementa cont1, a seconda del valore di "stato" (se stato==1, incrementa cont1; se stato == 0, decrementa cont1)
@@ -163,4 +164,6 @@ processo figlio B fa questo, in un ciclo senza fine:
 quando processo figlio B riceve SIGUSR1, inverte il valore di "stato".
 
 quando processo padre riceve SIGUSR1 da processo figlio A, manda a sua volta un segnale SIGUSR1 a processo figlio B.
+
+quando processo figlio A termina, allora processo padre fa terminare processo figlio B e scrive il valore di cont1.
 
