@@ -147,4 +147,24 @@ il thread calcola y[i] = x[i]^4 - x[i]^3 + x[i]^2 per ogni i nell’intervallo [
 Quando ha completato il calcolo, setta risultato_ok ed «avvisa» il thread principale. 
 
 
+*** esercizio B14***
+il programma implementa la seguente funzione:
+
+long calcola(long x);
+
+questa funzione effettua il seguente calcolo:
+y = x^4 - x^3 + x^2
+
+il calcolo viene effettuato utilizzando 3 thread:
+thread t1 effettua il calcolo x^4
+thread t2 effettua il calcolo x^3
+thread t3 effettua il calcolo x^2
+
+la funziona 'calcola', crea i 3 thread, aspetta i risultati
+e calcola e restituisce y.
+
+
+
+
+
 
