@@ -128,3 +128,23 @@ fibonacci(1)
 fibonacci(9)
 
 
+***D11***
+copia di un file regolare, tra processi:
+è dato un file origine, da copiare
+
+il processo padre legge tutto il file in memoria;
+poi il processo padre crea il processo figlio,
+che va a scrivere il file destinazione.
+quando il file è stato scritto, il processo padre scrive "ok" su stdout.
+
+come si fa a verificare che il contenuto dei due file sia identico?
+
+***D12***
+copia di un file regolare, tra threads:
+è dato un file origine, da copiare
+
+il thread t1 legge tutto il file in memoria
+il thread t2 va a scrivere i contenuti nel file destinazione
+
+
+
