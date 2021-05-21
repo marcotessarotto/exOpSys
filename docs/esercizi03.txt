@@ -75,7 +75,7 @@ alla ricezione di un pacchetto dati, il processo figlio calcola sha256 e trasmet
 il processo padre riceve il digest e scrive su stdout una cosa del genere:
 "file xyz
 sha256 digest: <digest>"
-
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=227309]
 
 
 *** esercizio C05 *** fileappend_multithread***
