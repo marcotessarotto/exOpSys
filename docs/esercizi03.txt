@@ -48,7 +48,7 @@ il thread t2 fa quanto segue:
 [difficoltà: facile]
 copiare un file usando la system call mmap (in entrambe le fasi: leggere il file sorgente, scrivere il file destinazione)
 [cosa fare se il file sorgente coincide con il file destinazione?]
-
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=227317]
 
 
 *** esercizio C04 *** doppia pipe
