@@ -91,6 +91,16 @@ il processo figlio termina.
 il processo padre legge il risultato dalla memory map condivisa, lo scrive su stdout e poi termina.
 
 
+***D08***
+due contatori condivisi tra processi:
+cont1 e cont2
+
+processo padre crea 2 processi figli.
+ogni processo figlio fa questo per N (= 100000):
+- incrementa cont1; 
+- se cont1 % 10 == 0 (cioè se cont1 è divisibile per 10), allora incrementa cont2
+
+l'accesso ai due contatore deve essere regolato da un mutex (implementato con semaforo).
 
 
 
