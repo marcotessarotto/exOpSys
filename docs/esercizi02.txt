@@ -42,6 +42,7 @@ Quando l’utente digita Ctrl-C, il programma termina il processo zip, e mostra 
 echo 'foo bar' | zip -q nome_file -
 
 [ soluzione di B3: vedere anche https://github.com/marcotessarotto/exOpSys/blob/master/037two_procs/es2proc.c ]
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=226638]
 
 
 ***esercizio B4  'due processi'  *** 
@@ -49,7 +50,7 @@ Due processi: A (parent) e B (child), condividono un file aperto in modalità sc
 il processo A fa l'append di una riga di testo al file; dorme un secondo; comunica al processo B di continuare. Il processo A aspetta.
 il processo B, a sua volta, fa l'append di una riga di testo allo stesso file; dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
 Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B, aspetta che B termini e poi termina anche A.
-
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=226877]
 
 ***esercizio B5  'fork di 20 processi'  ***
 Ogni processo può fare il fork di al più altri 2 processi 
@@ -62,6 +63,7 @@ P1 crea due processi P3 e P4;
 P2 crea due processi P5 e P6;
 P3 crea due process....
 (prima di ogni singolo fork(), viene controllato il valore del contatore (deve essere < 20) ed incrementato il contatore condiviso)
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=226879]
 
 
 ***esercizio B6  'scrittura su file da parte di più processi'  ***
@@ -71,7 +73,7 @@ crea un file di dimensione N bytes nella cartella dei file temporanei /tmp/
 #define M 16
 
 il programma crea M processi: il processo i-mo scrive il carattere ‘A’+i  in una parte del file di dimensione N / M bytes, con offset pari a i * N/M.
-
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=226972]
 
 ***esercizio B7  'ricerca in file con più processi'  ***
 Il programma prende tre parametri: un nome di file, un numero intero > 0 (M), una stringa di caratteri S da cercare nel file
@@ -79,7 +81,7 @@ All’interno di un file passato come argomento al programma, questo crea M proc
 Ciascun processo cerca nel pezzo di file assegnato la stringa S (se la trova, scrive a video l’offset della stringa nel file)
 Ciascun processo opera su un pezzo del file di dimensione pari a file_size/M + K 
 (con K >=0 tale che se la stringa S è a cavallo di due pezzi contigui, S venga trovata)
-
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=227064]
 
 ***esercizio B8***
 Il processo principale origina due processi figli A e B
@@ -125,6 +127,8 @@ scrive le righe ordinate su stdout
 vedere esempi:
 https://github.com/marcotessarotto/exOpSys/blob/master/041qsortstr/qsortstr.c
 https://github.com/marcotessarotto/exOpSys/blob/master/046getline/getline.c
+[soluzione: https://moodle2.units.it/mod/resource/view.php?id=226882]
+
 
 ***esercizio B12***
 il programma riceve come parametro a riga di comando il percorso di una directory 
