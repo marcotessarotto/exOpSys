@@ -139,6 +139,7 @@ quando il file è stato scritto, il processo padre scrive "ok" su stdout.
 
 come si fa a verificare che il contenuto dei due file sia identico?
 
+
 ***D12***
 copia di un file regolare, tra threads:
 è dato un file origine, da copiare
@@ -147,4 +148,19 @@ il thread t1 legge tutto il file in memoria
 il thread t2 va a scrivere i contenuti nel file destinazione
 
 
+***D13***
+processo padre, processo figlio A e processo figlio B: 
+tutt e tre i processi condividono un contatore cont1
+
+processo figlio A fa questo, per N(=100000) volte:
+- incrementa cont1
+- se cont1 è divisibile per 7, invia al processo padre un segnale SIGUSR1
+- dorme per 1 millisecondo
+
+processo figlio B fa questo, in un ciclo senza fine:
+- incrementa o decrementa cont1, a seconda del valore di "stato" (se stato==1, incrementa cont1; se stato == 0, decrementa cont1)
+- dorme per 10 millisecondi
+quando processo figlio B riceve SIGUSR1, inverte il valore di "stato".
+
+quando processo padre riceve SIGUSR1 da processo figlio A, manda a sua volta un segnale SIGUSR1 a processo figlio B.
 
