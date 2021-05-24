@@ -45,11 +45,42 @@ echo 'foo bar' | zip -q nome_file -
 [soluzione: https://moodle2.units.it/mod/resource/view.php?id=226638]
 
 
-***esercizio B4  'due processi'  *** 
-Due processi: A (parent) e B (child), condividono un file aperto in modalità scrittura (e quindi anche l'offset del file).
-il processo A fa l'append di una riga di testo al file; dorme un secondo; comunica al processo B di continuare. Il processo A aspetta.
-il processo B, a sua volta, fa l'append di una riga di testo allo stesso file; dorme un secondo; comunica al processo A di continuare. Il processo B aspetta.
-Quando il processo A ha scritto la centesima riga ,manda un segnale di terminazione al processo B, aspetta che B termini e poi termina anche A.
+***esercizio B4  'due processi'  ***
+ Due processi: A (parent) e B (child),
+ condividono un file aperto in modalità scrittura
+ (e quindi anche l'offset del file).
+
+ il processo A esegue per 100 volte il seguente ciclo:
+ - fa l'append (scrive in fondo al file) di una riga di testo al file;
+ - dorme un secondo;
+ - comunica al processo B che può continuare.
+ - il processo A aspetta l'ok a proseguire (dal processo B)
+
+
+ il processo B esegue all'infinito il seguente ciclo:
+ - il processo B aspetta l'ok a proseguire (dal processo A)
+ - fa l'append di una riga di testo allo stesso file;
+ - dorme un secondo;
+ - comunica al processo A che può continuare.
+
+
+il risultato finale dovrebbe essere un file, dove ogni processo ha
+scritto 100 righe, alternandosi; il primo a scrivere deve essere il
+processo A:
+riga 0 processo A
+riga 0 processo B
+riga 1 processo A
+riga 1 processo B
+...
+riga 99 processo A
+riga 99 processo B
+
+
+ Quando il processo A ha scritto la centesima riga ,
+ manda un segnale di terminazione al processo B,
+ aspetta che B termini e poi termina anche A.
+
+
 [soluzione: https://moodle2.units.it/mod/resource/view.php?id=226877]
 
 ***esercizio B5  'fork di 20 processi'  ***
