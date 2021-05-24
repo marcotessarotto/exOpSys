@@ -161,7 +161,7 @@ il thread t2 va a scrivere i contenuti nel file destinazione
 
 ***D13***
 processo padre, processo figlio A e processo figlio B: 
-tutt e tre i processi condividono un contatore cont1
+tutti e tre i processi condividono un contatore cont1
 
 processo figlio A fa questo, per N(=100000) volte:
 - incrementa cont1
