@@ -5,6 +5,11 @@
 /*
  * esempio che utilizza strtok() per suddividere una stringa di caratteri
  * in blocchi di testo (token)
+ *
+ *
+ * Why should strtok() generally be avoided?
+ * https://benpfaff.org/writings/clc/strtok.html
+ *
  */
 
 int main () {
