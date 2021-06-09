@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
     calc_fact(num, 100);
 
     print_mpz(num);
-    MY_PRINT(new_line)
+    printf("\n");
 
 
     printf("using mpz_fac_ui:\n");
@@ -59,12 +59,12 @@ int main(int argc, char** argv) {
     mpz_fac_ui(num2, 100);
 
     print_mpz(num2);
-    MY_PRINT(new_line)
+    printf("\n");
 
 
     mpz_clears(num, num2, NULL);
 
-    // alternative, using streams:
+    // alternative to print_mpz, using streams:
     //mpz_out_str(stdout, 10, mynum);
 
     return 0;
