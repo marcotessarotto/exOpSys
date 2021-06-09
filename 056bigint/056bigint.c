@@ -14,35 +14,57 @@
  *
  */
 
-int main(int argc, char** argv) {
-    mpz_t mynum;
+#define MY_PRINT(msg) write(1, msg, strlen(msg));
 
-    mpz_init(mynum);
+// alternative to mpz_fac_ui
+// result must not have been initialized
+void calc_fact(mpz_t result, unsigned long arg) {
 
-    mpz_add_ui(mynum, mynum, 100);
+    mpz_init(result);
 
-    int i;
+    mpz_init_set_ui(result, arg);
 
-    for (i = 99; i > 1; i--) {
-
-        mpz_mul_si(mynum, mynum, (long)i);
-
+    for (unsigned long i = arg-1; i > 1; i--) {
+    	mpz_mul_ui(result, result, i);
     }
 
-    // char * mpz_get_str (char *str, int base, const mpz_t op)
-    char * msg;
+}
 
-    msg = "100! = ";
+// print num to file descriptor 1 in base 10
+void print_mpz(mpz_t num) {
+	char * msg;
 
-    write(1, msg, strlen(msg));
+	msg = mpz_get_str(NULL, 10, num);
 
-    msg = mpz_get_str(NULL, 10, mynum);
+	write(1, msg, strlen(msg));
 
-    write(1, msg, strlen(msg));
+	free(msg);
+}
 
-    // msg va liberata con free()
+int main(int argc, char** argv) {
+    char * new_line = "\n";
 
-    // in alternativa, per scrivere
+    printf("calculation of 100!\n");
+
+    printf("using calc_fact:\n");
+    mpz_t num;
+    calc_fact(num, 100);
+
+    print_mpz(num);
+    MY_PRINT(new_line)
+
+
+    printf("using mpz_fac_ui:\n");
+    mpz_t num2;
+    mpz_fac_ui(num2, 100);
+
+    print_mpz(num2);
+    MY_PRINT(new_line)
+
+
+    mpz_clears(num, num2, NULL);
+
+    // alternative, using streams:
     //mpz_out_str(stdout, 10, mynum);
 
     return 0;
