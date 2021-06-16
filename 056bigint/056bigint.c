@@ -42,7 +42,6 @@ void print_mpz(mpz_t num) {
 }
 
 int main(int argc, char** argv) {
-    char * new_line = "\n";
 
     printf("calculation of 100!\n");
 
