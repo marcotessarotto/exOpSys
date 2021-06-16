@@ -55,6 +55,9 @@ int main(int argc, char** argv) {
 
     printf("using mpz_fac_ui:\n");
     mpz_t num2;
+
+    mpz_init(num2);
+
     mpz_fac_ui(num2, 100);
 
     print_mpz(num2);
