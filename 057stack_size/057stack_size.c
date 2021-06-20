@@ -5,6 +5,8 @@
 // https://stackoverflow.com/questions/2279052/increase-stack-size-in-linux-with-setrlimit
 // https://stackoverflow.com/a/2279084/974287
 
+// https://stackoverflow.com/questions/7535994/how-do-i-find-the-maximum-stack-size
+
 /*
  * set process stack size to 64 MB
  *
