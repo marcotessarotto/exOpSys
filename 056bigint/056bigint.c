@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <string.h>
 
+// requisito:
 // sudo apt install libgmp-dev
 
 /*
