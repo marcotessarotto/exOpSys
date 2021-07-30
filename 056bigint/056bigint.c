@@ -21,7 +21,7 @@
 // result must not have been initialized
 void calc_fact(mpz_t result, unsigned long arg) {
 
-    mpz_init(result);
+    //mpz_init(result);
 
     mpz_init_set_ui(result, arg);
 
