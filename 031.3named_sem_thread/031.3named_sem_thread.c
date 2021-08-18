@@ -20,7 +20,7 @@ char * semaphore_name = "/il_mio_semaforo_031.3";
 
 int shared_counter;
 
-#define N 200000000
+#define N 10000000
 
 #define THREADS 2
 
@@ -59,6 +59,7 @@ void * do_operation(void * arg) {
 int main() {
 
 	struct timespec ts1, ts2;
+	struct timespec ts1_rt, ts2_rt; // realtime clock
 
 	sem_t * semaphore;
 
@@ -78,6 +79,7 @@ int main() {
 	pthread_t t[THREADS];
 
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts1);
+	clock_gettime(CLOCK_REALTIME, &ts1_rt);
 
 	for (int i = 0; i < THREADS; i++) {
 		if (pthread_create(&t[i], NULL, do_operation, NULL) != 0) {
@@ -92,6 +94,7 @@ int main() {
 		}
 	}
 
+	clock_gettime(CLOCK_REALTIME, &ts2_rt);
 	clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts2);
 
 	printf("shared_counter = %d\n", shared_counter);
@@ -100,6 +103,12 @@ int main() {
 	unsigned long dt = ((ts2.tv_sec - ts1.tv_sec) * 1000000000L + ts2.tv_nsec) - ts1.tv_nsec;
 
 	printf("dt = %lu ns, %.3lf s\n", dt, dt / 1000000000.);
+	printf("dt/NUMBER_OF_CYCLES/2 = %ld ns\n", dt/N/2);
+
+	dt = ((ts2_rt.tv_sec - ts1_rt.tv_sec) * 1000000000L + ts2_rt.tv_nsec) - ts1_rt.tv_nsec;
+	printf("clock_gettime(CLOCK_REALTIME): dt = %ld ns, %.3lf s\n", dt, dt / 1000000000.);
+	printf("dt/NUMBER_OF_CYCLES/2 = %ld ns\n", dt/N/2);
+
 
 
 	return 0;
