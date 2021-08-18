@@ -20,7 +20,7 @@ char * semaphore_name = "/il_mio_semaforo_031.3";
 
 int shared_counter;
 
-#define N 10000000
+#define N 100000000UL
 
 #define THREADS 2
 
