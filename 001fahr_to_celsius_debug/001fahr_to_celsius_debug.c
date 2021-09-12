@@ -4,6 +4,11 @@
 #define UPPER 300
 #define STEP 20
 
+// utile:
+// https://www.eclipse.org/community/eclipse_newsletter/2017/april/article2.php
+// https://www.eclipse.org/community/eclipse_newsletter/2017/april/article1.php
+// https://www.eclipse.org/community/eclipse_newsletter/2013/october/
+
 
 void convert_fahr_to_celsius() {
 
