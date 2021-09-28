@@ -18,7 +18,7 @@ static const char *const str = "application/atomcat+xml				atomcat\n";
 
 //static const char *const re = "John.*o";
 
-static const char *const re = ".+/.+\\b";
+static const char *const re = "\\S+/\\S+";
 
 //static const char *const re = "ap+";
 
