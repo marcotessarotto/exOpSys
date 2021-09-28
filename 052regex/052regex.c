@@ -13,10 +13,14 @@
 
 #define ARRAY_SIZE(arr) (sizeof((arr)) / sizeof((arr)[0]))
 
-static const char *const str =
-	   "1) John Driverhacker;\n2) John Doe;\n3) John Foo;\n";
+static const char *const str = "application/atomcat+xml				atomcat\n";
+	   //"1) John Driverhacker;\n2) John Doe;\n3) John Foo;\n";
 
-static const char *const re = "John.*o";
+//static const char *const re = "John.*o";
+
+static const char *const re = ".+/.+\\b";
+
+//static const char *const re = "ap+";
 
 int main(void)
 {
@@ -26,7 +30,7 @@ int main(void)
    regoff_t    off, len;
    int delta;
 
-   if (regcomp(&regex, re, REG_NEWLINE))
+   if (regcomp(&regex, re, REG_NEWLINE | REG_EXTENDED))
 	   exit(EXIT_FAILURE);
 
    printf("search string = \"%s\"\n\n", str);
