@@ -31,6 +31,8 @@ int main(int argc, char *argv[]) {
 	int wstatus;
 	int modal_result = -1;
 
+	// https://stackoverflow.com/questions/18904292/is-it-true-that-fork-calls-clone-internally/32297869#32297869
+
 	switch(fork()) {
 	case 0:
 		// child process
