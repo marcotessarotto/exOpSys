@@ -20,7 +20,6 @@
 
 int delivered_signals;
 
-
 long get_timestamp() {
 	struct timespec ts1;
 	clock_gettime(CLOCK_MONOTONIC, &ts1);
@@ -29,7 +28,6 @@ long get_timestamp() {
 
 	return result;
 }
-
 
 // SIGCHLD handler
 static void sigchld_handler(int signum) {
@@ -103,10 +101,10 @@ void send_signal(pid_t pid, int signum) {
 
 void child_process() {
 
-	printf("[child   %lu] child process has started, pid=%d\n", get_timestamp(), getpid());
+	printf("[child   %lu] child process has started, pid=%d\n", get_timestamp(),
+			getpid());
 
 	pid_t parent_pid = getppid();
-
 
 	for (int i = 0; i < NUM_CHILD_TASKS; i++) {
 		printf("[child   %lu] starting task %d...\n", get_timestamp(), i);
@@ -115,23 +113,22 @@ void child_process() {
 		if (NUM_CHILD_TASKS > 1)
 			sleep(1);
 
-		printf("[child   %lu] task %d is complete, sending signal to parent process\n", get_timestamp() , i);
+		printf(
+				"[child   %lu] task %d is complete, sending signal to parent process\n",
+				get_timestamp(), i);
 
 		// signals can be lost if they are too near
 		send_signal(parent_pid, SIGUSR1);
 	}
 
-
 	//sleep(1);
-
 
 	printf("[child   %lu] child process is terminating\n", get_timestamp());
 
 	exit(0);
 }
 
-
-void print_blocked_mask(sigset_t * set) {
+void print_blocked_mask(sigset_t *set) {
 
 	printf("print_blocked_mask: ");
 
@@ -149,7 +146,8 @@ int main(int argc, char **argv) {
 	sigset_t orig_mask;
 
 	printf("NUM_CHILD_TASKS = %d\n", NUM_CHILD_TASKS);
-	printf("[parent  %lu] setting up signal mask, signal handlers\n", get_timestamp());
+	printf("[parent  %lu] setting up signal mask, signal handlers\n",
+			get_timestamp());
 
 	sigprocmask(0, NULL, &orig_mask); // get current blocked signal mask
 	print_blocked_mask(&orig_mask);
@@ -179,7 +177,6 @@ int main(int argc, char **argv) {
 	}
 
 #define TWO
-
 
 #ifndef TWO
 
@@ -231,24 +228,33 @@ int main(int argc, char **argv) {
 		res = waitpid(child_pid, &wstatus, WNOHANG); // WNOHANG:  return immediately if no child has exited.
 
 		if (res == -1 && errno == ECHILD) {
-			printf("[parent  %lu] child process has terminated\n", get_timestamp());
+			printf("[parent  %lu] child process has terminated\n",
+					get_timestamp());
 			break;
 		} else if (res == -1 && (errno == EINTR || errno == EAGAIN)) {
 
-			printf("[parent  %lu] waitpid has been interrupted\n", get_timestamp());
+			printf("[parent  %lu] waitpid has been interrupted\n",
+					get_timestamp());
 
 		} else if (res == 0) { // child process exists (at the moment of return from waitpid)
 
-			printf("[parent  %lu] after waitpid - child process exists\n", get_timestamp());
+			printf("[parent  %lu] after waitpid - child process exists\n",
+					get_timestamp());
 
 		} else if (res == child_pid) { // child process exists (at the moment of return from waitpid)
 			if (WIFEXITED(wstatus) || WIFSIGNALED(wstatus)) {
-				printf("[parent  %lu] after waitpid - child process has terminated(2)\n", get_timestamp());
+				printf(
+						"[parent  %lu] after waitpid - child process has terminated(2)\n",
+						get_timestamp());
 				break;
 			} else if (WIFSTOPPED(wstatus)) {
-				printf("[parent  %lu] after waitpid - child process has been stopped\n", get_timestamp());
+				printf(
+						"[parent  %lu] after waitpid - child process has been stopped\n",
+						get_timestamp());
 			} else if (WIFCONTINUED(wstatus)) {
-				printf("[parent  %lu] after waitpid - child process has been resumed\n", get_timestamp());
+				printf(
+						"[parent  %lu] after waitpid - child process has been resumed\n",
+						get_timestamp());
 			}
 		}
 
@@ -261,17 +267,16 @@ int main(int argc, char **argv) {
 			exit(1);
 		}
 		/*
-	    sigsuspend() temporarily replaces the signal mask of the calling thread with the mask given by mask
-	    and then suspends the thread until delivery of a signal whose action is to invoke a signal handler or to terminate a process.
+		 sigsuspend() temporarily replaces the signal mask of the calling thread with the mask given by mask
+		 and then suspends the thread until delivery of a signal whose action is to invoke a signal handler or to terminate a process.
 
-        If the signal terminates the process, then sigsuspend() does not return.  If the signal is caught, then sigsuspend() returns after the signal handler returns, and the signal mask
-        is restored to the state before the call to sigsuspend().
-		*/
-
-
+		 If the signal terminates the process, then sigsuspend() does not return.  If the signal is caught, then sigsuspend() returns after the signal handler returns, and the signal mask
+		 is restored to the state before the call to sigsuspend().
+		 */
 
 		if (delivered_signals != prev_delivered_signals) {
-			printf("[parent  %lu] after sigsuspend - delivered_signals = %d\n", get_timestamp(), delivered_signals);
+			printf("[parent  %lu] after sigsuspend - delivered_signals = %d\n",
+					get_timestamp(), delivered_signals);
 
 			prev_delivered_signals = delivered_signals;
 
@@ -284,7 +289,9 @@ int main(int argc, char **argv) {
 
 #endif
 
-	printf("[parent  %lu] terminating, have received a total of %d signals (SIGUSR1) from child process\n", get_timestamp(), delivered_signals);
+	printf(
+			"[parent  %lu] terminating, have received a total of %d signals (SIGUSR1) from child process\n",
+			get_timestamp(), delivered_signals);
 
 	return 0;
 }
