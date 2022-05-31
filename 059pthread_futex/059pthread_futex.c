@@ -3,7 +3,8 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <errno.h>
-#include <stdatomic.h>
+#include <stdatomic.h> // C11
+#include <stdalign.h> // C11
 #include <stdint.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -21,7 +22,8 @@
 // requires C11 dialect (for stdatomic.h)
 // https://en.cppreference.com/w/c/atomic
 
-static uint32_t futex1, futex2;
+// https://en.cppreference.com/w/c/language/_Alignas
+static alignas(4) uint32_t futex1, futex2;
 static int nloops;
 
 #define AVAILABLE 1
