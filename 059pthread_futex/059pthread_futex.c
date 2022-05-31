@@ -16,7 +16,7 @@
 
 // derived from example in: man 2 futex
 
-// two pthreads implement and use a mutex using stdatomic.h facilities and the futex syscall
+// n pthreads implement and use a mutex using stdatomic.h facilities and the futex syscall
 
 // requires C11 dialect (for stdatomic.h)
 // https://en.cppreference.com/w/c/atomic
@@ -65,6 +65,7 @@ static void fwait(uint32_t *futexp) {
         // used for synchronization only between threads of the same process).
 		// This allows the kernel to make some additional performance optimizations.
 
+		// check that *futexp == NOT_AVAILABLE and if so, sleep waiting for a FUTEX_WAKE operation
 		s = futex(futexp, FUTEX_WAIT_PRIVATE, NOT_AVAILABLE, NULL, NULL, 0);
 		if (s == -1 && errno != EAGAIN) {
 			perror("futex-FUTEX_WAIT");
@@ -83,14 +84,43 @@ static void fpost(uint32_t *futexp) {
 	/* atomic_compare_exchange_strong() was described
 	 in comments above */
 
+	// https://en.cppreference.com/w/c/atomic/atomic_fetch_add
+
+//#define VERSION1
+
+#ifdef VERSION1
+
 	const uint32_t zero = NOT_AVAILABLE;
 	if (atomic_compare_exchange_strong(futexp, &zero, 1)) {
-		s = futex(futexp, FUTEX_WAKE_PRIVATE, AVAILABLE, NULL, NULL, 0);
+
+		// from man 2 futex:
+		// This  operation wakes at most val of the waiters that are waiting (e.g., inside FUTEX_WAIT) on the futex word at the address uaddr.  Most commonly, val is specified as ei‐
+        // ther 1 (wake up a single waiter) or INT_MAX (wake up all waiters).  No guarantee is provided about which waiters are awoken (e.g., a waiter with a higher scheduling prior‐
+        // ity is not guaranteed to be awoken in preference to a waiter with a lower priority).
+
+		// if previous value of *futexp was zero, wake up one waiter (thread)
+		s = futex(futexp, FUTEX_WAKE_PRIVATE, 1, NULL, NULL, 0);
 		if (s == -1) {
 			perror("futex-FUTEX_WAKE");
 			exit(EXIT_FAILURE);
 		}
 	}
+
+#else
+
+	// this makes futexp a semaphore (allows values > 1)
+	if (atomic_fetch_add(futexp, 1) == 0) {
+
+		// if previous value of *futexp was zero, wake up one waiter (thread)
+		s = futex(futexp, FUTEX_WAKE_PRIVATE, 1, NULL, NULL, 0);
+		if (s == -1) {
+			perror("futex-FUTEX_WAKE");
+			exit(EXIT_FAILURE);
+		}
+	}
+
+#endif
+
 }
 
 
@@ -125,12 +155,17 @@ void * pthread_func(void * arg) {
 int main(int argc, char *argv[]) {
 	setbuf(stdout, NULL);
 
-	nloops = (argc > 1) ? atoi(argv[1]) : 5;
+	nloops = (argc > 1) ? atoi(argv[1]) : 15;
 
 	futex1 = NOT_AVAILABLE; /* State: unavailable */
 	futex2 = AVAILABLE; /* State: available */
 
-	long nthreads = 2;
+	long nthreads = 4;
+
+	if (nthreads % 2 != 0) {
+		printf("nthreads number must be even, we will get deadlock otherwise\n");
+		exit(EXIT_FAILURE);
+	}
 
 	pthread_t tid[nthreads];
 
