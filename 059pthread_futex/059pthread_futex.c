@@ -132,7 +132,7 @@ void * pthread_func(void * arg) {
 
 	uint32_t * futex_a, * futex_b;
 
-	if (param % 2 == 0) {
+	if ((param & 1) == 0) {
 		futex_a = &futex1;
 		futex_b = &futex2;
 	} else {
@@ -164,7 +164,7 @@ int main(int argc, char *argv[]) {
 
 	long nthreads = 4;
 
-	if (nthreads % 2 != 0) {
+	if ((nthreads & 1) != 0) {
 		printf("nthreads number must be even, we will get deadlock otherwise\n");
 		exit(EXIT_FAILURE);
 	}
