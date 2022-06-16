@@ -18,3 +18,8 @@ efibootmgr --create --disk /dev/nvme0n1p1 --loader /EFI/debian/shimx64.efi --lab
 
 In this way, the BIOS "sees" correctly an "OS manager" and thus can boot automatically.
 
+
+useful links:
+https://wiki.archlinux.org/title/Unified_Extensible_Firmware_Interface
+
+
