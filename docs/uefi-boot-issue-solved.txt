@@ -1,0 +1,20 @@
+
+problem:
+on my HP 15s-eq2007sl notebook I have installed a new nvme ssd (SAMSUNG 980 PRO 500 GB, MZ-V8P500BW).
+
+On first reboot after installing Debian 11.3 on the new nvme ssd, AMI BIOS reports "no OS manager found", i.e. the pc is not able to boot automatically the new OS. 
+It is still possible to boot manually by pressing F9 and selecting manually the position of the efi binary.
+
+The nvme ssd is divided in two partitions, mount command shows:
+
+/dev/nvme0n1p2 on / 
+/dev/nvme0n1p2 on /boot/efi type vfat 
+
+The Debian boot loader is installed correctly in /boot/efi/EFI/debian/ directory.
+
+The issue has been solved with the following command (run as superuser):
+
+efibootmgr --create --disk /dev/nvme0n1p1 --loader /EFI/debian/shimx64.efi --label "DEBIAN" --verbose
+
+In this way, the BIOS "sees" correctly an "OS manager" and thus can boot automatically.
+
